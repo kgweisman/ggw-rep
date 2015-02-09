@@ -6,10 +6,45 @@
     	<link href="style.css" rel="stylesheet" />
       <script src="experiment.js"></script>
     	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    	<meta name="description" content='Mind Perception Study' />
+    	<meta name="description" content='Mind Survey' />
 	</head>
 
   <body>
+
+    <div class="slide" id="consent">
+      
+      <h1 id='title-text'>Stanford University Department of Psychology</h1>
+      
+      <p class="block-text">Thank you for participating in our study! The survey should take you about 10 minutes to complete.</p>
+      
+      <button type="button" onclick="this.blur(); experiment.description()">Start</button>
+      
+      <p class="block-text" id="legal">Legal information: By answering the following questions, you are participating in a study being performed by cognitive scientists in the Stanford Department of Psychology. If you have questions about this research, please contact <b>Kara Weisman at <a href="mailto://kweisman@stanford.edu">kweisman@stanford.edu</a></b> or Prof. Michael Frank at mcfrank@stanford.edu. <b>By participating, you are indicating that you are at least 18 years old.</b> Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you.</p>
+    
+    </div>
+
+    <div class="slide" id="description">
+      
+      <h1 id='title-text'>Mind Survey</h1>
+      
+      <p class="block-text"> No one really knows what it is like to be a chimp or a robot, but we humans do have some ideas about what other minds are like. This survey asks for you to think about and compare different kinds of minds.</p>
+
+      <p class="block-text">First, you'll meet the characters—a chimp, a robot, a baby, a dog, and other characters who may have minds.</p>
+
+      <p class="block-text"> Next, you'll pick a survey. Each 10-minute survey is about a mental ability—such as the ability to feel joy, to think, or to feel pain. Your job is to judge pairs of characters to say if one has more of the ability.</p>
+
+      <p class="block-text"> We ask you to do each survey only once and without interruption. At the end, you'll learn how you ranked all the characters and how your rankings compare with others we've collected. Then, choose another survey or come back another time!</p>
+
+      <p class="fun-text">Click the "Next" button to meet the cast of characters!</p>
+
+      <div id="form">
+        
+        <button type="button" onclick="this.blur(); experiment.next()">Next</button>
+      
+      </div>
+    
+    </div>
+
 
 
   </body>
