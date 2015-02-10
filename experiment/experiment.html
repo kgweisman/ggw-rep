@@ -254,157 +254,254 @@
           <li>Age</li>
 
           <li>Gender
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Female</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Male</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other/prefer not to say</a></li>
-              </ul>
-            </div>
+            <form role="form">
+              <div class="radio">
+                <label><input type="radio" name="optradio">Female</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Male</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Other/prefer not to say</label>
+              </div>
+            </form>
           </li>
 
           <li>What is your occupation?</li> <!-- need to add "If other, please describe" -->
 
-          <li>Please select the category that best represents the amount of education you have completed.</li>
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- used more contemporary categories here instead of original (categories provided were unclear) - maybe modify to allow multiple answer, instead of multiple choice? -->
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Less than 9th grade</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Some high school, no diploma</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">High school diploma or equivalent (e.g., GED)</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Some college, no degree</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Associate's degree</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Bachelor's degree</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Hinduism</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Some graduate or professional school, no degree</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Graduate or professional degree (e.g., MA, MS, PhD, MD, JD)</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other/prefer not to say</a></li>
-              </ul>
-            </div>          
+          <li>Please select the category that best represents the amount of education you have completed.</li> <!-- used more contemporary categories here instead of original (categories provided were unclear) - maybe modify to allow multiple answer, instead of multiple choice? -->
+            <form role="form">
+              <div class="radio">
+                <label><input type="radio" name="optradio">Less than 9th grade</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Some high school, no diploma</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">High school diploma or equivalent (e.g., GED)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Some college, no degree</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Associate's degree</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Bachelor's degree (e.g., BA, BS)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Some graduate or professional school, no degree</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Graduate or professional degree (e.g., MA, MS, PhD, MD, JD)</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Other/prefer not to say</label>
+              </div>
+            </form>       
 
-          <li>How would you describe your ethnicity?
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- used more contemporary categories here, instead of original (see commented code) - maybe switch to multiple answer, instead of multiple choice? -->
-                <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Native American</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Asian</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Black</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Hispanic</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">White</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Multiracial</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other</a></li> -->
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Asian: East Asian</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Asian: South Asian</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Asian: Other Asian</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Black or African American</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Hispanic or Latina/o</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Middle Eastern</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Native American, American Indian, or Alaska Native</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Native Hawaiian or other Pacific Islander</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">White or European American</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other/prefer not to say</a></li>
-              </ul>
-            </div>
+          <li>How would you describe your ethnicity? (Choose one or more options.)
+            <!-- used more contemporary categories here and include option of selecting multiple answers - more detailed than original -->
+            <form role="form">
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Asian: East Asian</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Asian: South Asian</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Asian: Other Asian</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Black or African American</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Hispanic or Latina/o</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Middle Eastern</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Native American, American Indian, or Alaska Native</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Native Hawaiian or other Pacific Islander</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">White or European American</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Other/prefer not to say</label>
+              </div>
+            </form>
           </li> <!-- need to add "If other, please describe." and free text entry -->
 
-          <li>With what religion, if any, were you raised?</li> <!-- need to add "If other, please describe." and free text entry -->
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- used more contemporary categories here instead of original (categories provided were unclear) - maybe modify to allow multiple answer, instead of multiple choice? -->
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Buddhism</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Catholic</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Evangelical Protestant</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Protestant (mainline/mainstream)</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Mormon</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Other Christian</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Hinduism</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Islam</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Jainism</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Judaism</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Sikhism</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other religion</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No religion</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Prefer not to say</a></li>                
-              </ul>
-            </div>
+          <li>With what religion(s), if any, were you raised? (Choose one or more options.)</li> <!-- used more categories than original and allowed multiple answers -->
+            <form role="form">
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Buddhism</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Christianity: Catholic</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Christianity: Evangelical Protestant</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Christianity: Protestant (mainline/mainstream)</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Christianity: Mormon</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Christianity: Other Christian</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Hinduism</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Islam</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Jainism</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Judaism</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Sikhism</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Other religion</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">No religion</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Prefer not to say</label>
+              </div>                                       
+            </form>
 
-          <li>With what religious organization, if any, do you identify now?</li> <!-- need to add "If other, please describe." and free text entry -->
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- used more contemporary categories here instead of original (categories provided were unclear) - maybe modify to allow multiple answer, instead of multiple choice? -->
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Buddhism</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Catholic</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Evangelical Protestant</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Protestant (mainline/mainstream)</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Mormon</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Other Christian</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Hinduism</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Islam</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Jainism</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Judaism</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Sikhism</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other religion</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No religion</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Prefer not to say</a></li>                
-              </ul>
-            </div>
+          <li>With what religious organization(s), if any, do you identify now? (Choose one or more options.)</li> <!-- used more categories than original and allowed multiple answers -->
+            <form role="form">
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Buddhism</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Christianity: Catholic</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Christianity: Evangelical Protestant</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Christianity: Protestant (mainline/mainstream)</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Christianity: Mormon</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Christianity: Other Christian</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Hinduism</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Islam</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Jainism</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Judaism</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Sikhism</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Other religion</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">No religion</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="">Prefer not to say</label>
+              </div>                                       
+            </form>
 
           <li>In what country do you currently live?</li> <!-- REMOVE? or use it as an attention check? Mturk will limit to US! -->
           
-          <li>Is English your native language?</li> <!-- need to add "If no, what is your native language?" and dropdown. -->
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- not sure what original options were -->
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Yes, English is my <b>only</b> native language</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Yes, English is one of <b>multiple</b> native languages for me</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No, English is not my native langauge</a></li>
-              </ul>
-            </div>          
+          <li>Is English your native language?</li> <!-- need to add "If no, what is your native language?" -->
+            <form role="form"> <!-- not sure what original options were -->
+              <div class="radio">
+                <label><input type="radio" name="optradio">Yes, English is my <b>only</b> native language</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Yes, English is one of <b>multiple</b> native languages for me</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">No, English is <b>not</b> my native language</label>
+              </div>
+            </form>         
           
           <li>Are you currently married?</li> <!-- REMOVE? -->
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- not sure what original options were -->
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Yes</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No, but I am in a committed relationship</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Prefer not to say</a></li>                
-              </ul>
-            </div>
+            <form role="form"> <!-- not sure what original options were -->
+              <div class="radio">
+                <label><input type="radio" name="optradio">Yes</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">No, but I am in a committed relationship</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">No</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Prefer not to say</label>
+              </div>
+            </form>         
 
           <li>How many children do you have?</li> <!-- REMOVE? -->
           
           <li>Are you a vegetarian?</li> <!-- REMOVE? -->
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- not sure what original options were -->
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Yes</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No, but I don't eat much meat</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Prefer not to say</a></li>                
-              </ul>
-            </div>
+            <form role="form"> <!-- not sure what original options were -->
+              <div class="radio">
+                <label><input type="radio" name="optradio">Yes</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">No, but I don't eat much meat</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">No</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Prefer not to say</label>
+              </div>
+            </form>         
 
           <li>Have you ever studied moral philosophy?</li> <!-- REMOVE? -->
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- not sure what original options were -->
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Yes</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No</a></li>
-              </ul>
-            </div>          
+            <form role="form"> <!-- not sure what original options were -->
+              <div class="radio">
+                <label><input type="radio" name="optradio">Yes</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">No</label>
+              </div>
+            </form>         
           
           <li>Please indicate the political ideology with which you most closely identify.</li>
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> 
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Democrat</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Republican</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Independent</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other/prefer not to say</a></li>
-              </ul>
-            </div>
+            <form role="form"> <!-- not sure what original options were -->
+              <div class="radio">
+                <label><input type="radio" name="optradio">Democrat</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Republican</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Independent</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="optradio">Other/prefer not to say</label>
+              </div>
+            </form>
 
           <p></p>
           <p>For each of the following questions, please click on the answer choice that is most true for you.</p>
