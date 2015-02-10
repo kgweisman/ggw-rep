@@ -13,7 +13,6 @@ function randomElement(array) {
 	return array[randomInteger(array.length)]; // get a random element out of an array
 }
 
-$(document).ready(function() {
-	$('div').hide();
-});
+/* show consent slide */
+showSlide("consent");
 
