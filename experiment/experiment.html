@@ -7,6 +7,7 @@
       <script src="dependencies/jquery-2.1.3.min.js"></script>
       <script src="dependencies/mmturkey.js"></script>
       <link href="style.css" rel="stylesheet"/>
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> <!-- for dropdown menus -->
 	</head>
 
   <body>
@@ -251,20 +252,147 @@
 
         <ol> <!-- need to add dropdown menus and some free text entry boxes -->
           <li>Age</li>
-          <li>Gender</li>
-          <li>What is your occupation?</li> <!-- need to add "If other, please describe" -->
-          <li>Please select the category that best represents the amount of education you have completed.</li>
-          <li>How would you describe your ethnicity?</li> <!-- need to add "If other, please describe." and free text entry -->
-          <li>With what religion, if any, were you raised?</li> <!-- need to add "If other, please describe." and free text entry -->
-          <li>With what religious organization, if any, do you identify now?</li> <!-- need to add "If other, please describe." and free text entry -->
-          <li>In what country do you currently live?</li> <!-- REMOVE? or use it as an attention check? -->
-          <li>Is English your native language?</li> <!-- need to add "If no, what is your native language?" and dropdown. -->
-          <li>Are you currently married?</li> <!-- REMOVE? -->
-          <li>How many children do you have?</li> <!-- REMOVE? -->
-          <li>Are you a vegetarian?</li> <!-- REMOVE? -->
-          <li>Have you ever studied moral philosophy?</li> <!-- REMOVE? -->
-          <li>Please indicate the political ideology with which you most closely identify.</li>
 
+          <li>Gender
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Female</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Male</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other/prefer not to say</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li>What is your occupation?</li> <!-- need to add "If other, please describe" -->
+
+          <li>Please select the category that best represents the amount of education you have completed.</li>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- used more contemporary categories here instead of original (categories provided were unclear) - maybe modify to allow multiple answer, instead of multiple choice? -->
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Less than 9th grade</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Some high school, no diploma</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">High school diploma or equivalent (e.g., GED)</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Some college, no degree</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Associate's degree</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Bachelor's degree</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Hinduism</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Some graduate or professional school, no degree</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Graduate or professional degree (e.g., MA, MS, PhD, MD, JD)</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other/prefer not to say</a></li>
+              </ul>
+            </div>          
+
+          <li>How would you describe your ethnicity?
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- maybe switch to more up to date categories here? multiple answer, instead of multiple choice? -->
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Native American</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Asian</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Black</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Hispanic</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">White</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Multiracial</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other</a></li>
+              </ul>
+            </div>
+          </li> <!-- need to add "If other, please describe." and free text entry -->
+
+          <li>With what religion, if any, were you raised?</li> <!-- need to add "If other, please describe." and free text entry -->
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- used more contemporary categories here instead of original (categories provided were unclear) - maybe modify to allow multiple answer, instead of multiple choice? -->
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Buddhism</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Catholic</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Evangelical Protestant</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Protestant (mainline/mainstream)</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Mormon</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Other Christian</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Hinduism</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Islam</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Jainism</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Judaism</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Sikhism</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other religion</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No religion</a></li>
+              </ul>
+            </div>
+
+          <li>With what religious organization, if any, do you identify now?</li> <!-- need to add "If other, please describe." and free text entry -->
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- used more contemporary categories here instead of original (categories provided were unclear) - maybe modify to allow multiple answer, instead of multiple choice? -->
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Buddhism</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Catholic</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Evangelical Protestant</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Protestant (mainline/mainstream)</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Mormon</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Christianity: Other Christian</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Hinduism</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Islam</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Jainism</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Judaism</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Sikhism</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other religion</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No religion</a></li>
+              </ul>
+            </div>
+
+          <li>In what country do you currently live?</li> <!-- REMOVE? or use it as an attention check? Mturk will limit to US! -->
+          
+          <li>Is English your native language?</li> <!-- need to add "If no, what is your native language?" and dropdown. -->
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- not sure what original options were -->
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Yes, English is my <b>only</b> native language</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Yes, English is one of <b>multiple</b> native languages for me</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No, English is not my native langauge</a></li>
+              </ul>
+            </div>          
+          
+          <li>Are you currently married?</li> <!-- REMOVE? -->
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- not sure what original options were -->
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Yes</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No, but I am in a committed relationship</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No</a></li>
+              </ul>
+            </div>
+
+          <li>How many children do you have?</li> <!-- REMOVE? -->
+          
+          <li>Are you a vegetarian?</li> <!-- REMOVE? -->
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- not sure what original options were -->
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Yes</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No, but I don't eat much meat</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No</a></li>
+              </ul>
+            </div>
+
+          <li>Have you ever studied moral philosophy?</li> <!-- REMOVE? -->
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> <!-- not sure what original options were -->
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Yes</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">No</a></li>
+              </ul>
+            </div>          
+          
+          <li>Please indicate the political ideology with which you most closely identify.</li>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Choose one <span class="caret"></span></button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> 
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Democrat</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Republican</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Independent</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Other/prefer not to say</a></li>
+              </ul>
+            </div>
+
+          <p></p>
           <p>For each of the following questions, please click on the answer choice that is most true for you.</p>
           <!-- need to add radio buttons for common response scale for questions 15-19
           response options: "Strongly disagree", "Moderately disagree", "Disagree a little", "Neither agree nor disagree", "Agree a little", "Moderately agree", "Strongly agree" -->
@@ -295,7 +423,9 @@
 <!-- include javascript file -->
 
     <script src="experiment.js"></script>
-  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
   </body>
 
 </html>

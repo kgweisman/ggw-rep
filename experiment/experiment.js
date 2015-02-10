@@ -15,7 +15,7 @@ function randomElement(array) {
 
 /* show consent slide */
 
-//showSlide("consent");
+// showSlide("consent");
 
 /* when user clicks "Next" button, advance to "instructions" slide */
 
