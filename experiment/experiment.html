@@ -3,10 +3,10 @@
 <html lang="en">
 	
   <head>
-    	<link href="style.css" rel="stylesheet" />
-      <script src="experiment.js"></script>
-    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    	<meta name="description" content='Mind Survey' />
+      <title>Mind Survey</title>
+      <script src="jquery-1.11.2.min.js"></script>
+      <script src="mmturkey-0.6.js"></script>
+      <link href="style.css" rel="stylesheet"/>
 	</head>
 
   <body>
@@ -224,6 +224,16 @@
       <div id="form">
         <button type="button" onclick="this.blur(); experiment.next()">Start Thought Survey</button>
       </div>
+
+    </div>
+
+    <div class="slide" id="stage">
+      <p id="number">{{}}</p>
+    </div>
+
+    <div class="slide" id="finished">You're finished - thanks for participating! Submitting to Mechanical Turk...</div>
+
+    <script src="experiment.js"></script>
 
   </body>
 
