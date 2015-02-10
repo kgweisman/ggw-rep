@@ -1,4 +1,4 @@
-// set up helper functions from long
+/* set up helper functions from long */
 
 function showSlide(id) {
 	$(".slide").hide(); // hide all slides
@@ -12,3 +12,8 @@ function randomInteger(n) {
 function randomElement(array) {
 	return array[randomInteger(array.length)]; // get a random element out of an array
 }
+
+$(document).ready(function() {
+	$('div').hide();
+});
+
