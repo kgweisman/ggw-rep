@@ -11,7 +11,7 @@
 
   <body>
 
-<!--pre-study: present consent form ("consent" slide)-->
+<!-- pre-study: present consent form ("consent" slide) -->
 
     <div class="slide" id="consent">
       
@@ -25,7 +25,7 @@
     
     </div>
 
-<!--pre-study: present description of mind surveys ("instructions" slide - wording from original authors)-->
+<!-- pre-study: present description of mind surveys ("instructions" slide - original wording) -->
 
     <div class="slide" id="instructions">
       
@@ -49,7 +49,7 @@
     
     </div>
 
-<!--pre-study: present descriptions of characters ("characters" slide - wording from original authors)-->
+<!-- pre-study: present descriptions of characters ("characters" slide - original wording) -->
 
     <div class="slide" id="characters">
 
@@ -115,11 +115,11 @@
 
     </div>
 
-<!--pre-study: present descriptions of surveys ("surveys" slide - wording from original authors)-->
+<!-- pre-study: present descriptions of surveys ("surveys" slide - original wording) -->
     
-    <!--TO DO: 
+    <!-- TO DO: 
     * Figure out how to randomize order of presentation of surveys (original authors thought they might have been randomized, but weren't sure)
-    * Make buttons select which survey (condition) to present-->
+    * Make buttons select which survey (condition) to present -->
 
     <div class="slide" id="surveys">
 
@@ -236,31 +236,63 @@
 
     </div>
 
-<!--study ("stage" slide)-->
+<!-- study ("stage" slide) -->
 
     <div class="slide" id="stage">
       <p id="number">{{}}</p>
     </div>
 
-<!--post-study: present demographics questions ("demographics" slide)-->
+<!-- post-study: present demographics questions ("demographics" slide - original wording) -->
 
     <div class="slide" id="demographics">
-      <h1>Demographic Questions</h1>
+      <h1>Demographic Survey</h1>
+      <p>Before you view your rankings, we would like you to take a moment to answer the following questions about your background.</p>
+      <!-- Think about culling this list! -->
+
+        <ol> <!-- need to add dropdown menus and some free text entry boxes -->
+          <li>Age</li>
+          <li>Gender</li>
+          <li>What is your occupation?</li> <!-- need to add "If other, please describe" -->
+          <li>Please select the category that best represents the amount of education you have completed.</li>
+          <li>How would you describe your ethnicity?</li> <!-- need to add "If other, please describe." and free text entry -->
+          <li>With what religion, if any, were you raised?</li> <!-- need to add "If other, please describe." and free text entry -->
+          <li>With what religious organization, if any, do you identify now?</li> <!-- need to add "If other, please describe." and free text entry -->
+          <li>In what country do you currently live?</li> <!-- REMOVE? or use it as an attention check? -->
+          <li>Is English your native language?</li> <!-- need to add "If no, what is your native language?" and dropdown. -->
+          <li>Are you currently married?</li> <!-- REMOVE? -->
+          <li>How many children do you have?</li> <!-- REMOVE? -->
+          <li>Are you a vegetarian?</li> <!-- REMOVE? -->
+          <li>Have you ever studied moral philosophy?</li> <!-- REMOVE? -->
+          <li>Please indicate the political ideology with which you most closely identify.</li>
+
+          <p>For each of the following questions, please click on the answer choice that is most true for you.</p>
+          <!-- need to add radio buttons for common response scale for questions 15-19
+          response options: "Strongly disagree", "Moderately disagree", "Disagree a little", "Neither agree nor disagree", "Agree a little", "Moderately agree", "Strongly agree" -->
+          <li>I believe in a personal god (that is, a god who takes a personal interest in the world and in people, including myself).</li>
+          <li>Traditional ways are usually the best.</li>
+          <li>I believe that people whose bodies are dead continue to live on spiritually.</li>
+          <li>It is good to have a strong leader.</li>
+          <li>It is acceptable to be cruel to those who do not follow the rules.</li>
+        </ol>
+
+      <div id="form">
+        <button type="button" onclick="this.blur(); experiment.next()">Next</button>
+      </div>
 
     </div>
 
-<!--post-study: present participant's results ("results" slide)-->
+<!-- post-study: present participant's results ("results" slide) -->
 
     <div class="slide" id="results">
       <h1>Your Results</h1>
-      
+
     </div>
 
-<!--post-study: present final submission ("you're finished" slide)-->
+<!-- post-study: present final submission ("you're finished" slide) -->
 
     <div class="slide" id="finished">You're finished - thanks for participating! Submitting to Mechanical Turk...</div>
 
-<!--include javascript file-->
+<!-- include javascript file -->
 
     <script src="experiment.js"></script>
   

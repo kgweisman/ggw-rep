@@ -15,7 +15,7 @@ function randomElement(array) {
 
 /* show consent slide */
 
-showSlide("consent");
+//showSlide("consent");
 
 /* when user clicks "Next" button, advance to "instructions" slide */
 
@@ -32,6 +32,8 @@ showSlide("consent");
 	/* advance through 78 trials */
 
 /* when user finishes 78 trials, advance to "demographics" slide */
+
+showSlide("demographics");
 
 /* when user clicks "Next" button, advance to "results" slide */
 
