@@ -23,7 +23,7 @@ showSlide("consent");
 
 /* when user clicks "Next" button, advance to "surveys" slide */
 
-/* when user clicks "Start ___ Survey" button, advance to stage slide */
+/* when user clicks "Start ___ Survey" button, advance to "stage" slide */
 
 	/* fill in stage slide with appropriate question prompt based on survey selected above */
 
