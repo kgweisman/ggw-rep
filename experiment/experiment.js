@@ -13,15 +13,6 @@ function randomElement(array) {
 	return array[randomInteger(array.length)]; // get a random element out of an array
 }
 
-// make a weird new function just to try it
-function weirdo() {
-	$(".button").click(function() {
-		$(".button").animate({
-			left: '200px'
-		}, 200);
-	})
-}
-
 /* show consent slide */
 
 showSlide("consent");
