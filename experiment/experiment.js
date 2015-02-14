@@ -13,11 +13,11 @@ function randomElement(array) {
 	return array[randomInteger(array.length)]; // get a random element out of an array
 }
 
-/* set up list of characters with image sources */
+/* set up list of characters with image sources */ 
 
 function Character(charName) {
-		this.charName = charName;
-		this.imageSource = "images_characters/"+charName+".png";
+	this.charName = charName;
+	this.imageSource = "images_characters/"+charName+".png";
 }
 
 var charlie = new Character("charlie_dog");
@@ -33,9 +33,24 @@ var sharon = new Character("sharon-harvey_woman");
 var toby = new Character("toby_chimp");
 var todd = new Character("todd-billingsley_man");
 var you = new Character("you");
-var listChars = [charlie, delores, fetus, gerald, 
+var characters = [charlie, delores, fetus, gerald, 
 				god, greenfrog, kismet, nicholas,
-				samantha, sharon, toby, todd, you];
+				samantha, sharon, toby, todd, you]; // how bad is it to define these all as global vars?
+
+function Pair(character1, character2) {
+	this.character1 = character1;
+	this.character2 = character2;
+}
+
+var pairs = [] // create the list of all possible pairs (78)
+
+for (j = 0; j < characters.length; j++) {
+	for (k = j+1; k < characters.length; k++) {
+		pairs[BROKEN] = new Pair(characters[j], characters[k]);
+	}
+}
+
+console.log(pairs);
 
 /* set up how to display experiment slides */
 
@@ -56,8 +71,8 @@ var experiment = {
 		}
 		var n = experiment.trials.shift();
 		showSlide("stage");
-		this.data.leftImage = listChars[randomInteger(listChars.length)];
-		this.data.rightImage = listChars[randomInteger(listChars.length)];
+		this.data.leftImage = characters[randomInteger(characters.length)];
+		this.data.rightImage = characters[randomInteger(characters.length)];
 		$("#image-left").attr("src", this.data.leftImage.imageSource);
 		$("#image-right").attr("src", this.data.rightImage.imageSource);
 		var startTime = (new Date()).getTime();
