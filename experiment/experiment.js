@@ -16,38 +16,32 @@ function randomElement(array) {
 /* set up structure of experiment */
 var experiment = {
 	parts: ["consent", "instructions", "characters", "surveys", "stage", "results", "finished"],
-	condition: "none"
-	// ,
-	// end: function() { // code from long
-	// 	showSlide("finished");
-	// 	setTimeout(function() {
-	// 		turk.submit(experiment)
-	// 	}, 1500);
-	// }
+	condition: "none",
+	trials: [1,2,3], // temp dummy order
+	data: [], // where to store data
+	end: function() { // code from long
+		showSlide("finished");
+		// setTimeout(function() {
+		// 	turk.submit(experiment)
+		// }, 1500);
+	},
+	next: function() { // code from long
+		if (experiment.trials.length === 0) {
+			experiment.end();
+		}
+		var n = experiment.trials.shift();
+		showSlide("stage");
+		$("#image-left").attr("src", "images_characters/charlie_dog.png");
+		$("#image-right").attr("src", "images_characters/samantha-hill_girl.png");
+		var startTime = (new Date()).getTime();
+	}
 }
 
-/* show consent slide */
+/* show consent slide (which allows participant to advance through instructions, characters, and surveys slides) */
 
 showSlide("consent");
 
-
-// /* when user clicks "Next" button, advance to "instructions" slide */
-
-// showSlide("instructions");
-
-// /* when user clicks "Next" button, advance to "characters" slide */
-
-// showSlide("characters");
-
-// /* when user clicks "Next" button, advance to "surveys" slide */
-
-// showSlide("surveys");
-
-// /* when user clicks "Start ___ Survey" button, advance to "stage" slide */
-
-// showSlide("stage");
-
-$('button').click(function() {
+$('#surveys button').click(function() { // set condition based on participant's selection of survey
    var id = $(this).attr('id');
    experiment.condition = id;
    console.log(experiment.condition);
