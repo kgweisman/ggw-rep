@@ -33,6 +33,7 @@ var sharon = new Character("sharon-harvey_woman");
 var toby = new Character("toby_chimp");
 var todd = new Character("todd-billingsley_man");
 var you = new Character("you");
+
 var characters = [charlie, delores, fetus, gerald, 
 				god, greenfrog, kismet, nicholas,
 				samantha, sharon, toby, todd, you]; // how bad is it to define these all as global vars?
@@ -46,7 +47,7 @@ var pairs = [] // create the list of all possible pairs (78)
 
 for (j = 0; j < characters.length; j++) {
 	for (k = j+1; k < characters.length; k++) {
-		pairs[BROKEN] = new Pair(characters[j], characters[k]);
+		pairs.push(new Pair(characters[j], characters[k]));
 	}
 }
 
