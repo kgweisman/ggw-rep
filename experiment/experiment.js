@@ -56,9 +56,13 @@ var experiment = {
 		}
 		var n = experiment.trials.shift();
 		showSlide("stage");
-		$("#image-left").attr("src", listChars[randomInteger(listChars.length)].imageSource);
-		$("#image-right").attr("src", listChars[randomInteger(listChars.length)].imageSource);
+		this.data.leftImage = listChars[randomInteger(listChars.length)];
+		this.data.rightImage = listChars[randomInteger(listChars.length)];
+		$("#image-left").attr("src", this.data.leftImage.imageSource);
+		$("#image-right").attr("src", this.data.rightImage.imageSource);
 		var startTime = (new Date()).getTime();
+		console.log(this.data.leftImage);
+		console.log(this.data.rightImage);
 	}
 }
 
