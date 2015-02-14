@@ -13,12 +13,25 @@ function randomElement(array) {
 	return array[randomInteger(array.length)]; // get a random element out of an array
 }
 
+/* set up structure of experiment */
+var experiment = {
+	parts: ["consent", "instructions", "characters", "surveys", "stage", "results", "finished"],
+	condition: "none"
+	// ,
+	// end: function() { // code from long
+	// 	showSlide("finished");
+	// 	setTimeout(function() {
+	// 		turk.submit(experiment)
+	// 	}, 1500);
+	// }
+}
+
 /* show consent slide */
 
 showSlide("consent");
 
 
-// when user clicks "Next" button, advance to "instructions" slide 
+// /* when user clicks "Next" button, advance to "instructions" slide */
 
 // showSlide("instructions");
 
@@ -33,6 +46,12 @@ showSlide("consent");
 // /* when user clicks "Start ___ Survey" button, advance to "stage" slide */
 
 // showSlide("stage");
+
+$('button').click(function() {
+   var id = $(this).attr('id');
+   experiment.condition = id;
+   console.log(experiment.condition);
+});
 
 // 	 fill in stage slide with appropriate question prompt based on survey selected above 
 
