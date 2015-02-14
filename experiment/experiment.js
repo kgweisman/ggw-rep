@@ -13,42 +13,52 @@ function randomElement(array) {
 	return array[randomInteger(array.length)]; // get a random element out of an array
 }
 
+// make a weird new function just to try it
+function weirdo() {
+	$(".button").click(function() {
+		$(".button").animate({
+			left: '200px'
+		}, 200);
+	})
+}
+
 /* show consent slide */
 
-showSlide("consent");
+// showSlide("consent");
 
-/* when user clicks "Next" button, advance to "instructions" slide */
 
-showSlide("instructions");
+// when user clicks "Next" button, advance to "instructions" slide 
 
-/* when user clicks "Next" button, advance to "characters" slide */
+// showSlide("instructions");
 
-showSlide("characters");
+// /* when user clicks "Next" button, advance to "characters" slide */
 
-/* when user clicks "Next" button, advance to "surveys" slide */
+// showSlide("characters");
 
-showSlide("surveys");
+// /* when user clicks "Next" button, advance to "surveys" slide */
 
-/* when user clicks "Start ___ Survey" button, advance to "stage" slide */
+// showSlide("surveys");
 
-showSlide("stage");
+// /* when user clicks "Start ___ Survey" button, advance to "stage" slide */
 
-	/* fill in stage slide with appropriate question prompt based on survey selected above */
+// showSlide("stage");
 
-	/* fill in stage slide with randomized order of character pairs and randomized left/right position */
+// 	 fill in stage slide with appropriate question prompt based on survey selected above 
 
-	/* advance through 78 trials */
+// 	/* fill in stage slide with randomized order of character pairs and randomized left/right position */
 
-/* when user finishes 78 trials, advance to "demographics" slide */
+// 	/* advance through 78 trials */
 
-showSlide("demographics");
+// /* when user finishes 78 trials, advance to "demographics" slide */
 
-/* when user clicks "Next" button, advance to "results" slide */
+// showSlide("demographics");
 
-showSlide("results");
+// /* when user clicks "Next" button, advance to "results" slide */
 
-/* when user clicks "Next" button, advance to "finished" slide */
+// showSlide("results");
 
-showSlide("finished");
+// /* when user clicks "Next" button, advance to "finished" slide */
 
-/* submit data via mmturkey */
+// showSlide("finished");
+
+// /* submit data via mmturkey */
