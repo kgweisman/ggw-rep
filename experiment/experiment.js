@@ -56,7 +56,7 @@ for (j = 0; j < characters.length; j++) {
 /* set up list of conditions with wordings */ 
 
 function Condition(condName, wording) {
-	this.condName = id;
+	this.condName = condName;
 	this.wording = wording;
 }
 
@@ -81,14 +81,10 @@ var thought = new Condition("thought", "thinking")
 
 var conditions = [communication, consciousness, desire, embarrassment, emotionRecog, fear, hunger, joy, memory, morality, pain, personality, planning, pleasure, pride, rage, self, thought];
 
-
-/* set condition based on participant's selection of survey */
-
-var condition = [];
 $('#surveys button').click(function() {
-	var id = $(this).attr('id');
-	condition.push(id);
-});
+	// var chosenCondition = $(this).attr('id');
+	experiment.data.condition = $(this).attr('id');
+})
 
 /* set up how to display experiment slides */
 
@@ -106,8 +102,6 @@ var experiment = {
 			experiment.end();
 		} else {
 			var sideBucket = [0,1]; // bucket for selecting left vs. right position of images
-			showSlide("stage");
-			this.data.condition = condition;
 			this.data.pair = randomElementNR(this.trials);
 			this.data.leftImage = this.data.pair[randomElementNR(sideBucket)];
 			this.data.rightImage = this.data.pair[sideBucket];
@@ -116,6 +110,8 @@ var experiment = {
 			$("#image-right").attr("src", this.data.rightImage.imageSource);
 			$("#text-left").text(this.data.leftImage.charTitle);
 			$("#text-right").text(this.data.rightImage.charTitle);
+			showSlide("stage");
+			console.log(this.data.condition);
 			// var startTime = (new Date()).getTime(); // do I really want RT?
 		}
 	}
