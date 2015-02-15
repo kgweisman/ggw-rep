@@ -18,7 +18,7 @@ function randomElementNR(bucket) { // select without replacement
 	return bucket.splice(randomIndex, 1)[0];
 }
 
-/* set up list of characters with image sources */ 
+/* set up list of characters with titles, descriptions, and image sources */ 
 
 function Character(charName, charTitle, charDescrip) {
 	this.charName = charName;
@@ -53,10 +53,46 @@ for (j = 0; j < characters.length; j++) {
 	}
 }
 
+/* set up list of conditions with wordings */ 
+
+function Condition(condName, wording) {
+	this.condName = id;
+	this.wording = wording;
+}
+
+var communication = new Condition("communication", "conveying thoughts or feelings to others")
+var consciousness = new Condition("consciousness", "having experiences and being aware of things")
+var desire = new Condition("desire", "longing or hoping for things")
+var embarrassment = new Condition("embarrassment", "experiencing embarrassment")
+var emotionRecog = new Condition("emotion-recog", "understanding how others are feeling")
+var fear = new Condition("fear", "feeling afraid or fearful")
+var hunger = new Condition("hunger", "feeling hungry")
+var joy = new Condition("joy", "experiencing joy")
+var memory = new Condition("memory", "remembering things")
+var morality = new Condition("morality", "telling right from wrong and trying to do the right thing")
+var pain = new Condition("pain", "experiencing physical or emotional pain")
+var personality = new Condition("personality", "having personality traits that make it unique from others")
+var planning = new Condition("planning", "making plans and working toward goal")
+var pleasure = new Condition("pleasure", "experiencing physical or emotional pleasure")
+var pride = new Condition("pride", "experiencing pride")
+var rage = new Condition("rage", "experiencing violent or uncontrolled anger")
+var self = new Condition("self", "exercising self-restraint over desires, emotions, or impulses")
+var thought = new Condition("thought", "thinking")
+
+var conditions = [communication, consciousness, desire, embarrassment, emotionRecog, fear, hunger, joy, memory, morality, pain, personality, planning, pleasure, pride, rage, self, thought];
+
+
+/* set condition based on participant's selection of survey */
+
+var condition = [];
+$('#surveys button').click(function() {
+	var id = $(this).attr('id');
+	condition.push(id);
+});
+
 /* set up how to display experiment slides */
 
 var experiment = {
-	condition: "none",
 	trials: pairs,
 	data: [], // where to store data
 	end: function() { // code from long
@@ -71,9 +107,11 @@ var experiment = {
 		} else {
 			var sideBucket = [0,1]; // bucket for selecting left vs. right position of images
 			showSlide("stage");
+			this.data.condition = condition;
 			this.data.pair = randomElementNR(this.trials);
 			this.data.leftImage = this.data.pair[randomElementNR(sideBucket)];
 			this.data.rightImage = this.data.pair[sideBucket];
+			$("#question").text("Which character do you think is more capable of "+this.data.condition+"?")
 			$("#image-left").attr("src", this.data.leftImage.imageSource);
 			$("#image-right").attr("src", this.data.rightImage.imageSource);
 			$("#text-left").text(this.data.leftImage.charTitle);
@@ -86,12 +124,6 @@ var experiment = {
 /* show consent slide (which allows participant to advance through instructions, characters, and surveys slides) */
 
 showSlide("consent");
-
-$('#surveys button').click(function() { // set condition based on participant's selection of survey
-   var id = $(this).attr('id');
-   experiment.condition = id;
-   console.log(experiment.condition);
-});
 
 // 	 fill in stage slide with appropriate question prompt based on survey selected above 
 
