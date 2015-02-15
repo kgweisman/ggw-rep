@@ -6,8 +6,8 @@
       <title>Mind Survey</title>
       <script src="dependencies/jquery-2.1.3.min.js"></script>
       <script src="dependencies/mmturkey.js"></script>
-      <link href="style.css" rel="stylesheet"/>
       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> <!-- for dropdown menus -->
+      <link href="style.css" rel="stylesheet"/>
 	</head>
 
   <body>
@@ -35,7 +35,7 @@
       
       <h1 id='title-text'>Mind Survey</h1>
       
-      <p class="block-text"> No one really knows what it is like to be a chimp or a robot, but we humans do have some ideas about what other minds are like. This survey asks for you to think about and compare different kinds of minds.</p>
+      <p class="block-text">No one really knows what it is like to be a chimp or a robot, but we humans do have some ideas about what other minds are like. This survey asks for you to think about and compare different kinds of minds.</p>
 
       <p class="block-text">First, you'll meet the characters - a chimp, a robot, a baby, a dog, and other characters who may have minds.</p>
 
@@ -61,55 +61,55 @@
       <h1 id="title-text">Cast of Characters</h1>
 
       <h2>Green frog</h2>
-      <img src="images_characters/green-frog.png" style="width:200px;border:5px solid rgb(0,0,0)"/>
+      <img src="images_characters/green-frog.png"/>
       <p class="block-text">The Green Frog can be found throughout eastern North America. This classic "pond frog" is medium-sized and green or bronze in color. Daily life includes seeking out permanent ponds or slow streams with plenty of vegetation.</p>
 
       <h2>Charlie</h2>
-      <img src="images_characters/charlie_dog.png" style="width:200px;border:5px solid rgb(0,0,0)"/>
+      <img src="images_characters/charlie_dog.png"/>
       <p class="block-text">Charlie is a 3-year-old Springer spaniel and a beloved member of the Graham family.</p>
 
       <h2>Toby</h2>
-      <img src="images_characters/toby_chimp.png" style="width:200px;border:5px solid rgb(0,0,0)"/>
+      <img src="images_characters/toby_chimp.png"/>
       <p class="block-text">Toby is a two-year-old wild chimpanzee living at an outdoor laboratory in Uganda.</p>
 
       <h2>7 week fetus</h2>
-      <img src="images_characters/fetus.png" style="width:200px;border:5px solid rgb(0,0,0)"/>
+      <img src="images_characters/fetus.png"/>
       <p class="block-text">At 7 weeks, a human fetus is almost half an inch long - roughly the size of a raspberry.</p>
 
       <h2>Nicholas Gannon</h2>
-      <img src="images_characters/nicholas-gannon_baby.png" style="width:200px;border:5px solid rgb(0,0,0)"/>
+      <img src="images_characters/nicholas-gannon_baby.png"/>
       <p class="block-text">Nicholas is a five-month-old baby.</p>
 
       <h2>Samantha Hill</h2>
-      <img src="images_characters/samantha-hill_girl.png" style="width:200px;border:5px solid rgb(0,0,0)"/>
+      <img src="images_characters/samantha-hill_girl.png"/>
       <p class="block-text">Samantha is a five-year-old girl who lives with her parents and older sister Jennifer.</p>
 
       <h2>Sharon Harvey</h2>
-      <img src="images_characters/sharon-harvey_woman.png" style="width:200px;border:5px solid rgb(0,0,0)"/>
+      <img src="images_characters/sharon-harvey_woman.png"/>
       <p class="block-text">Sharon Harvey, 38, works at an advertising agency in Chicago.</p>
 
       <h2>Todd Billingsley</h2>
-      <img src="images_characters/todd-billingsley_man.png" style="width:200px;border:5px solid rgb(0,0,0)"/>
+      <img src="images_characters/todd-billingsley_man.png"/>
       <p class="block-text">Todd Billingsly is a thirty-year-old accountant who lives in New York City.</p>
 
       <h2>You</h2>
-      <img src="images_characters/you.png" style="width:200px;border:5px solid rgb(0,0,0)"/>
+      <img src="images_characters/you.png"/>
       <p class="block-text">When you see the mirror, please consider how you, yourself, would compare with the other choice presented.</p>
 
       <h2>Gerald Schiff</h2>
-      <img src="images_characters/gerald-schiff_pvs.png" style="width:200px;border:5px solid rgb(0,0,0)"/>
+      <img src="images_characters/gerald-schiff_pvs.png"/>
       <p class="block-text">Gerald Schiff has been in a persistent vegetative state (PVS) for the past six months. Although he has severe brain damage - Gerald does not appear to communicate with others or make purposeful movements - his basic bodily functions (such as breathing, sleeping, and circulation) are preserved.</p>
 
       <h2>Delores Gleitman</h2>
-      <img src="images_characters/delores-gleitman_deceased.png" style="width:200px;border:5px solid rgb(0,0,0)"/>
+      <img src="images_characters/delores-gleitman_deceased.png"/>
       <p class="block-text">Delores Gleitman recently passed away at the age of 65. As you complete the survey, please draw upon your own personal beliefs about people who have passed away.</p>
 
       <h2>God</h2>
-      <img src="images_characters/god.png" style="width:200px;border:5px solid rgb(0,0,0)"/>
+      <img src="images_characters/god.png"/>
       <p class="block-text">Many people believe that God is the creator of the universe and the ultimate source of knowledge, power, and love. However, please draw upon your own personal beliefs about God.</p>
 
       <h2>Kismet</h2>
-      <img src="images_characters/kismet_robot.png" style="width:200px;border:5px solid rgb(0,0,0)"/>
+      <img src="images_characters/kismet_robot.png"/>
       <p class="block-text">Kismet is part of a new class of "sociable" robots that can engage people in natural interaction. To do this, Kismet perceives a variety of natural social signals from sound and sight, and delivers his own signals back to the human partner through gaze direction, facial expression, body posture, and vocal babbles.</p>
 
       <p class="fun-text">Click the "Next" button to choose which survey to complete!</p>
@@ -263,12 +263,21 @@
 <!-- study ("stage" slide) -->
 
     <div class="slide" id="stage">
-      <img id="image-left" style="width:200px;border:5px solid rgb(0,0,0);align:left"/>
-      <img id="image-right" style="width:200px;border:5px solid rgb(0,0,0);align:right"/>
-      <button type="button" onclick="this.blur(); experiment.next()">Continue</button> <!-- temp button in place of rating scale -->
+      <div class="row">
+        <div class="col-md-3">
+          <img id="image-left"/>
+          <p id="text-left" align="center"></p>
+        </div>
+        <div class="col-md-3"></div> <!-- spacer -->
+        <div class="col-md-3">
+          <img id="image-right"/>
+          <p id="text-right" align="center"></p>
+        </div>
+      </div>
+      <p></p>
+      <button type="button" onclick="this.blur(); experiment.next()">Continue</button> 
+      <!-- temp button in place of rating scale -->
     </div>
-
-<!-- post-study: present demographics questions ("demographics" slide - original wording) -->
 
     <div class="slide" id="demographics">
       <h1>Demographic Survey</h1>

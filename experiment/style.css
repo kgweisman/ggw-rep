@@ -1,6 +1,13 @@
 /*general style*/
 
-.radio {
-	display: inline; /*trying to get radio buttons to be laid out horizontally!*/
-	/*color: blue;  <-- testing whether css is hooked up to html file and whether ".radio" captures the right stuff*/
+/*.radio {
+	display: inline;
+}*/
+
+img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
+	border: solid black 3px;
 }
