@@ -691,7 +691,7 @@
         </ol>
 
       <div id="form">
-        <button type="button" onclick="this.blur(); experiment.next()">Next</button>
+        <button type="button" onclick="showSlide('results')">Next</button>
       </div>
 
     </div>
@@ -701,6 +701,10 @@
 
     <div class="slide" id="results">
       <h1>Your Results</h1>
+
+      <div id="form">
+        <button type="button" onclick="showSlide('finished')">Next</button>
+      </div>
 
     </div>
 

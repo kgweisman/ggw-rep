@@ -5,12 +5,17 @@ function showSlide(id) {
 	$("#"+id).show(); // show selected slide
 };
 
-function randomInteger(n) { 
-	return Math.floor(Math.random()*n); // get a random integer < n
+function randomInteger(n) { // get a random integer < n
+	return Math.floor(Math.random()*n); 
 }
 
-function randomElement(array) {
-	return array[randomInteger(array.length)]; // get a random element out of an array
+// function randomElement(array) { // get a random element out of an array
+// 	return array[randomInteger(array.length)]; 
+// }
+
+function randomElementNR(bucket) { // select without replacement
+	var randomIndex = randomInteger(bucket.length);
+	return bucket.splice(randomIndex, 1)[0];
 }
 
 /* set up list of characters with image sources */ 
@@ -38,47 +43,40 @@ var characters = [charlie, delores, fetus, gerald,
 				god, greenfrog, kismet, nicholas,
 				samantha, sharon, toby, todd, you]; // how bad is it to define these all as global vars?
 
-function Pair(character1, character2) {
-	this.character1 = character1;
-	this.character2 = character2;
-}
-
 var pairs = [] // create the list of all possible pairs (78)
 
 for (j = 0; j < characters.length; j++) {
 	for (k = j+1; k < characters.length; k++) {
-		pairs.push(new Pair(characters[j], characters[k]));
+		pairs.push([characters[j], characters[k]]);
 	}
 }
-
-console.log(pairs);
 
 /* set up how to display experiment slides */
 
 var experiment = {
 	parts: ["consent", "instructions", "characters", "surveys", "stage", "results", "finished"],
 	condition: "none",
-	trials: [1,2,3], // temp dummy order
+	trials: pairs,
 	data: [], // where to store data
 	end: function() { // code from long
-		showSlide("finished");
+		showSlide("demographics");
 		// setTimeout(function() {
 		// 	turk.submit(experiment)
 		// }, 1500);
 	},
 	next: function() { // code from long
-		if (experiment.trials.length === 0) {
+		if (this.trials.length <= 0) {
 			experiment.end();
+		} else {
+			var sideBucket = [0,1]; // bucket for selecting left vs. right position of images
+			showSlide("stage");
+			this.data.pair = randomElementNR(this.trials);
+			this.data.leftImage = this.data.pair[randomElementNR(sideBucket)];
+			this.data.rightImage = this.data.pair[sideBucket];
+			$("#image-left").attr("src", this.data.leftImage.imageSource);
+			$("#image-right").attr("src", this.data.rightImage.imageSource);
+			var startTime = (new Date()).getTime();
 		}
-		var n = experiment.trials.shift();
-		showSlide("stage");
-		this.data.leftImage = characters[randomInteger(characters.length)];
-		this.data.rightImage = characters[randomInteger(characters.length)];
-		$("#image-left").attr("src", this.data.leftImage.imageSource);
-		$("#image-right").attr("src", this.data.rightImage.imageSource);
-		var startTime = (new Date()).getTime();
-		console.log(this.data.leftImage);
-		console.log(this.data.rightImage);
 	}
 }
 
