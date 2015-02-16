@@ -317,7 +317,7 @@ var resultsSlide = {
 		for (i in this.charMeans) {
 			sortedCharacters.push([i, this.charMeans[i]]);
 		}		
-		sortedCharacters = sortedCharacters.sort(function(a, b) {return a[1] - b[1]});
+		sortedCharacters = sortedCharacters.sort(function(a, b) {return b[1] - a[1]});
 		this.charSorted = sortedCharacters;
 	},
 	showOrder: function() {
