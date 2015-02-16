@@ -12,3 +12,9 @@ img {
 	width: 200px;
 	border: solid black 3px;
 }
+
+#stage button {
+	margin: 10px;
+	width: 110px;
+	padding: 5px!important;
+}
