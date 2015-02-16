@@ -103,7 +103,27 @@ $('#stage button').click(function() { // store response
 	experiment.next();
 })
 
-/* set up how to display experiment slides */
+/* set up how to display characters slide */
+
+var charactersSlide = {
+	list: characters,
+	order: [],
+	makeOrder: function() {
+		for (i = 0; i < 13; i++) {
+			this.order.push(randomElementNR(this.list))
+		}
+	},
+	showOrder: function() {
+		for (i = 0; i < this.order.length; i++) {
+			var charNum = i+1;
+			$("h2#character"+charNum).text(charactersSlide.order[i].charTitle);
+			$("img#character"+charNum).attr("src", charactersSlide.order[i].imageSource);
+			$("p#character"+charNum).text(charactersSlide.order[i].charDescrip);
+		}
+	}
+}
+
+/* set up how to display stage slide (experiment trials) */
 
 var experiment = {
 	trials: pairs,

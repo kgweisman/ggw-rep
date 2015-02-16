@@ -13,6 +13,11 @@ img {
 	border: solid black 3px;
 }
 
+#characters img {
+	width: 100px;
+	display: inline;
+}
+
 #stage button {
 	margin: 10px;
 	width: 110px;
