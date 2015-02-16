@@ -79,18 +79,45 @@ var rage = new Condition("rage", "experiencing violent or uncontrolled anger")
 var self = new Condition("self", "exercising self-restraint over desires, emotions, or impulses")
 var thought = new Condition("thought", "thinking")
 
-var conditions = [communication, consciousness, desire, embarrassment, emotionRecog, fear, hunger, joy, memory, morality, pain, personality, planning, pleasure, pride, rage, self, thought];
+var conditions = {
+	communication: communication,
+	consciousness: consciousness,
+	desire: desire,
+	embarrassment: embarrassment,
+	emotionRecog: emotionRecog,
+	fear: fear,
+	hunger: hunger,
+	joy: joy,
+	memory: memory,
+	morality: morality,
+	pain: pain,
+	personality: personality,
+	planning: planning,
+	pleasure: pleasure,
+	pride: pride,
+	rage: rage,
+	self: self,
+	thought: thought
+};
 
 $('#surveys button').click(function() {
 	// var chosenCondition = $(this).attr('id');
-	experiment.data.condition = $(this).attr('id');
+	var chosen = $(this).attr('id');
+	experiment.data.condition = chosen;
+	experiment.data.wording = conditions[chosen.toString()].wording;
+	experiment.next();
+})
+
+$('#continue').click(function() {
+	this.blur();
+	experiment.next();
 })
 
 /* set up how to display experiment slides */
 
 var experiment = {
 	trials: pairs,
-	data: [], // where to store data
+	data: {}, // where to store data
 	end: function() { // code from long
 		showSlide("demographics");
 		// setTimeout(function() {
@@ -105,7 +132,7 @@ var experiment = {
 			this.data.pair = randomElementNR(this.trials);
 			this.data.leftImage = this.data.pair[randomElementNR(sideBucket)];
 			this.data.rightImage = this.data.pair[sideBucket];
-			$("#question").text("Which character do you think is more capable of "+this.data.condition+"?")
+			$("#question").text("Which character do you think is more capable of "+this.data.wording+"?")
 			$("#image-left").attr("src", this.data.leftImage.imageSource);
 			$("#image-right").attr("src", this.data.rightImage.imageSource);
 			$("#text-left").text(this.data.leftImage.charTitle);
