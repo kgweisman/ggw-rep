@@ -115,7 +115,7 @@ $('.slide#stage button').click(function() {
 			experiment.info.charScores[characterMore].push(1);
 			experiment.info.charScores[characterLess].push(-1);
 			break;
-		case "equally both":
+		case "both equally":
 			characterMore = (experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName).substring(0,3);
 			characterLess = (experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName).substring(0,3);
 			experiment.info.charScores[characterMore].push(0);
