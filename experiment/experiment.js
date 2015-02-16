@@ -3,7 +3,6 @@
 function showSlide(id) {
 	$(".slide").hide(); // hide all slides
 	$("#"+id).show(); // show selected slide
-	console.log(id);
 };
 
 function randomInteger(n) { // get a random integer < n
@@ -325,7 +324,6 @@ var resultsSlide = {
 		for (i = 0; i < this.charSorted.length; i++) {
 			var charNum = i+1;
 			var charName = this.charSorted[i][0];
-			console.log(charName);
 			$("p#rankingIntro").text("Here's how you ranked these characters, from most to least capable of "+experiment.info.wording+":");
 			$("p#rank"+charNum).text(characters[charName].charTitle);
 			$("img#rank"+charNum).attr("src", characters[charName].imageSource);
