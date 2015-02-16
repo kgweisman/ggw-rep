@@ -1,4 +1,4 @@
- set up helper functions from long */
+/* set up helper functions from long */
 
 function showSlide(id) {
 	$(".slide").hide(); // hide all slides
@@ -102,6 +102,40 @@ $('.slide#stage button').click(function() {
 	// store selected response
 	var response = $(this).attr('id');
 	experiment.info.data.response.push(response);
+	switch (response) { // omg clean this up
+		case "much more left":
+			characterMore = (experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName).substring(0,3);
+			characterLess = (experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName).substring(0,3);
+			experiment.info.charScores[characterMore].push(2);
+			experiment.info.charScores[characterLess].push(-2);
+			break;
+		case "slightly more left":
+			characterMore = (experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName).substring(0,3);
+			characterLess = (experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName).substring(0,3);
+			experiment.info.charScores[characterMore].push(1);
+			experiment.info.charScores[characterLess].push(-1);
+			break;
+		case "equally both":
+			characterMore = (experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName).substring(0,3);
+			characterLess = (experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName).substring(0,3);
+			experiment.info.charScores[characterMore].push(0);
+			experiment.info.charScores[characterLess].push(0);
+			break;
+		case "slightly more right":
+			characterMore = (experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName).substring(0,3);
+			characterLess = (experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName).substring(0,3);
+			experiment.info.charScores[characterMore].push(1);
+			experiment.info.charScores[characterLess].push(-1);
+			break;
+		case "much more right":
+			characterMore = (experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName).substring(0,3);
+			characterLess = (experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName).substring(0,3);
+			experiment.info.charScores[characterMore].push(2);
+			experiment.info.charScores[characterLess].push(-2);
+			break;
+		default: 
+			console.log("whoops");
+	}
 
 	// show next trial
 	this.blur();
@@ -163,7 +197,7 @@ var surveysSlide = {
 
 var experiment = {
 	trials: pairs,
-	info: {
+	info: { // where to store data
 		charIntroOrder: [],
 		condIntroOrder: [],
 		condition: [],
@@ -173,8 +207,23 @@ var experiment = {
 			rightImage: [],
 			response: []
 			// , rt: []
+		},
+		charScores: {
+			cha: [],
+			del: [],
+			fet: [],
+			ger: [],
+			god: [],
+			gre: [],
+			kis: [],
+			nic: [],
+			sam: [],
+			sha: [],
+			tob: [],
+			tod: [],
+			you: []
 		}
-	}, // where to store data
+	}, 
 	end: function() { // code from long
 		showSlide("demographics");
 		// setTimeout(function() {
@@ -219,13 +268,14 @@ var experiment = {
 			// }
 
 			// $('.slide#stage button').one("click", keyPressHandler);
-
 		}
 	}
 };
+
+/* set up how to display results */
 
 /* show consent slide (which then advances through all remaining slides) */
 
 showSlide("consent");
 
-/* TO DO: submit data via mmturkey 
+/* TO DO: submit data via mmturkey */
