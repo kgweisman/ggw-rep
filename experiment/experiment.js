@@ -117,7 +117,12 @@ $('#continue').click(function() {
 
 var experiment = {
 	trials: pairs,
-	data: {}, // where to store data
+	data: {
+		condition: [],
+		wording: [],
+		leftImage: [],
+		rightImage: []
+	}, // where to store data
 	end: function() { // code from long
 		showSlide("demographics");
 		// setTimeout(function() {
@@ -128,17 +133,30 @@ var experiment = {
 		if (this.trials.length === 0) {
 			experiment.end();
 		} else {
-			var sideBucket = [0,1]; // bucket for selecting left vs. right position of images
-			this.data.pair = randomElementNR(this.trials);
-			this.data.leftImage = this.data.pair[randomElementNR(sideBucket)];
-			this.data.rightImage = this.data.pair[sideBucket];
-			$("#question").text("Which character do you think is more capable of "+this.data.wording+"?")
-			$("#image-left").attr("src", this.data.leftImage.imageSource);
-			$("#image-right").attr("src", this.data.rightImage.imageSource);
+			// create bucket for selecting left vs. right position of images
+			var sideBucket = [0,1]; 
+
+			// store data about which pair and positions of characters for this trial
+			var trialPair = randomElementNR(this.trials);
+
+			this.data.leftImage.push(trialPair[randomElementNR(sideBucket)]);
+			this.data.rightImage.push(trialPair[sideBucket]);
+
+			// set text and images for this trial
+			$("#question").text("Which character do you think is more capable of "+this.data.wording+"?");
+			$("#image-left").attr("src", this.data.leftImage[this.data.leftImage.length-1].imageSource);
+			$("#image-right").attr("src", this.data.rightImage[this.data.leftImage.length-1].imageSource);
 			$("#text-left").text(this.data.leftImage.charTitle);
 			$("#text-right").text(this.data.rightImage.charTitle);
+
+			// display trial number (temporary for development?)
+			var trialNum = this.data.leftImage.length.toString();
+			var percentComplete = Math.round((this.data.leftImage.length-1)/78 * 100);
+			$("#trial-num").text("trial "+trialNum+" of 78: "+percentComplete+"% complete");
+
+			// show trial
 			showSlide("stage");
-			console.log(this.data.condition);
+
 			// var startTime = (new Date()).getTime(); // do I really want RT?
 		}
 	}
