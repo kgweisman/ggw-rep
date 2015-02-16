@@ -131,7 +131,7 @@ var charactersSlide = {
 			$("img#character"+charNum).attr("src", charactersSlide.order[i].imageSource);
 			$("p#character"+charNum).text(charactersSlide.order[i].charDescrip);
 		}
-		experiment.data.charIntroOrder.push(this.order); // store order of introduction of characters in experiment object
+		experiment.data.charIntroOrder = this.order; // store order of introduction of characters in experiment object
 	}
 }
 
@@ -152,7 +152,7 @@ var surveysSlide = {
 			$("#surveys p#"+condNum).text("This survey asks you to judge which character is more capable of "+surveysSlide.order[i].wording+".");
 			$("#surveys button#"+condNum).text("Select "+surveysSlide.order[i].condName+" Survey");
 		}
-		experiment.data.condIntroOrder.push(this.order); // store order of introduction of conditions in experiment object
+		experiment.data.condIntroOrder = this.order; // store order of introduction of conditions in experiment object
 	}
 }
 
@@ -167,7 +167,8 @@ var experiment = {
 		wording: [],
 		leftImage: [],
 		rightImage: [],
-		response: []
+		response: [],
+		RT: []
 	}, // where to store data
 	end: function() { // code from long
 		showSlide("demographics");
