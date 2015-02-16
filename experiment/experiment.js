@@ -108,7 +108,9 @@ $('#surveys button').click(function() {
 	experiment.next();
 })
 
-$('#continue').click(function() {
+$('#stage button').click(function() {
+	var response = $(this).attr('id');
+	experiment.data.response.push(response);
 	this.blur();
 	experiment.next();
 })
@@ -121,7 +123,8 @@ var experiment = {
 		condition: [],
 		wording: [],
 		leftImage: [],
-		rightImage: []
+		rightImage: [],
+		response: []
 	}, // where to store data
 	end: function() { // code from long
 		showSlide("demographics");
