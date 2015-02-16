@@ -45,13 +45,13 @@ addCharacter("you", "You", "When you see the mirror, please consider how you, yo
 
 /* create the list of all possible pairs (78) */
 
-var pairs = [] 
+var pairs = []; 
 
 for (j = 0; j < 13; j++) {
 	for (k = j+1; k < 13; k++) {
 		pairs.push([characters[j], characters[k]]);
 	}
-}
+};
 
 /* set up list of conditions with wordings */ 
 
@@ -62,7 +62,7 @@ function addCondition(condName, wording) {
 	};
 	newCondition = new Condition(condName, wording);
 	conditions[newCondition.condName] = newCondition;
-}
+};
 
 conditions = {};
 addCondition("Communication", "conveying thoughts or feelings to others");
@@ -104,32 +104,32 @@ $('.slide#stage button').click(function() {
 	experiment.info.data.response.push(response);
 	switch (response) { // omg clean this up
 		case "much more left":
-			characterMore = (experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName).substring(0,3);
-			characterLess = (experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName).substring(0,3);
+			characterMore = experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName;
+			characterLess = experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName;
 			experiment.info.charScores[characterMore].push(2);
 			experiment.info.charScores[characterLess].push(-2);
 			break;
 		case "slightly more left":
-			characterMore = (experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName).substring(0,3);
-			characterLess = (experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName).substring(0,3);
+			characterMore = experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName;
+			characterLess = experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName;
 			experiment.info.charScores[characterMore].push(1);
 			experiment.info.charScores[characterLess].push(-1);
 			break;
 		case "both equally":
-			characterMore = (experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName).substring(0,3);
-			characterLess = (experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName).substring(0,3);
+			characterMore = experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName;
+			characterLess = experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName;
 			experiment.info.charScores[characterMore].push(0);
 			experiment.info.charScores[characterLess].push(0);
 			break;
 		case "slightly more right":
-			characterMore = (experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName).substring(0,3);
-			characterLess = (experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName).substring(0,3);
+			characterMore = experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName;
+			characterLess = experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName;
 			experiment.info.charScores[characterMore].push(1);
 			experiment.info.charScores[characterLess].push(-1);
 			break;
 		case "much more right":
-			characterMore = (experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName).substring(0,3);
-			characterLess = (experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName).substring(0,3);
+			characterMore = experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName;
+			characterLess = experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName;
 			experiment.info.charScores[characterMore].push(2);
 			experiment.info.charScores[characterLess].push(-2);
 			break;
@@ -161,7 +161,7 @@ $('.slide#finished button').click(function() {
 /* set up how to display characters slide */
 
 var charactersSlide = {
-	list: characters,
+	list: characters.slice(),
 	order: [],
 	makeOrder: function() {
 		for (i = 0; i < 13; i++) {
@@ -216,18 +216,18 @@ var experiment = {
 			// , rt: []
 		},
 		charScores: {
-			cha: [],
-			del: [],
-			fet: [],
-			ger: [],
+			charlie_dog: [],
+			delores_gleitman_deceased: [],
+			fetus: [],
+			gerald_schiff_pvs: [],
 			god: [],
-			gre: [],
-			kis: [],
-			nic: [],
-			sam: [],
-			sha: [],
-			tob: [],
-			tod: [],
+			green_frog: [],
+			kismet_robot: [],
+			nicholas_gannon_baby: [],
+			samantha_hill_girl: [],
+			sharon_harvey_woman: [],
+			toby_chimp: [],
+			todd_billingsley_man: [],
 			you: []
 		}
 	}, 
@@ -282,20 +282,21 @@ var experiment = {
 /* set up how to display results */
 
 var resultsSlide = {
+	list: characters.slice(),
 	charScores: experiment.info.charScores,
 	charMeans: {
-		cha: [],
-		del: [],
-		fet: [],
-		ger: [],
+		charlie_dog: [],
+		delores_gleitman_deceased: [],
+		fetus: [],
+		gerald_schiff_pvs: [],
 		god: [],
-		gre: [],
-		kis: [],
-		nic: [],
-		sam: [],
-		sha: [],
-		tob: [],
-		tod: [],
+		green_frog: [],
+		kismet_robot: [],
+		nicholas_gannon_baby: [],
+		samantha_hill_girl: [],
+		sharon_harvey_woman: [],
+		toby_chimp: [],
+		todd_billingsley_man: [],
 		you: []
 	},
 	charSorted: [],
@@ -320,8 +321,14 @@ var resultsSlide = {
 	showOrder: function() {
 		for (i = 0; i < this.charSorted.length; i++) {
 			var charNum = i+1;
+			var charName = this.charSorted[i][0];
+			console.log(charName);
+			$("img#rank"+charNum).attr("src", "images_characters/"+charName+".png");
+
+			// var charIndex = result[0].charName;
+			// var charTitle = this.list[charIndex].charTitle;
 			// $("img#rank"+charNum).attr("src", charactersSlide.order[i].imageSource);
-			$("p#rank"+charNum).text(resultsSlide.charSorted[i][0]);
+			// $("p#rank"+charNum).text(charTitle);
 		}
 	}
 }
