@@ -25,10 +25,10 @@ function addCharacter(charName, charTitle, charDescrip) {
 		this.charDescrip = charDescrip;
 	};
 	newCharacter = new Character(charName, charTitle, charDescrip);
-	characters.push(newCharacter);
-}
+	characters[newCharacter.charName] = newCharacter;
+};
 
-var characters = [];
+characters = {};
 addCharacter("charlie_dog", "Charlie, Family Dog", "Charlie is a 3-year-old Springer spaniel and a beloved member of the Graham family.");
 addCharacter("delores_gleitman_deceased", "Delores Gleitman, Recently Deceased", "Delores Gleitman recently passed away at the age of 65. As you complete the survey, please draw upon your own personal beliefs about people who have passed away.");
 addCharacter("fetus", "7-Week Human Fetus", "At 7 weeks, a human fetus is almost half an inch long - roughly the size of a raspberry.");
@@ -46,12 +46,15 @@ addCharacter("you", "You", "When you see the mirror, please consider how you, yo
 /* create the list of all possible pairs (78) */
 
 var pairs = []; 
-
-for (j = 0; j < 13; j++) {
-	for (k = j+1; k < 13; k++) {
-		pairs.push([characters[j], characters[k]]);
-	}
+function makePairs() {
+	var list = Object.keys(characters).map(function (key) {return characters[key]});
+	for (j = 0; j < 13; j++) {
+		for (k = j+1; k < 13; k++) {
+			pairs.push([list[j], list[k]]);
+		}
+	};
 };
+makePairs();
 
 /* set up list of conditions with wordings */ 
 
@@ -161,7 +164,7 @@ $('.slide#finished button').click(function() {
 /* set up how to display characters slide */
 
 var charactersSlide = {
-	list: characters.slice(),
+	list: Object.keys(characters).map(function (key) {return characters[key]}),
 	order: [],
 	makeOrder: function() {
 		for (i = 0; i < 13; i++) {
@@ -170,12 +173,12 @@ var charactersSlide = {
 	},
 	showOrder: function() {
 		for (i = 0; i < this.order.length; i++) {
-			var charNum = i+1;
+			var charNum = i.toString();
 			$("h2#character"+charNum).text(charactersSlide.order[i].charTitle);
 			$("img#character"+charNum).attr("src", charactersSlide.order[i].imageSource);
 			$("p#character"+charNum).text(charactersSlide.order[i].charDescrip);
-		}
-		experiment.info.charIntroOrder = this.order; // store order of introduction of characters in experiment object
+		};
+		experiment.info.charIntroOrder = this.order; // store order of introduction of conditions in experiment object
 	}
 }
 
@@ -282,7 +285,7 @@ var experiment = {
 /* set up how to display results */
 
 var resultsSlide = {
-	list: characters.slice(),
+	list: characters,
 	charScores: experiment.info.charScores,
 	charMeans: {
 		charlie_dog: [],
@@ -323,12 +326,9 @@ var resultsSlide = {
 			var charNum = i+1;
 			var charName = this.charSorted[i][0];
 			console.log(charName);
-			$("img#rank"+charNum).attr("src", "images_characters/"+charName+".png");
-
-			// var charIndex = result[0].charName;
-			// var charTitle = this.list[charIndex].charTitle;
-			// $("img#rank"+charNum).attr("src", charactersSlide.order[i].imageSource);
-			// $("p#rank"+charNum).text(charTitle);
+			$("p#rankingIntro").text("Here's how you ranked these characters, from most to least capable of "+experiment.info.wording+":");
+			$("p#rank"+charNum).text(characters[charName].charTitle);
+			$("img#rank"+charNum).attr("src", characters[charName].imageSource);
 		}
 	}
 }
