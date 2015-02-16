@@ -1,4 +1,4 @@
-/* set up helper functions from long */
+ set up helper functions from long */
 
 function showSlide(id) {
 	$(".slide").hide(); // hide all slides
@@ -92,15 +92,18 @@ $('.slide#characters button').click(function() {
 
 $('.slide#surveys button').click(function() { // select condition
 	var chosen = $(this).attr('id');
-	experiment.data.condition = surveysSlide.order[chosen].condName;
-	experiment.data.wording = surveysSlide.order[chosen].wording;
+	experiment.info.condition = surveysSlide.order[chosen].condName;
+	experiment.info.wording = surveysSlide.order[chosen].wording;
 	experiment.next();
 	window.scrollTo(0, 0);
 });
 
-$('.slide#stage button').click(function() { // store response
+$('.slide#stage button').click(function() {
+	// store selected response
 	var response = $(this).attr('id');
-	experiment.data.response.push(response);
+	experiment.info.data.response.push(response);
+
+	// show next trial
 	this.blur();
 	experiment.next();
 	window.scrollTo(0, 0);
@@ -131,7 +134,7 @@ var charactersSlide = {
 			$("img#character"+charNum).attr("src", charactersSlide.order[i].imageSource);
 			$("p#character"+charNum).text(charactersSlide.order[i].charDescrip);
 		}
-		experiment.data.charIntroOrder = this.order; // store order of introduction of characters in experiment object
+		experiment.info.charIntroOrder = this.order; // store order of introduction of characters in experiment object
 	}
 }
 
@@ -152,7 +155,7 @@ var surveysSlide = {
 			$("#surveys p#"+condNum).text("This survey asks you to judge which character is more capable of "+surveysSlide.order[i].wording+".");
 			$("#surveys button#"+condNum).text("Select "+surveysSlide.order[i].condName+" Survey");
 		}
-		experiment.data.condIntroOrder = this.order; // store order of introduction of conditions in experiment object
+		experiment.info.condIntroOrder = this.order; // store order of introduction of conditions in experiment object
 	}
 }
 
@@ -160,15 +163,17 @@ var surveysSlide = {
 
 var experiment = {
 	trials: pairs,
-	data: {
+	info: {
 		charIntroOrder: [],
 		condIntroOrder: [],
 		condition: [],
 		wording: [],
-		leftImage: [],
-		rightImage: [],
-		response: [],
-		RT: []
+		data: {
+			leftImage: [],
+			rightImage: [],
+			response: []
+			// , rt: []
+		}
 	}, // where to store data
 	end: function() { // code from long
 		showSlide("demographics");
@@ -186,31 +191,41 @@ var experiment = {
 			// store data about which pair and positions of characters for this trial
 			var trialPair = randomElementNR(this.trials);
 
-			this.data.leftImage.push(trialPair[randomElementNR(sideBucket)]);
-			this.data.rightImage.push(trialPair[sideBucket]);
+			this.info.data.leftImage.push(trialPair[randomElementNR(sideBucket)]);
+			this.info.data.rightImage.push(trialPair[sideBucket]);
 
 			// display trial number (temporary for development?)
-			var trialNum = this.data.leftImage.length.toString();
-			var percentComplete = Math.round((this.data.leftImage.length-1)/78 * 100);
+			var trialNum = this.info.data.leftImage.length.toString();
+			var percentComplete = Math.round((this.info.data.leftImage.length-1)/78 * 100);
 			$("#trial-num").text("trial "+trialNum+" of 78: "+percentComplete+"% complete");
 
 			// set text and images for this trial
-			$(".slide#stage #question").text("Which character do you think is more capable of "+this.data.wording+"?");
-			$("#stage #image-left").attr("src", this.data.leftImage[trialNum-1].imageSource);
-			$("#stage #image-right").attr("src", this.data.rightImage[trialNum-1].imageSource);
-			$("#stage #text-left").text(this.data.leftImage[trialNum-1].charTitle);
-			$("#stage #text-right").text(this.data.rightImage[trialNum-1].charTitle);
+			$(".slide#stage #question").text("Which character do you think is more capable of "+this.info.wording+"?");
+			$("#stage #image-left").attr("src", this.info.data.leftImage[trialNum-1].imageSource);
+			$("#stage #image-right").attr("src", this.info.data.rightImage[trialNum-1].imageSource);
+			$("#stage #text-left").text(this.info.data.leftImage[trialNum-1].charTitle);
+			$("#stage #text-right").text(this.info.data.rightImage[trialNum-1].charTitle);
 
 			// show trial
 			showSlide("stage");
 
-			// var startTime = (new Date()).getTime(); // do I really want RT?
+			// // start timing 
+			// var startTime = (new Date()).getTime();
+			// var keyPressHandler = function(event) {
+			// 	var endTime = (new Date()).getTime();
+			// 	var rt = endTime - startTime;
+			// 	experiment.info.data.rt.push(rt);
+			// 	console.log(rt);
+			// }
+
+			// $('.slide#stage button').one("click", keyPressHandler);
+
 		}
 	}
-}
+};
 
 /* show consent slide (which then advances through all remaining slides) */
 
 showSlide("consent");
 
-/* TO DO: submit data via mmturkey */
+/* TO DO: submit data via mmturkey 
