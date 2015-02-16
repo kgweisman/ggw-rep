@@ -145,6 +145,7 @@ $('.slide#stage button').click(function() {
 
 $('.slide#demographics button').click(function() {
 	results.calculateMeans();
+	results.orderCharacters();
 	window.scrollTo(0, 0);
 });
 
@@ -296,15 +297,24 @@ var results = {
 		tod: [],
 		you: []
 	},
+	charSorted: [],
 	calculateMeans: function() {
-		for (i in results.charMeans) {
-			array = results.charScores[i];
+		for (i in this.charMeans) {
+			array = this.charScores[i];
 			for (j = 0; j < array.length; j++) {
 				sum =+ array[j];
 			}
 			mean = sum/array.length
-			results.charMeans[i] = mean;
+			this.charMeans[i] = mean;
 		}
+	},
+	orderCharacters: function() {
+		sortedCharacters = [];
+		for (i in this.charMeans) {
+			sortedCharacters.push([i, this.charMeans[i]]);
+		}
+		sortedCharacters = sortedCharacters.sort(function(a, b) {return a[1] - b[1]});
+		this.charSort = sortedCharacters;
 	}
 }
 
