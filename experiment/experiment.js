@@ -89,17 +89,18 @@ addCondition("Thought", "thinking");
 
 /* set up button behaviors */
 
-$('#surveys button').click(function() { // select condition
-	var chosen = $(this).attr('id');
-	experiment.data.condition = chosen;
-	experiment.data.wording = conditions[chosen.toString()].wording;
-	experiment.next();
-})
-
 $('#stage button').click(function() { // store response
 	var response = $(this).attr('id');
 	experiment.data.response.push(response);
 	this.blur();
+	experiment.next();
+})
+
+$('#surveys button').click(function() { // select condition
+	var chosen = $(this).attr('id');
+	// var condition = surveysSlide.order[chosen].condName;
+	experiment.data.condition = surveysSlide.order[chosen].condName;
+	experiment.data.wording = surveysSlide.order[chosen].wording;
 	experiment.next();
 })
 
@@ -135,10 +136,10 @@ var surveysSlide = {
 	},
 	showOrder: function() {
 		for (i = 0; i < this.order.length; i++) {
-			var condNum = i+1;
-			$("h2#survey"+condNum).text(surveysSlide.order[i].condName);
-			$("p#survey"+condNum).text("This survey asks you to judge which character is more capable of "+surveysSlide.order[i].wording+".");
-			$("button#survey"+condNum).text("Select "+surveysSlide.order[i].condName+" Survey");
+			var condNum = i.toString();
+			$("#surveys h2#"+condNum).text(surveysSlide.order[i].condName);
+			$("#surveys p#"+condNum).text("This survey asks you to judge which character is more capable of "+surveysSlide.order[i].wording+".");
+			$("#surveys button#"+condNum).text("Select "+surveysSlide.order[i].condName+" Survey");
 		}
 	}
 }
