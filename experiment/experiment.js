@@ -3,6 +3,7 @@
 function showSlide(id) {
 	$(".slide").hide(); // hide all slides
 	$("#"+id).show(); // show selected slide
+	console.log(id);
 };
 
 function randomInteger(n) { // get a random integer < n
@@ -72,7 +73,7 @@ addCondition("Communication", "conveying thoughts or feelings to others");
 addCondition("Consciousness", "having experiences and being aware of things");
 addCondition("Desire", "longing or hoping for things");
 addCondition("Embarrassment", "experiencing embarrassment");
-addCondition("Emotion-recog", "understanding how others are feeling");
+addCondition("Emotion Recognition", "understanding how others are feeling");
 addCondition("Fear", "feeling afraid or fearful");
 addCondition("Hunger", "feeling hungry");
 addCondition("Joy", "experiencing joy");
@@ -89,20 +90,33 @@ addCondition("Thought", "thinking");
 
 /* set up button behaviors */
 
-$('#stage button').click(function() { // store response
+$('.slide#characters button').click(function() {
+	window.scrollTo(0, 0);
+});
+
+$('.slide#surveys button').click(function() { // select condition
+	var chosen = $(this).attr('id');
+	experiment.data.condition = surveysSlide.order[chosen].condName;
+	experiment.data.wording = surveysSlide.order[chosen].wording;
+	experiment.next();
+	window.scrollTo(0, 0);
+});
+
+$('.slide#stage button').click(function() { // store response
 	var response = $(this).attr('id');
 	experiment.data.response.push(response);
 	this.blur();
 	experiment.next();
-})
+	window.scrollTo(0, 0);
+});
 
-$('#surveys button').click(function() { // select condition
-	var chosen = $(this).attr('id');
-	// var condition = surveysSlide.order[chosen].condName;
-	experiment.data.condition = surveysSlide.order[chosen].condName;
-	experiment.data.wording = surveysSlide.order[chosen].wording;
-	experiment.next();
-})
+$('.slide#results button').click(function() {
+	window.scrollTo(0, 0);
+});
+
+$('.slide#finished button').click(function() {
+	window.scrollTo(0, 0);
+});
 
 /* set up how to display characters slide */
 
@@ -164,7 +178,7 @@ var experiment = {
 	next: function() { // code from long
 		if (this.trials.length === 0) {
 			experiment.end();
-		} else {
+		} else { 
 			// create bucket for selecting left vs. right position of images
 			var sideBucket = [0,1]; 
 
@@ -180,11 +194,11 @@ var experiment = {
 			$("#trial-num").text("trial "+trialNum+" of 78: "+percentComplete+"% complete");
 
 			// set text and images for this trial
-			$("#question").text("Which character do you think is more capable of "+this.data.wording+"?");
-			$("#image-left").attr("src", this.data.leftImage[trialNum-1].imageSource);
-			$("#image-right").attr("src", this.data.rightImage[trialNum-1].imageSource);
-			$("#text-left").text(this.data.leftImage[trialNum-1].charTitle);
-			$("#text-right").text(this.data.rightImage[trialNum-1].charTitle);
+			$(".slide#stage #question").text("Which character do you think is more capable of "+this.data.wording+"?");
+			$("#stage #image-left").attr("src", this.data.leftImage[trialNum-1].imageSource);
+			$("#stage #image-right").attr("src", this.data.rightImage[trialNum-1].imageSource);
+			$("#stage #text-left").text(this.data.leftImage[trialNum-1].charTitle);
+			$("#stage #text-right").text(this.data.rightImage[trialNum-1].charTitle);
 
 			// show trial
 			showSlide("stage");
