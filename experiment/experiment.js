@@ -87,15 +87,16 @@ addCondition("rage", "experiencing violent or uncontrolled anger");
 addCondition("self", "exercising self-restraint over desires, emotions, or impulses");
 addCondition("thought", "thinking");
 
-$('#surveys button').click(function() {
-	// var chosenCondition = $(this).attr('id');
+/* set up button behaviors */
+
+$('#surveys button').click(function() { // select condition
 	var chosen = $(this).attr('id');
 	experiment.data.condition = chosen;
 	experiment.data.wording = conditions[chosen.toString()].wording;
 	experiment.next();
 })
 
-$('#stage button').click(function() {
+$('#stage button').click(function() { // store response
 	var response = $(this).attr('id');
 	experiment.data.response.push(response);
 	this.blur();
@@ -152,26 +153,8 @@ var experiment = {
 	}
 }
 
-/* show consent slide (which allows participant to advance through instructions, characters, and surveys slides) */
+/* show consent slide (which then advances through all remaining slides) */
 
 showSlide("consent");
 
-// 	 fill in stage slide with appropriate question prompt based on survey selected above 
-
-// 	/* fill in stage slide with randomized order of character pairs and randomized left/right position */
-
-// 	/* advance through 78 trials */
-
-// /* when user finishes 78 trials, advance to "demographics" slide */
-
-// showSlide("demographics");
-
-// /* when user clicks "Next" button, advance to "results" slide */
-
-// showSlide("results");
-
-// /* when user clicks "Next" button, advance to "finished" slide */
-
-// showSlide("finished");
-
-// /* submit data via mmturkey */
+/* TO DO: submit data via mmturkey */
