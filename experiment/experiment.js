@@ -145,17 +145,17 @@ var experiment = {
 			this.data.leftImage.push(trialPair[randomElementNR(sideBucket)]);
 			this.data.rightImage.push(trialPair[sideBucket]);
 
-			// set text and images for this trial
-			$("#question").text("Which character do you think is more capable of "+this.data.wording+"?");
-			$("#image-left").attr("src", this.data.leftImage[this.data.leftImage.length-1].imageSource);
-			$("#image-right").attr("src", this.data.rightImage[this.data.leftImage.length-1].imageSource);
-			$("#text-left").text(this.data.leftImage.charTitle);
-			$("#text-right").text(this.data.rightImage.charTitle);
-
 			// display trial number (temporary for development?)
 			var trialNum = this.data.leftImage.length.toString();
 			var percentComplete = Math.round((this.data.leftImage.length-1)/78 * 100);
 			$("#trial-num").text("trial "+trialNum+" of 78: "+percentComplete+"% complete");
+
+			// set text and images for this trial
+			$("#question").text("Which character do you think is more capable of "+this.data.wording+"?");
+			$("#image-left").attr("src", this.data.leftImage[trialNum-1].imageSource);
+			$("#image-right").attr("src", this.data.rightImage[trialNum-1].imageSource);
+			$("#text-left").text(this.data.leftImage[trialNum-1].charTitle);
+			$("#text-right").text(this.data.rightImage[trialNum-1].charTitle);
 
 			// show trial
 			showSlide("stage");
