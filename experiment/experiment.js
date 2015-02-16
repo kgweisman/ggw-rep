@@ -10,11 +10,7 @@ function randomInteger(n) { // get a random integer < n
 	return Math.floor(Math.random()*n); 
 }
 
-// function randomElement(array) { // get a random element out of an array
-// 	return array[randomInteger(array.length)]; 
-// }
-
-function randomElementNR(bucket) { // select without replacement
+function randomElementNR(bucket) { // select random element of array without replacement
 	var randomIndex = randomInteger(bucket.length);
 	return bucket.splice(randomIndex, 1)[0];
 }
@@ -135,6 +131,7 @@ var charactersSlide = {
 			$("img#character"+charNum).attr("src", charactersSlide.order[i].imageSource);
 			$("p#character"+charNum).text(charactersSlide.order[i].charDescrip);
 		}
+		experiment.data.charIntroOrder.push(this.order); // store order of introduction of characters in experiment object
 	}
 }
 
@@ -155,6 +152,7 @@ var surveysSlide = {
 			$("#surveys p#"+condNum).text("This survey asks you to judge which character is more capable of "+surveysSlide.order[i].wording+".");
 			$("#surveys button#"+condNum).text("Select "+surveysSlide.order[i].condName+" Survey");
 		}
+		experiment.data.condIntroOrder.push(this.order); // store order of introduction of conditions in experiment object
 	}
 }
 
@@ -163,6 +161,8 @@ var surveysSlide = {
 var experiment = {
 	trials: pairs,
 	data: {
+		charIntroOrder: [],
+		condIntroOrder: [],
 		condition: [],
 		wording: [],
 		leftImage: [],
