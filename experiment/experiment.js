@@ -143,6 +143,11 @@ $('.slide#stage button').click(function() {
 	window.scrollTo(0, 0);
 });
 
+$('.slide#demographics button').click(function() {
+	results.calculateMeans();
+	window.scrollTo(0, 0);
+});
+
 $('.slide#results button').click(function() {
 	window.scrollTo(0, 0);
 });
@@ -273,6 +278,35 @@ var experiment = {
 };
 
 /* set up how to display results */
+
+var results = {
+	charScores: experiment.info.charScores,
+	charMeans: {
+		cha: [],
+		del: [],
+		fet: [],
+		ger: [],
+		god: [],
+		gre: [],
+		kis: [],
+		nic: [],
+		sam: [],
+		sha: [],
+		tob: [],
+		tod: [],
+		you: []
+	},
+	calculateMeans: function() {
+		for (i in results.charMeans) {
+			array = results.charScores[i];
+			for (j = 0; j < array.length; j++) {
+				sum =+ array[j];
+			}
+			mean = sum/array.length
+			results.charMeans[i] = mean;
+		}
+	}
+}
 
 /* show consent slide (which then advances through all remaining slides) */
 
