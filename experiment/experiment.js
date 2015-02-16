@@ -68,24 +68,24 @@ function addCondition(condName, wording) {
 }
 
 conditions = {};
-addCondition("communication", "conveying thoughts or feelings to others");
-addCondition("consciousness", "having experiences and being aware of things");
-addCondition("desire", "longing or hoping for things");
-addCondition("embarrassment", "experiencing embarrassment");
-addCondition("emotion-recog", "understanding how others are feeling");
-addCondition("fear", "feeling afraid or fearful");
-addCondition("hunger", "feeling hungry");
-addCondition("joy", "experiencing joy");
-addCondition("memory", "remembering things");
-addCondition("morality", "telling right from wrong and trying to do the right thing");
-addCondition("pain", "experiencing physical or emotional pain");
-addCondition("personality", "having personality traits that make it unique from others");
-addCondition("planning", "making plans and working toward goal");
-addCondition("pleasure", "experiencing physical or emotional pleasure");
-addCondition("pride", "experiencing pride");
-addCondition("rage", "experiencing violent or uncontrolled anger");
-addCondition("self", "exercising self-restraint over desires, emotions, or impulses");
-addCondition("thought", "thinking");
+addCondition("Communication", "conveying thoughts or feelings to others");
+addCondition("Consciousness", "having experiences and being aware of things");
+addCondition("Desire", "longing or hoping for things");
+addCondition("Embarrassment", "experiencing embarrassment");
+addCondition("Emotion-recog", "understanding how others are feeling");
+addCondition("Fear", "feeling afraid or fearful");
+addCondition("Hunger", "feeling hungry");
+addCondition("Joy", "experiencing joy");
+addCondition("Memory", "remembering things");
+addCondition("Morality", "telling right from wrong and trying to do the right thing");
+addCondition("Pain", "experiencing physical or emotional pain");
+addCondition("Personality", "having personality traits that make it unique from others");
+addCondition("Planning", "making plans and working toward goal");
+addCondition("Pleasure", "experiencing physical or emotional pleasure");
+addCondition("Pride", "experiencing pride");
+addCondition("Rage", "experiencing violent or uncontrolled anger");
+addCondition("Self", "exercising self-restraint over desires, emotions, or impulses");
+addCondition("Thought", "thinking");
 
 /* set up button behaviors */
 
@@ -119,6 +119,26 @@ var charactersSlide = {
 			$("h2#character"+charNum).text(charactersSlide.order[i].charTitle);
 			$("img#character"+charNum).attr("src", charactersSlide.order[i].imageSource);
 			$("p#character"+charNum).text(charactersSlide.order[i].charDescrip);
+		}
+	}
+}
+
+/* set up how to display surveys slide */
+
+var surveysSlide = {
+	list: Object.keys(conditions).map(function (key) {return conditions[key]}),
+	order: [],
+	makeOrder: function() {
+		for (i = 0; i < 18; i++) {
+			this.order.push(randomElementNR(this.list))
+		}
+	},
+	showOrder: function() {
+		for (i = 0; i < this.order.length; i++) {
+			var condNum = i+1;
+			$("h2#survey"+condNum).text(surveysSlide.order[i].condName);
+			$("p#survey"+condNum).text("This survey asks you to judge which character is more capable of "+surveysSlide.order[i].wording+".");
+			$("button#survey"+condNum).text("Select "+surveysSlide.order[i].condName+" Survey");
 		}
 	}
 }
