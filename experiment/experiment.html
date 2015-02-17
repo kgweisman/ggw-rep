@@ -263,70 +263,71 @@
       <p>Before you view your rankings, we would like you to take a moment to answer the following questions about your background.</p>
       <!-- Think about culling this list! -->
 
+      <div class="form">
         <ol>
           <li>Age
-            <div class="form-group">
+            <div class="form-group" id="age">
               <label class="sr-only">Age</label>
-              <input type="age" class="form-control" id="age" placeholder="Please type a number here (e.g., 27)"> <!-- need to figure out how to make this text area smaller! -->
+              <input class="form-control" id="age" placeholder="Please type a number here (e.g., 27)"> <!-- need to figure out how to make this text area smaller! -->
             </div>
           </li>
 
           <li>Gender
-            <form role="form">
+            <form role="form-group" id="gender">
               <div class="radio">
-                <label><input type="radio" name="optradio">Female</label>
+                <label><input type="radio" name="optradio" id="female">Female</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Male</label>
+                <label><input type="radio" name="optradio" id="male">Male</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Other/prefer not to say</label>
+                <label><input type="radio" name="optradio" = "other_prefNo">Other/prefer not to say</label>
               </div>
             </form>
           </li>
 
           <li>What is your job/occupation? <!-- original used a dropdown, but choices unclear - REMOVE? -->
-            <div class="form-group">
+            <div class="form-group" id="job">
               <label class="sr-only">Occupation</label>
-              <input type="age" class="form-control" id="age" placeholder="Please type your job/occupation here"> <!-- need to figure out how to make this text area smaller! -->
+              <input class="form-control" id="job" placeholder="Please type your job/occupation here"> <!-- need to figure out how to make this text area smaller! -->
             </div>
           </li>
 
           <li>Please select the category that best represents the amount of education you have completed. <!-- used more contemporary categories here instead of original (categories provided were unclear) - maybe modify to allow multiple answer, instead of multiple choice? -->
-            <form role="form">
+            <form role="form-group" id="education">
               <div class="radio">
-                <label><input type="radio" name="optradio">Less than 9th grade</label>
+                <label><input type="radio" name="optradio" id="less than 9th grade">Less than 9th grade</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Some high school, no diploma</label>
+                <label><input type="radio" name="optradio" id="some high school">Some high school, no diploma</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">High school diploma or equivalent (e.g., GED)</label>
+                <label><input type="radio" name="optradio" id="high school">High school diploma or equivalent (e.g., GED)</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Some college, no degree</label>
+                <label><input type="radio" name="optradio" id="some college">Some college, no degree</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Associate's degree</label>
+                <label><input type="radio" name="optradio" id="associate's degree">Associate's degree</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Bachelor's degree (e.g., BA, BS)</label>
+                <label><input type="radio" name="optradio" id="bachelor's degree">Bachelor's degree (e.g., BA, BS)</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Some graduate or professional school, no degree</label>
+                <label><input type="radio" name="optradio" id="some graduate school">Some graduate or professional school, no degree</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Graduate or professional degree (e.g., MA, MS, PhD, MD, JD)</label>
+                <label><input type="radio" name="optradio" id="graduate degree">Graduate or professional degree (e.g., MA, MS, PhD, MD, JD)</label>
               </div>
               <div class="radio">
-                <label><input type="radio" name="optradio">Other/prefer not to say</label>
+                <label><input type="radio" name="optradio" id="other_prefNo">Other/prefer not to say</label>
               </div>
             </form>
           </li>       
 
           <li>How would you describe your ethnicity? (Choose one or more options.)
             <!-- used more contemporary categories here and include option of selecting multiple answers - more detailed than original -->
-            <form role="form">
+            <form role="form-group" id="ethnicity">
               <div class="checkbox">
                 <label><input type="checkbox" value="">Asian: East Asian</label>
               </div>
@@ -361,7 +362,7 @@
           </li> <!-- need to add "If other, please describe." and free text entry -->
 
           <li>With what religion(s), if any, were you raised? (Choose one or more options.) <!-- used more categories than original and allowed multiple answers -->
-            <form role="form">
+            <form role="form-group" id="religionChild">
               <div class="checkbox">
                 <label><input type="checkbox" value="">Buddhism</label>
               </div>
@@ -408,7 +409,7 @@
           </li>
 
           <li>With what religious organization(s), if any, do you identify now? (Choose one or more options.) <!-- used more categories than original and allowed multiple answers -->
-            <form role="form">
+            <form role="form-group" id="religionNow">
               <div class="checkbox">
                 <label><input type="checkbox" value="">Buddhism</label>
               </div>
@@ -455,14 +456,14 @@
           </li>
 
           <li>In what country do you currently live? <!-- REMOVE? or use it as an attention check? Mturk will limit to US! -->
-            <div class="form-group">
+            <div class="form-group" id="country">
               <label class="sr-only">Country</label>
               <input type="age" class="form-control" id="age" placeholder="Please type your country of residence here (e.g., US)"> <!-- need to figure out how to make this text area smaller! -->
             </div>
           </li>
           
           <li>Is English your native language? <!-- need to add "If no, what is your native language?" -->
-            <form role="form"> <!-- not sure what original options were -->
+            <form role="form-group" id="englishNative"> <!-- not sure what original options were -->
               <div class="radio">
                 <label><input type="radio" name="optradio">Yes, English is my <b>only</b> native language</label>
               </div>
@@ -476,7 +477,7 @@
           </li>         
           
           <li>Are you currently married? <!-- REMOVE? -->
-            <form role="form"> <!-- not sure what original options were -->
+            <form role="form-group" id="maritalStatus"> <!-- not sure what original options were -->
               <div class="radio">
                 <label><input type="radio" name="optradio">Yes</label>
               </div>
@@ -493,14 +494,14 @@
           </li>      
 
           <li>How many children do you have? <!-- REMOVE? -->
-            <div class="form-group">
+            <div class="form-group" id="children">
               <label class="sr-only">Children</label>
               <input type="age" class="form-control" id="age" placeholder="Please type a number here (e.g., 1)"> <!-- need to figure out how to make this text area smaller! -->
             </div>
           </li>
           
           <li>Are you a vegetarian? <!-- REMOVE? -->
-            <form role="form"> <!-- not sure what original options were -->
+            <form role="form-group" id="vegetarian"> <!-- not sure what original options were -->
               <div class="radio">
                 <label><input type="radio" name="optradio">Yes</label>
               </div>
@@ -517,7 +518,7 @@
           </li>       
 
           <li>Have you ever studied moral philosophy? <!-- REMOVE? -->
-            <form role="form"> <!-- not sure what original options were -->
+            <form role="form-group" id="studyMoralPhil"> <!-- not sure what original options were -->
               <div class="radio">
                 <label><input type="radio" name="optradio">Yes</label>
               </div>
@@ -528,7 +529,7 @@
           </li>   
           
           <li>Please indicate the political ideology with which you most closely identify.
-            <form role="form"> <!-- not sure what original options were -->
+            <form role="form-group" id="politicalIdeology"> <!-- not sure what original options were -->
               <div class="radio">
                 <label><input type="radio" name="optradio">Democrat</label>
               </div>
@@ -548,7 +549,7 @@
           <p>For each of the following questions, please click on the answer choice that is most true for you.</p>
           <!-- response options laid out as a horizontal grid in original - maybe try to change this? -->
           <li>I believe in a personal god (that is, a god who takes a personal interest in the world and in people, including myself).
-            <form role="form">
+            <form role="form-group" id="beliefGod">
               <div class="radio">
                 <label><input type="radio" name="optradio">Strongly disagree</label>
               </div>
@@ -574,7 +575,7 @@
           </li>
 
           <li>Traditional ways are usually the best.
-            <form role="form">
+            <form role="form-group" id="beliefTradition">
               <div class="radio">
                 <label><input type="radio" name="optradio">Strongly disagree</label>
               </div>
@@ -600,7 +601,7 @@
           </li>
           
           <li>I believe that people whose bodies are dead continue to live on spiritually.
-            <form role="form">
+            <form role="form-group" id="beliefAfterlife">
               <div class="radio">
                 <label><input type="radio" name="optradio">Strongly disagree</label>
               </div>
@@ -626,7 +627,7 @@
           </li>
           
           <li>It is good to have a strong leader.
-            <form role="form">
+            <form role="form-group" id="beliefLeader">
               <div class="radio">
                 <label><input type="radio" name="optradio">Strongly disagree</label>
               </div>
@@ -652,7 +653,7 @@
           </li>
           
           <li>It is acceptable to be cruel to those who do not follow the rules.
-            <form role="form">
+            <form role="form-group" id="beliefRules">
               <div class="radio">
                 <label><input type="radio" name="optradio">Strongly disagree</label>
               </div>
@@ -677,6 +678,7 @@
             </form>                   
           </li>
         </ol>
+      </div>
 
       <div id="form">
         <button type="submit" class="btn btn-default"onclick="showSlide('results')">Next</button>

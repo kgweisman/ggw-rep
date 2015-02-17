@@ -141,11 +141,36 @@ $('.slide#stage button').click(function() {
 
 	// show next trial
 	this.blur();
-	experiment.next();
 	window.scrollTo(0, 0);
+	experiment.next();
 });
 
 $('.slide#demographics button').click(function() {
+	// record demographics data
+	// $('#age input').click(function() {
+	// 	demographics.age = $(this).attr('id')
+	// });
+	// demographics.age
+	// demographics.gender
+	// demographics.job
+	// demographics.education
+	// demographics.ethnicity
+	// demographics.religionChild
+	// demographics.religionNow
+	// demographics.country
+	// demographics.englishNative
+	// demographics.maritalStatus
+	// demographics.children
+	// demographics.vegetarian
+	// demographics.studyMoralPhil
+	// demographics.politicalIdeology
+	// demographics.beliefGod
+	// demographics.beliefTradition
+	// demographics.beliefAfterlife
+	// demographics.beliefLeader
+	// demographics.beliefRules
+
+	// set up results page
 	resultsSlide.calculateMeans();
 	resultsSlide.orderCharacters();
 	resultsSlide.showOrder();
@@ -278,6 +303,30 @@ var experiment = {
 	}
 };
 
+/* gather data from demographics survey */
+
+var demographics = {
+	age: [],
+	gender: [],
+	job: [],
+	education: [],
+	ethnicity: [],
+	religionChild: [],
+	religionNow: [],
+	country: [],
+	englishNative: [],
+	maritalStatus: [],
+	children: [],
+	vegetarian: [],
+	studyMoralPhil: [],
+	politicalIdeology: [],
+	beliefGod: [],
+	beliefTradition: [],
+	beliefAfterlife: [],
+	beliefLeader: [],
+	beliefRules: []
+}
+
 /* set up how to display results */
 
 var resultsSlide = {
@@ -331,5 +380,3 @@ var resultsSlide = {
 /* show consent slide (which then advances through all remaining slides) */
 
 showSlide("consent");
-
-/* TO DO: submit data via mmturkey */
