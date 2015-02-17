@@ -1,6 +1,6 @@
 /* set up helper functions from long */
 
-function showSlide(id) {
+function showSlide(id) { console.log(id);
 	$(".slide").hide(); // hide all slides
 	$("#"+id).show(); // show selected slide
 };
@@ -145,44 +145,45 @@ $('.slide#stage button').click(function() {
 	experiment.next();
 });
 
-$('.slide#demographics button').click(function() {
-	// record demographics data
-	// $('#age input').click(function() {
-	// 	demographics.age = $(this).attr('id')
-	// });
-	// demographics.age
-	// demographics.gender
-	// demographics.job
-	// demographics.education
-	// demographics.ethnicity
-	// demographics.religionChild
-	// demographics.religionNow
-	// demographics.country
-	// demographics.englishNative
-	// demographics.maritalStatus
-	// demographics.children
-	// demographics.vegetarian
-	// demographics.studyMoralPhil
-	// demographics.politicalIdeology
-	// demographics.beliefGod
-	// demographics.beliefTradition
-	// demographics.beliefAfterlife
-	// demographics.beliefLeader
-	// demographics.beliefRules
+$('.slide#demographics button#submitDemographics').click(function() {
+	demographics.age = $('.slide#demographics input#age').val(); // text input
+	demographics.gender = $('.slide#demographics input[name=gender]').val();
+	demographics.job = $('.slide#demographics input#job').val(); // text input
+	demographics.education = $('.slide#demographics input[name=education]').val();
+	demographics.ethnicity = $('.slide#demographics input[name=ethnicity]').val(); // multi answer
+	demographics.religionChild = $('.slide#demographics input[name=religionChild]').val(); // multi answer
+	demographics.religionNow = $('.slide#demographics input[name=religionNow]').val(); // multi answer
+	demographics.country = $('.slide#demographics input#country').val(); // text input
+	demographics.englishNative = $('.slide#demographics input[name=englishNative]').val();
+	demographics.maritalStatus = $('.slide#demographics input[name=maritalStatus]').val();
+	demographics.children = $('.slide#demographics input#children').val(); // text input
+	demographics.vegetarian = $('.slide#demographics input[name=vegetarian]').val();
+	demographics.studyMoralPhil = $('.slide#demographics input[name=studyMoralPhil]').val();
+	demographics.politicalIdeology = $('.slide#demographics input[name=politicalIdeology]').val();
+	demographics.beliefGod = $('.slide#demographics input[name=beliefGod]').val();
+	demographics.beliefTradition = $('.slide#demographics input[name=beliefTradition]').val();
+	demographics.beliefAfterlife = $('.slide#demographics input[name=beliefAfterlife]').val();
+	demographics.beliefLeader = $('.slide#demographics input[name=beliefLeader]').val();
+	demographics.beliefRules = $('.slide#demographics input[name=beliefRules]').val();
+	demographics.comments = $('.slide#demographics textarea#comment').val(); // text area
 
 	// set up results page
 	resultsSlide.calculateMeans();
 	resultsSlide.orderCharacters();
 	resultsSlide.showOrder();
 	window.scrollTo(0, 0);
+
+	showSlide("results");
 });
 
 $('.slide#results button').click(function() {
 	window.scrollTo(0, 0);
 	turk.submit(experiment); // is it ok to wait this long to submit? what if people quit when they see the demographics slide, or don't care about looking at their results?
-	setTimeout(function() {
-		$('.slide#finished p').text("You're finished - thanks for participating! Submitting to Mechanical Turk... done.");
-	}, 2000)
+	// setTimeout(function() {
+	// 	$('.slide#finished p').text("You're finished - thanks for participating! Submitting to Mechanical Turk... done.");
+	// }, 2000)
+
+	showSlide("finished");
 });
 
 /* set up how to display characters slide */
@@ -306,25 +307,26 @@ var experiment = {
 /* gather data from demographics survey */
 
 var demographics = {
-	// age: [],
-	// gender: [],
-	// job: [],
-	// education: [],
-	// ethnicity: [],
-	// religionChild: [],
-	// religionNow: [],
-	// country: [],
-	// englishNative: [],
-	// maritalStatus: [],
-	// children: [],
-	// vegetarian: [],
-	// studyMoralPhil: [],
-	// politicalIdeology: [],
-	// beliefGod: [],
-	// beliefTradition: [],
-	// beliefAfterlife: [],
-	// beliefLeader: [],
-	// beliefRules: []
+	age: [],
+	gender: [],
+	job: [],
+	education: [],
+	ethnicity: [],
+	religionChild: [],
+	religionNow: [],
+	country: [],
+	englishNative: [],
+	maritalStatus: [],
+	children: [],
+	vegetarian: [],
+	studyMoralPhil: [],
+	politicalIdeology: [],
+	beliefGod: [],
+	beliefTradition: [],
+	beliefAfterlife: [],
+	beliefLeader: [],
+	beliefRules: [],
+	comments: []
 }
 
 /* set up how to display results */
@@ -352,9 +354,9 @@ var resultsSlide = {
 		for (i in this.charMeans) {
 			array = this.charScores[i];
 			for (j = 0; j < array.length; j++) {
-				sum =+ array[j];
+				var total =+ array[j];
 			}
-			mean = sum/array.length
+			mean = total/array.length
 			this.charMeans[i] = mean;
 		}
 	},
