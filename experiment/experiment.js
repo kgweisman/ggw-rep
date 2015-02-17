@@ -231,7 +231,8 @@ var experiment = {
 			toby_chimp: [],
 			todd_billingsley_man: [],
 			you: []
-		}
+		},
+		charMeans: {}
 	}, 
 	end: function() { // code from long
 		showSlide("demographics");
@@ -310,7 +311,8 @@ var resultsSlide = {
 			}
 			mean = sum/array.length
 			this.charMeans[i] = mean;
-		}
+		};
+		experiment.info.charMeans = this.charMeans;
 	},
 	orderCharacters: function() {
 		sortedCharacters = [];
