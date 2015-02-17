@@ -146,27 +146,40 @@ $('.slide#stage button').click(function() {
 });
 
 $('.slide#demographics button').click(function() { 
-	// record demographic info
-	demographics.age = $('.slide#demographics input#age').val(); // text input
-	demographics.gender = $('.slide#demographics input[name=gender]').val();
-	demographics.job = $('.slide#demographics input#job').val(); // text input
-	demographics.education = $('.slide#demographics input[name=education]').val();
-	demographics.ethnicity = $('.slide#demographics input[name=ethnicity]').val(); // multi answer
-	demographics.religionChild = $('.slide#demographics input[name=religionChild]').val(); // multi answer
-	demographics.religionNow = $('.slide#demographics input[name=religionNow]').val(); // multi answer
-	demographics.country = $('.slide#demographics input#country').val(); // text input
-	demographics.englishNative = $('.slide#demographics input[name=englishNative]').val();
-	demographics.maritalStatus = $('.slide#demographics input[name=maritalStatus]').val();
-	demographics.children = $('.slide#demographics input#children').val(); // text input
-	demographics.vegetarian = $('.slide#demographics input[name=vegetarian]').val();
-	demographics.studyMoralPhil = $('.slide#demographics input[name=studyMoralPhil]').val();
-	demographics.politicalIdeology = $('.slide#demographics input[name=politicalIdeology]').val();
-	demographics.beliefGod = $('.slide#demographics input[name=beliefGod]').val();
-	demographics.beliefTradition = $('.slide#demographics input[name=beliefTradition]').val();
-	demographics.beliefAfterlife = $('.slide#demographics input[name=beliefAfterlife]').val();
-	demographics.beliefLeader = $('.slide#demographics input[name=beliefLeader]').val();
-	demographics.beliefRules = $('.slide#demographics input[name=beliefRules]').val();
-	demographics.comments = $('.slide#demographics textarea#comment').val(); // text area
+	// record demographic info...
+	// text inputs
+	demographics.age = $('input#age', '#demographicsForm').val();
+	demographics.job = $('input#job', '#demographicsForm').val(); 
+	demographics.country = $('input#country', '#demographicsForm').val();
+	demographics.children = $('input#children', '#demographicsForm').val();
+
+	// text areas
+	demographics.comments = $('.slide#demographics textarea#comments').val();
+
+	// multiple choice radios
+	demographics.gender = $('input[name=gender]:checked', '#demographicsForm').val();
+	demographics.education = $('input[name=education]:checked', '#demographicsForm').val();
+	demographics.englishNative = $('input[name=englishNative]:checked', '#demographicsForm').val();
+	demographics.maritalStatus = $('input[name=maritalStatus]:checked', '#demographicsForm').val();
+	demographics.vegetarian = $('input[name=vegetarian]:checked', '#demographicsForm').val();
+	demographics.studyMoralPhil = $('input[name=studyMoralPhil]:checked', '#demographicsForm').val();
+	demographics.politicalIdeology = $('input[name=politicalIdeology]:checked', '#demographicsForm').val();
+	demographics.beliefGod = $('input[name=beliefGod]:checked', '#demographicsForm').val();
+	demographics.beliefTradition = $('input[name=beliefTradition]:checked', '#demographicsForm').val();
+	demographics.beliefAfterlife = $('input[name=beliefAfterlife]:checked', '#demographicsForm').val();
+	demographics.beliefLeader = $('input[name=beliefLeader]:checked', '#demographicsForm').val();
+	demographics.beliefRules = $('input[name=beliefRules]:checked', '#demographicsForm').val();
+
+	// multiple answer checkboxes
+	$('input[name=ethnicity]:checked', '#demographicsForm').each(function() {
+		demographics.ethnicity.push($(this).val());
+	});
+	$('input[name=religionChild]:checked', '#demographicsForm').each(function() {
+		demographics.religionChild.push($(this).val());
+	});
+	$('input[name=religionNow]:checked', '#demographicsForm').each(function() {
+		demographics.religionNow.push($(this).val());
+	});
 
 	// send demographic info to experiment object
 	experiment.info.demographics = demographics;
