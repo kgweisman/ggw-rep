@@ -214,7 +214,7 @@ var charactersSlide = {
 	showOrder: function() {
 		for (i = 0; i < this.order.length; i++) {
 			var charNum = i.toString();
-			$("h2#character"+charNum).text(charactersSlide.order[i].charTitle);
+			$("h2#character"+charNum).text(charactersSlide.order[i].charTitle.split(",")[0]);
 			$("img#character"+charNum).attr("src", charactersSlide.order[i].imageSource);
 			$("p#character"+charNum).text(charactersSlide.order[i].charDescrip);
 		};
