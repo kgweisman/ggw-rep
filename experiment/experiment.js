@@ -155,10 +155,9 @@ $('.slide#demographics button').click(function() {
 $('.slide#results button').click(function() {
 	window.scrollTo(0, 0);
 	turk.submit(experiment); // is it ok to wait this long to submit? what if people quit when they see the demographics slide, or don't care about looking at their results?
-});
-
-$('.slide#finished button').click(function() {
-	window.scrollTo(0, 0);
+	setTimeout(function() {
+		$('.slide#finished p').text("You're finished - thanks for participating! Submitting to Mechanical Turk... done.");
+	}, 2000)
 });
 
 /* set up how to display characters slide */
