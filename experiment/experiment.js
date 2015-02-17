@@ -154,6 +154,7 @@ $('.slide#demographics button').click(function() {
 
 $('.slide#results button').click(function() {
 	window.scrollTo(0, 0);
+	turk.submit(experiment); // is it ok to wait this long to submit? what if people quit when they see the demographics slide, or don't care about looking at their results?
 });
 
 $('.slide#finished button').click(function() {
@@ -231,14 +232,10 @@ var experiment = {
 			toby_chimp: [],
 			todd_billingsley_man: [],
 			you: []
-		},
-		charMeans: {}
+		}
 	}, 
 	end: function() { // code from long
 		showSlide("demographics");
-		// setTimeout(function() {
-		// 	turk.submit(experiment)
-		// }, 1500);
 	},
 	next: function() { // code from long
 		if (this.trials.length === 0) {
@@ -311,8 +308,7 @@ var resultsSlide = {
 			}
 			mean = sum/array.length
 			this.charMeans[i] = mean;
-		};
-		experiment.info.charMeans = this.charMeans;
+		}
 	},
 	orderCharacters: function() {
 		sortedCharacters = [];
