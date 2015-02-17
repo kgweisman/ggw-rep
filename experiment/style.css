@@ -28,3 +28,7 @@ img {
 	width: 110px;
 	padding: 5px!important;
 }
+
+.control-group {
+	margin-bottom: 30px;
+}
