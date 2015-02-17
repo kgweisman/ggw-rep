@@ -306,25 +306,25 @@ var experiment = {
 /* gather data from demographics survey */
 
 var demographics = {
-	age: [],
-	gender: [],
-	job: [],
-	education: [],
-	ethnicity: [],
-	religionChild: [],
-	religionNow: [],
-	country: [],
-	englishNative: [],
-	maritalStatus: [],
-	children: [],
-	vegetarian: [],
-	studyMoralPhil: [],
-	politicalIdeology: [],
-	beliefGod: [],
-	beliefTradition: [],
-	beliefAfterlife: [],
-	beliefLeader: [],
-	beliefRules: []
+	// age: [],
+	// gender: [],
+	// job: [],
+	// education: [],
+	// ethnicity: [],
+	// religionChild: [],
+	// religionNow: [],
+	// country: [],
+	// englishNative: [],
+	// maritalStatus: [],
+	// children: [],
+	// vegetarian: [],
+	// studyMoralPhil: [],
+	// politicalIdeology: [],
+	// beliefGod: [],
+	// beliefTradition: [],
+	// beliefAfterlife: [],
+	// beliefLeader: [],
+	// beliefRules: []
 }
 
 /* set up how to display results */

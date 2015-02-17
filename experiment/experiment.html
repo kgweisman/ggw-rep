@@ -6,7 +6,7 @@
       <title>Mind Survey</title>
       <script src="dependencies/jquery-2.1.3.min.js"></script>
       <script src="dependencies/mmturkey.js"></script>
-      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> <!-- for dropdown menus -->
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> <!-- for form styling -->
       <link href="style.css" rel="stylesheet"/>
 	</head>
 
@@ -263,431 +263,415 @@
       <p>Before you view your rankings, we would like you to take a moment to answer the following questions about your background.</p>
       <!-- Think about culling this list! -->
 
-      <div class="form">
-        <ol>
-          <li>Age
-            <div class="form-group" id="age">
-              <label class="sr-only">Age</label>
-              <input class="form-control" id="age" placeholder="Please type a number here (e.g., 27)"> <!-- need to figure out how to make this text area smaller! -->
-            </div>
-          </li>
+      <form role="form">
+        
+        <div class="form-group">
+          <label for="age">Age:</label>
+          <input type="text" class="form-control" id="age"> 
+        </div>
 
-          <li>Gender
-            <form role="form-group" id="gender">
-              <div class="radio">
-                <label><input type="radio" name="optradio" id="female">Female</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio" id="male">Male</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio" = "other_prefNo">Other/prefer not to say</label>
-              </div>
-            </form>
-          </li>
+        <div class="form-group">
+          <label for="gender">Gender:</label>
+          <div class="radio">
+            <label><input type="radio" name="female">Female</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="male">Male</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="other_prefNo" disabled>Other/prefer not to say</label>
+          </div>
+        </div>
 
-          <li>What is your job/occupation? <!-- original used a dropdown, but choices unclear - REMOVE? -->
-            <div class="form-group" id="job">
-              <label class="sr-only">Occupation</label>
-              <input class="form-control" id="job" placeholder="Please type your job/occupation here"> <!-- need to figure out how to make this text area smaller! -->
-            </div>
-          </li>
+        <div class="form-group">
+          <label for="job">What is your job/occupation?</label>
+          <input type="text" class="form-control" id="job"> 
+        </div>      
 
-          <li>Please select the category that best represents the amount of education you have completed. <!-- used more contemporary categories here instead of original (categories provided were unclear) - maybe modify to allow multiple answer, instead of multiple choice? -->
-            <form role="form-group" id="education">
-              <div class="radio">
-                <label><input type="radio" name="optradio" id="less than 9th grade">Less than 9th grade</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio" id="some high school">Some high school, no diploma</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio" id="high school">High school diploma or equivalent (e.g., GED)</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio" id="some college">Some college, no degree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio" id="associate's degree">Associate's degree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio" id="bachelor's degree">Bachelor's degree (e.g., BA, BS)</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio" id="some graduate school">Some graduate or professional school, no degree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio" id="graduate degree">Graduate or professional degree (e.g., MA, MS, PhD, MD, JD)</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio" id="other_prefNo">Other/prefer not to say</label>
-              </div>
-            </form>
-          </li>       
+        <div class="form-group">
+          <label for="education">Please select the category that best represents the amount of education you have completed.</label>
+          <div class="radio">
+            <label><input type="radio" name="hs_none">Less than 9th grade</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="hs_some">Some high school, no diploma</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="hs_degree" disabled>High school diploma or equivalent (e.g., GED)</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="college_some" disabled>Some college, no degree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="college_assocDegree" disabled>Associate's degree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="college_bachDegree" disabled>Bacehlor's degree (e.g., BA, BS)</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="grad_some" disabled>Some graduate or professional school, no degree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="grad_degree" disabled>Graduate or professional degree (e.g., MA, MS, PhD, MD, JD)</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="other_prefNo" disabled>Other/prefer not to say</label>
+          </div>
+        </div>
 
-          <li>How would you describe your ethnicity? (Choose one or more options.)
-            <!-- used more contemporary categories here and include option of selecting multiple answers - more detailed than original -->
-            <form role="form-group" id="ethnicity">
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Asian: East Asian</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Asian: South Asian</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Asian: Other Asian</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Black or African American</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Hispanic or Latina/o</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Middle Eastern</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Native American, American Indian, or Alaska Native</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Native Hawaiian or other Pacific Islander</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">White or European American</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Other/prefer not to say</label>
-              </div>
-            </form>
-          </li> <!-- need to add "If other, please describe." and free text entry -->
+        <div class="form-group">
+          <label for="ethnicity">How would you describe your ethnicity? (Choose one or more options.)</label>
+          <div class="checkbox">
+            <label><input type="checkbox" value="asian_eastAsian">Asian: East Asian</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="asian_southAsian">Asian: South Asian</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="asian_otherAsian">Asian: Other Asian</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="black">Black or African American</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="hispanicLatino">Hispanic or Latino/a</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="middleEastern">Middle Eastern</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="nativeAmerican">Native American, American Indian, or Alaska Native</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="nativeHawaiianPI">Native Hawaiian or other Pacific Islander</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="white">White or European American</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="other_prefNo">Other/prefer not to say</label>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="religionChild">With what religion(s), if any, were you raised? (Choose one or more options.)</label>
+          <div class="checkbox">
+            <label><input type="checkbox" value="buddishm">Buddhism</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="christianity_catholic">Christianity: Catholic</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="christianity_evangelical">Christianity: Evangelical</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="christianity_protestant">Christianity: Protestant (mainline/mainstream)</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="christianity_morman">Christianity: LDS/Mormon</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="christianity_other">Christianity: Other Christian</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="nativeAmerican">Native American, American Indian, or Alaska Native</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="hinduism">Hinduism</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="islam">Islam</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="jainism">Jainism</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="judaism">Judaism</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="sikhism">Sikhism</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="other">Other religion</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="none">No religion</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="prefNo">Prefer not to say</label>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="religionNow">With what religious organization(s), if any, do you identify now? (Choose one or more options.)</label>
+          <div class="checkbox">
+            <label><input type="checkbox" value="buddishm">Buddhism</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="christianity_catholic">Christianity: Catholic</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="christianity_evangelical">Christianity: Evangelical</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="christianity_protestant">Christianity: Protestant (mainline/mainstream)</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="christianity_morman">Christianity: LDS/Mormon</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="christianity_other">Christianity: Other Christian</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="nativeAmerican">Native American, American Indian, or Alaska Native</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="hinduism">Hinduism</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="islam">Islam</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="jainism">Jainism</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="judaism">Judaism</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="sikhism">Sikhism</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="other">Other religion</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="none">No religion</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value="prefNo">Prefer not to say</label>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="country">In what country do you currently live?</label>
+          <input type="text" class="form-control" id="country">      
+        </div>
+        
+        <div class="form-group">
+          <label for="englishNative">Is English your native language?</label>
+          <div class="radio">
+            <label><input type="radio" name="yes_only">Yes, English is my <b>only</b> native language</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="yes_multiple">Yes, English is one of <b>multiple</b> native languages for me</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="no">No, English is <b>not</b> my native language</label>
+          </div>
+        </div>      
+        
+        <div class="form-group">
+          <label for="maritalStatus">Are you currently married?</label>
+          <div class="radio">
+            <label><input type="radio" name="yes">Yes</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="no_committed">No, but I am in a committed relationship</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="no">No</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="other_prefNo">Other/prefer not to say</label>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="children">How many children do you have?</label>
+          <input type="text" class="form-control" id="children"> 
+        </div>
+        
+        <div class="form-group">
+          <label for="vegetarian">Are you a vegetarian?</label>
+          <div class="radio">
+            <label><input type="radio" name="yes">Yes</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="no_limitedMeat">No, but I don't each much meat</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="no">No</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="other_prefNo">Other/prefer not to say</label>
+          </div>
+        </div>
 
-          <li>With what religion(s), if any, were you raised? (Choose one or more options.) <!-- used more categories than original and allowed multiple answers -->
-            <form role="form-group" id="religionChild">
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Buddhism</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Christianity: Catholic</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Christianity: Evangelical Protestant</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Christianity: Protestant (mainline/mainstream)</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Christianity: Mormon</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Christianity: Other Christian</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Hinduism</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Islam</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Jainism</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Judaism</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Sikhism</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Other religion</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">No religion</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Prefer not to say</label>
-              </div>                                       
-            </form>
-          </li>
+        <div class="form-group">
+          <label for="studyMoralPhil">Have you ever studied moral philosophy?</label>
+          <div class="radio">
+            <label><input type="radio" name="yes">Yes</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="no">No</label>
+          </div>
+        </div>
 
-          <li>With what religious organization(s), if any, do you identify now? (Choose one or more options.) <!-- used more categories than original and allowed multiple answers -->
-            <form role="form-group" id="religionNow">
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Buddhism</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Christianity: Catholic</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Christianity: Evangelical Protestant</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Christianity: Protestant (mainline/mainstream)</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Christianity: Mormon</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Christianity: Other Christian</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Hinduism</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Islam</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Jainism</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Judaism</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Sikhism</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Other religion</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">No religion</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">Prefer not to say</label>
-              </div>                                       
-            </form>
-          </li>
+        <div class="form-group">
+          <label for="politicalIdeology">Please indicate the political ideology with which you most closely identify.</label>
+          <div class="radio">
+            <label><input type="radio" name="democrat">Democrat</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="republican">Republican</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="independent">Independent</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="other_prefNo">Other/prefer not to say</label>
+          </div>
+        </div>
 
-          <li>In what country do you currently live? <!-- REMOVE? or use it as an attention check? Mturk will limit to US! -->
-            <div class="form-group" id="country">
-              <label class="sr-only">Country</label>
-              <input type="age" class="form-control" id="age" placeholder="Please type your country of residence here (e.g., US)"> <!-- need to figure out how to make this text area smaller! -->
-            </div>
-          </li>
-          
-          <li>Is English your native language? <!-- need to add "If no, what is your native language?" -->
-            <form role="form-group" id="englishNative"> <!-- not sure what original options were -->
-              <div class="radio">
-                <label><input type="radio" name="optradio">Yes, English is my <b>only</b> native language</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Yes, English is one of <b>multiple</b> native languages for me</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">No, English is <b>not</b> my native language</label>
-              </div>
-            </form>
-          </li>         
-          
-          <li>Are you currently married? <!-- REMOVE? -->
-            <form role="form-group" id="maritalStatus"> <!-- not sure what original options were -->
-              <div class="radio">
-                <label><input type="radio" name="optradio">Yes</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">No, but I am in a committed relationship</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">No</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Prefer not to say</label>
-              </div>
-            </form>
-          </li>      
+        <h2>For each of the following questions, please click on the answer choice that is most true for you.</h2>
 
-          <li>How many children do you have? <!-- REMOVE? -->
-            <div class="form-group" id="children">
-              <label class="sr-only">Children</label>
-              <input type="age" class="form-control" id="age" placeholder="Please type a number here (e.g., 1)"> <!-- need to figure out how to make this text area smaller! -->
-            </div>
-          </li>
-          
-          <li>Are you a vegetarian? <!-- REMOVE? -->
-            <form role="form-group" id="vegetarian"> <!-- not sure what original options were -->
-              <div class="radio">
-                <label><input type="radio" name="optradio">Yes</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">No, but I don't eat much meat</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">No</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Prefer not to say</label>
-              </div>
-            </form>  
-          </li>       
+        <div class="form-group">
+          <label for="beliefGod">I believe in a personal god (that is, a god who takes a personal interest in the world and in people, including myself).</label>
+          <div class="radio">
+            <label><input type="radio" name="disagree_strong">Strongly disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="disagree_moderate">Moderately disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="disagree_little">Disagree a little</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="neither">Neither agree nor disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_little">Agree a little</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_moderate">Moderately agree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_strong">Strongly agree</label>
+          </div>
+        </div>      
 
-          <li>Have you ever studied moral philosophy? <!-- REMOVE? -->
-            <form role="form-group" id="studyMoralPhil"> <!-- not sure what original options were -->
-              <div class="radio">
-                <label><input type="radio" name="optradio">Yes</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">No</label>
-              </div>
-            </form>
-          </li>   
-          
-          <li>Please indicate the political ideology with which you most closely identify.
-            <form role="form-group" id="politicalIdeology"> <!-- not sure what original options were -->
-              <div class="radio">
-                <label><input type="radio" name="optradio">Democrat</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Republican</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Independent</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Other/prefer not to say</label>
-              </div>
-            </form>
-          </li>
+        <div class="form-group">
+          <label for="beliefTradition">Traditional ways are usually the best.</label>
+          <div class="radio">
+            <label><input type="radio" name="disagree_strong">Strongly disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="disagree_moderate">Moderately disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="disagree_little">Disagree a little</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="neither">Neither agree nor disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_little">Agree a little</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_moderate">Moderately agree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_strong">Strongly agree</label>
+          </div>
+        </div>      
 
-          <p></p>
-          <p>For each of the following questions, please click on the answer choice that is most true for you.</p>
-          <!-- response options laid out as a horizontal grid in original - maybe try to change this? -->
-          <li>I believe in a personal god (that is, a god who takes a personal interest in the world and in people, including myself).
-            <form role="form-group" id="beliefGod">
-              <div class="radio">
-                <label><input type="radio" name="optradio">Strongly disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Moderately disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Disagree a little</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Neither agree nor disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Agree a little</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Moderately agree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Strongly agree</label>
-              </div>
-            </form>                   
-          </li>
+        <div class="form-group">
+          <label for="beliefAfterlife">I believe that people whose bodies are dead continue to live on spiritually.</label>
+          <div class="radio">
+            <label><input type="radio" name="disagree_strong">Strongly disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="disagree_moderate">Moderately disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="disagree_little">Disagree a little</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="neither">Neither agree nor disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_little">Agree a little</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_moderate">Moderately agree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_strong">Strongly agree</label>
+          </div>
+        </div>      
 
-          <li>Traditional ways are usually the best.
-            <form role="form-group" id="beliefTradition">
-              <div class="radio">
-                <label><input type="radio" name="optradio">Strongly disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Moderately disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Disagree a little</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Neither agree nor disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Agree a little</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Moderately agree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Strongly agree</label>
-              </div>
-            </form>                   
-          </li>
-          
-          <li>I believe that people whose bodies are dead continue to live on spiritually.
-            <form role="form-group" id="beliefAfterlife">
-              <div class="radio">
-                <label><input type="radio" name="optradio">Strongly disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Moderately disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Disagree a little</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Neither agree nor disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Agree a little</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Moderately agree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Strongly agree</label>
-              </div>
-            </form>                   
-          </li>
-          
-          <li>It is good to have a strong leader.
-            <form role="form-group" id="beliefLeader">
-              <div class="radio">
-                <label><input type="radio" name="optradio">Strongly disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Moderately disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Disagree a little</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Neither agree nor disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Agree a little</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Moderately agree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Strongly agree</label>
-              </div>
-            </form>                   
-          </li>
-          
-          <li>It is acceptable to be cruel to those who do not follow the rules.
-            <form role="form-group" id="beliefRules">
-              <div class="radio">
-                <label><input type="radio" name="optradio">Strongly disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Moderately disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Disagree a little</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Neither agree nor disagree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Agree a little</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Moderately agree</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio">Strongly agree</label>
-              </div>
-            </form>                   
-          </li>
-        </ol>
-      </div>
+        <div class="form-group">
+          <label for="beliefLeader">It is good to have a strong leader.</label>
+          <div class="radio">
+            <label><input type="radio" name="disagree_strong">Strongly disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="disagree_moderate">Moderately disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="disagree_little">Disagree a little</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="neither">Neither agree nor disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_little">Agree a little</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_moderate">Moderately agree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_strong">Strongly agree</label>
+          </div>
+        </div>      
 
-      <div id="form">
-        <button type="submit" class="btn btn-default"onclick="showSlide('results')">Next</button>
-      </div>
+        <div class="form-group">
+          <label for="beliefRules">It is acceptable to be cruel to those who do not follow the rules.</label>
+          <div class="radio">
+            <label><input type="radio" name="disagree_strong">Strongly disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="disagree_moderate">Moderately disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="disagree_little">Disagree a little</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="neither">Neither agree nor disagree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_little">Agree a little</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_moderate">Moderately agree</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="agree_strong">Strongly agree</label>
+          </div>
+        </div>      
 
-    </div>
+        <div class="form-group">
+          <label for="comment">Comments</label>
+          <p>Do you have anything you'd like to share with the researcher (e.g., notes on problems with the survey, ways to improve your experience of taking the survey, etc.)?  (You can also email the researcher directly at <a href="mailto:kweisman@stanford.edu">kweisman@stanford.edu</a>.) We really appreciate your feedback!</p>
+          <textarea class="form-control" rows="3" id="comment"></textarea>
+        </div>
+
+      <button type="submit" class="btn btn-default">Submit</button>
+
+    </form>
+
+  </div>
 
 <!-- post-study: present participant's results ("results" slide) -->
-<!-- no idea how to do this yet... do we really have to?? -->
 
     <div class="slide" id="results">
       <h1>Your Results</h1>
