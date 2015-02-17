@@ -41,6 +41,10 @@ h2 {
 	font-size: 18px;
 }
 
+.subtitle {
+	text-align: center;
+}
+
 /*style table*/
 table {
 	text-align: justify;
@@ -64,6 +68,10 @@ table img {
 
 table p {
 	padding-bottom: 10px;
+}
+
+table#surveysTable h2 {
+	padding-top: 35px;
 }
 
 /*center buttons*/

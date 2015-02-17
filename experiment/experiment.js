@@ -237,7 +237,7 @@ var surveysSlide = {
 			var condNum = i.toString();
 			$("#surveys h2#"+condNum).text(surveysSlide.order[i].condName);
 			$("#surveys p#"+condNum).text("This survey asks you to judge which character is more capable of "+surveysSlide.order[i].wording+".");
-			$("#surveys button#"+condNum).text("Select "+surveysSlide.order[i].condName+" Survey");
+			$("#surveys button#"+condNum).text("Start "+surveysSlide.order[i].condName+" Survey");
 		}
 		experiment.info.condIntroOrder = this.order; // store order of introduction of conditions in experiment object
 	}
