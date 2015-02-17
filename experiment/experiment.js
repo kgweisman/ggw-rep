@@ -145,7 +145,8 @@ $('.slide#stage button').click(function() {
 	experiment.next();
 });
 
-$('.slide#demographics button#submitDemographics').click(function() {
+$('.slide#demographics button').click(function() { 
+	// record demographic info
 	demographics.age = $('.slide#demographics input#age').val(); // text input
 	demographics.gender = $('.slide#demographics input[name=gender]').val();
 	demographics.job = $('.slide#demographics input#job').val(); // text input
@@ -167,21 +168,26 @@ $('.slide#demographics button#submitDemographics').click(function() {
 	demographics.beliefRules = $('.slide#demographics input[name=beliefRules]').val();
 	demographics.comments = $('.slide#demographics textarea#comment').val(); // text area
 
+	// send demographic info to experiment object
+	experiment.info.demographics = demographics;
+
 	// set up results page
-	resultsSlide.calculateMeans();
-	resultsSlide.orderCharacters();
-	resultsSlide.showOrder();
+	resultsSlide.calculateMeans(); 
+	resultsSlide.orderCharacters(); 
+	resultsSlide.showOrder(); 
 	window.scrollTo(0, 0);
+
+	showSlide("results");
 });
 
 $('.slide#results button').click(function() {
 	window.scrollTo(0, 0);
 	turk.submit(experiment); // is it ok to wait this long to submit? what if people quit when they see the demographics slide, or don't care about looking at their results?
-	// setTimeout(function() {
-	// 	$('.slide#finished p').text("You're finished - thanks for participating! Submitting to Mechanical Turk... done.");
-	// }, 2000)
+	setTimeout(function() {
+		$('.slide#finished p').text("You're finished - thanks for participating! Submitting to Mechanical Turk... done.");
+	}, 2000);
 
-	showSlide("finished");
+	// showSlide("finished");
 });
 
 /* set up how to display characters slide */
@@ -257,7 +263,7 @@ var experiment = {
 			you: []
 		}
 	}, 
-	end: function() { // code from long
+	end: function() { 
 		showSlide("demographics");
 	},
 	next: function() { // code from long
