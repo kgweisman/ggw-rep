@@ -1,34 +1,75 @@
 /*general style*/
 
-/*.radio {
-	display: inline;
-}*/
+/*general styling for slides*/
+.slide {
+	/*pad the inside of the slide*/
+	padding: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 
+    /*center slide within the window*/
+	margin: auto auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+
+	/*all elements in a slide will be centered by default*/
+    /*text-align: center;*/
+
+    border: 5px solid;
+    width: 800px;
+
+    /*could explicitly set the following, but these are the defaults for me (chrome, linux)*/
+    font-size: 14px;
+    /*background-color: rgb(255,255,255);*/
+}
+
+/*style headings and other kinds of text*/
+h1 {
+	font-size: 28px;
+	color: darkred;
+	text-align: center;
+}
+
+h2 {
+	font-size: 18px;
+	color: darkred;
+}
+
+.fun-text {
+	text-align: center;
+	font-size: 18px;
+}
+
+/*center buttons*/
+.button {
+	text-align: center;
+}
+
+/*display images during character introduction and results slides*/
 img {
 	margin: 20px;
-	display: block;
+	display: inline;
 	margin-left: auto;
 	margin-right: auto;
-	width: 200px;
+	width: 100px;
 	border: solid black 3px;
 }
 
-#characters img {
-	width: 100px;
-	display: inline;
+/*display images during experiment stage slides*/
+#stage img {
+	width: 200px;
+	display: block;
 }
 
-#results img {
-	width: 100px;
-	display: inline;
-}
-
+/*display response buttons during experiment stage slides*/
 #stage button {
 	margin: 10px;
 	width: 110px;
 	padding: 5px!important;
 }
 
+/*spacing between parts of demographics form*/
 .control-group {
 	margin-bottom: 30px;
 }
+

@@ -199,8 +199,6 @@ $('.slide#results button').click(function() {
 	setTimeout(function() {
 		$('.slide#finished p').text("You're finished - thanks for participating! Submitting to Mechanical Turk... done.");
 	}, 2000);
-
-	// showSlide("finished");
 });
 
 /* set up how to display characters slide */
