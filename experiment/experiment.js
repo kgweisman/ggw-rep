@@ -172,8 +172,6 @@ $('.slide#demographics button#submitDemographics').click(function() {
 	resultsSlide.orderCharacters();
 	resultsSlide.showOrder();
 	window.scrollTo(0, 0);
-
-	showSlide("results");
 });
 
 $('.slide#results button').click(function() {
