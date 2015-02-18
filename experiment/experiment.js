@@ -367,11 +367,12 @@ var resultsSlide = {
 	charSorted: [],
 	calculateMeans: function() {
 		for (i in this.charMeans) {
+			var total = 0;
 			array = this.charScores[i];
 			for (j = 0; j < array.length; j++) {
-				var total =+ array[j];
+				total += array[j];
 			}
-			mean = total/array.length
+			var mean = total/array.length;
 			this.charMeans[i] = mean;
 		}
 	},
