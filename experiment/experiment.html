@@ -485,18 +485,39 @@
     <div class="slide" id="stage">
       <p id="trial-num" align="center" style="font-style:italic">{{}}</p>
       <p class="fun-text" id="question" align="center">{{}}</p>
-      <div class="row">
-        <div class="col-md-4">
-          <img id="image-left"/>
-          <p id="text-left" align="center">{{}}</p>
-        </div>
-        <div class="col-md-4">
-        </div> <!-- spacer -->
-        <div class="col-md-4">
-          <img id="image-right"/>
-          <p id="text-right" align="center">{{}}</p>
-        </div>
-      </div>
+
+      <table id="stageTable">
+        <colgroup>
+          <col style="width:30%">
+          <col style="width:40%">
+          <col style="width:30%">
+        </colgroup>
+        <tbody>
+          <tr>
+            <td>
+              <img id="image-left"/>
+            </td>
+            <td>
+              <!-- spacer -->
+            </td>
+            <td>
+              <img id="image-right"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p id="text-left" align="center">{{}}</p>
+            </td>
+            <td>
+              <!-- spacer -->
+            </td>
+            <td>
+              <p id="text-right" align="center">{{}}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
       <p align="center">
         <button type="submit" class="btn btn-default" id="much more left">&#8592;<br>Much more<br>this one</button>
         <button type="submit" class="btn btn-default" id="slightly more left">&#8592;<br>Slightly more<br>this one</button>
