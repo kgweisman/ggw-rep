@@ -44,10 +44,10 @@ h2 {
 .fun-text#question {
 	margin-left: auto;
 	margin-right: auto;
-	width: 550px;
+	width: 500px;
 	font-weight: 500;
 	color: darkred;
-	font-size: 20px;
+	/*font-size: 20px;*/
 }
 
 .subtitle {
@@ -84,12 +84,17 @@ table p {
 	padding-bottom: 10px;
 }
 
+table td > div {
+	height: 50px;
+}
+
 table#surveysTable h2 {
 	padding-top: 35px;
 }
 
-table td > div {
-	height: 50px;
+table#resultsTable {
+	margin: 0px;
+	padding: 0px;
 }
 
 /*center buttons*/
@@ -112,6 +117,12 @@ img {
 #stage img {
 	width: 200px;
 	/*display: block;*/
+}
+
+/*display images during results slide*/
+#results img {
+	width: 40px;
+	border: solid black 2px;
 }
 
 /*display response buttons during experiment stage slides*/

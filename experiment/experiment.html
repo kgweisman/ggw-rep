@@ -488,9 +488,9 @@
 
       <table id="stageTable">
         <colgroup>
+          <col style="width:35%">
           <col style="width:30%">
-          <col style="width:40%">
-          <col style="width:30%">
+          <col style="width:35%">
         </colgroup>
         <tbody>
           <tr>
@@ -531,7 +531,7 @@
 
     <div class="slide" id="demographics">
       <h1>Demographic Survey</h1>
-      <p>Before you view your rankings, we would like to know a little more about your background.</p>
+      <p class="subtitle">Before you view your rankings, we would like to know a little more about your background.</p>
       
       <!-- Think about culling this list! -->
 
@@ -990,9 +990,72 @@
 
       <h1>Your Results</h1>
 
-      <p id="rankingIntro">{{}}</p>
+      <p class="subtitle" id="rankingIntro">{{}}</p>
 
-      <ol>
+      <div>
+        <table id="resultsTable">
+          <colgroup>
+            <col style="width:7%">
+            <col style="width:7%">
+            <col style="width:7%">
+            <col style="width:7%">
+            <col style="width:7%">
+            <col style="width:7%">
+            <col style="width:7%">
+            <col style="width:7%">
+            <col style="width:7%">
+            <col style="width:7%">
+            <col style="width:7%">
+            <col style="width:7%">
+            <col style="width:7%">
+          </colgroup>
+          <tbody>
+            <tr>
+              <td>
+                <div><img id="rank1"/></div>
+              </td>
+              <td>
+                <div><img id="rank2"/></div>
+              </td>
+              <td>
+                <div><img id="rank3"/></div>
+              </td>
+              <td>
+                <div><img id="rank4"/></div>
+              </td>
+              <td>
+                <div><img id="rank5"/></div>
+              </td>
+              <td>
+                <div><img id="rank6"/></div>
+              </td>
+              <td>
+                <div><img id="rank7"/></div>
+              </td>
+              <td>
+                <div><img id="rank8"/></div>
+              </td>
+              <td>
+                <div><img id="rank9"/></div>
+              </td>
+              <td>
+                <div><img id="rank10"/></div>
+              </td>
+              <td>
+                <div><img id="rank11"/></div>
+              </td>
+              <td>
+                <div><img id="rank12"/></div>
+              </td>
+              <td>
+                <div><img id="rank13"/></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+<!--       <ol>
         <li>
           <p class="block-text" id="rank1">{{}}</p>
           <img id="rank1"/>
@@ -1045,7 +1108,7 @@
           <p class="block-text" id="rank13">{{}}</p>
           <img id="rank13"/>
         </li>
-      </ol>
+      </ol> -->
 
       <div class="button" id = "form">
         <button type="submit" class="btn btn-default" onclick="showSlide('finished')">Next</button>
