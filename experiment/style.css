@@ -68,7 +68,7 @@ table {
 	table-layout: fixed;
 }
 
-td, th {
+table td, th {
 	padding: 15px;
 	padding-top: 0px;
 	padding-bottom: 0px;
@@ -86,6 +86,10 @@ table p {
 
 table#surveysTable h2 {
 	padding-top: 35px;
+}
+
+table td > div {
+	height: 50px;
 }
 
 /*center buttons*/
