@@ -94,95 +94,47 @@ $('.slide#characters button').click(function() {
 
 $('.slide#surveys button').click(function() { // select condition
 	var chosen = $(this).attr('id');
-	experiment.info.condition = surveysSlide.order[chosen].condName;
-	experiment.info.wording = surveysSlide.order[chosen].wording;
+	experiment.newData.condition = surveysSlide.order[chosen].condName;
+	experiment.newData.wording = surveysSlide.order[chosen].wording;
 	experiment.next();
 	window.scrollTo(0, 0);
-});
-
-$('.slide#stage button').click(function() {
-	// store selected response
-	var response = $(this).attr('id');
-	experiment.info.data.response.push(response);
-	switch (response) { // omg clean this up
-		case "much more left":
-			characterMore = experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName;
-			characterLess = experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName;
-			experiment.info.charScores[characterMore].push(2);
-			experiment.info.charScores[characterLess].push(-2);
-			break;
-		case "slightly more left":
-			characterMore = experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName;
-			characterLess = experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName;
-			experiment.info.charScores[characterMore].push(1);
-			experiment.info.charScores[characterLess].push(-1);
-			break;
-		case "both equally":
-			characterMore = experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName;
-			characterLess = experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName;
-			experiment.info.charScores[characterMore].push(0);
-			experiment.info.charScores[characterLess].push(0);
-			break;
-		case "slightly more right":
-			characterMore = experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName;
-			characterLess = experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName;
-			experiment.info.charScores[characterMore].push(1);
-			experiment.info.charScores[characterLess].push(-1);
-			break;
-		case "much more right":
-			characterMore = experiment.info.data.rightImage[experiment.info.data.rightImage.length-1].charName;
-			characterLess = experiment.info.data.leftImage[experiment.info.data.leftImage.length-1].charName;
-			experiment.info.charScores[characterMore].push(2);
-			experiment.info.charScores[characterLess].push(-2);
-			break;
-		default: 
-			console.log("whoops");
-	}
-
-	// show next trial
-	this.blur();
-	window.scrollTo(0, 0);
-	experiment.next();
 });
 
 $('.slide#demographics button').click(function() { 
 	// record demographic info...
 	// text inputs
-	demographics.age = $('input#age', '#demographicsForm').val();
-	demographics.job = $('input#job', '#demographicsForm').val(); 
-	demographics.country = $('input#country', '#demographicsForm').val();
-	demographics.children = $('input#children', '#demographicsForm').val();
+	experiment.newData.age = $('input#age', '#demographicsForm').val();
+	experiment.newData.job = $('input#job', '#demographicsForm').val(); 
+	experiment.newData.country = $('input#country', '#demographicsForm').val();
+	experiment.newData.children = $('input#children', '#demographicsForm').val();
 
 	// text areas
-	demographics.comments = $('.slide#demographics textarea#comments').val();
+	experiment.newData.comments = $('.slide#demographics textarea#comments').val();
 
 	// multiple choice radios
-	demographics.gender = $('input[name=gender]:checked', '#demographicsForm').val();
-	demographics.education = $('input[name=education]:checked', '#demographicsForm').val();
-	demographics.englishNative = $('input[name=englishNative]:checked', '#demographicsForm').val();
-	demographics.maritalStatus = $('input[name=maritalStatus]:checked', '#demographicsForm').val();
-	demographics.vegetarian = $('input[name=vegetarian]:checked', '#demographicsForm').val();
-	demographics.studyMoralPhil = $('input[name=studyMoralPhil]:checked', '#demographicsForm').val();
-	demographics.politicalIdeology = $('input[name=politicalIdeology]:checked', '#demographicsForm').val();
-	demographics.beliefGod = $('input[name=beliefGod]:checked', '#demographicsForm').val();
-	demographics.beliefTradition = $('input[name=beliefTradition]:checked', '#demographicsForm').val();
-	demographics.beliefAfterlife = $('input[name=beliefAfterlife]:checked', '#demographicsForm').val();
-	demographics.beliefLeader = $('input[name=beliefLeader]:checked', '#demographicsForm').val();
-	demographics.beliefRules = $('input[name=beliefRules]:checked', '#demographicsForm').val();
+	experiment.newData.gender = $('input[name=gender]:checked', '#demographicsForm').val();
+	experiment.newData.education = $('input[name=education]:checked', '#demographicsForm').val();
+	experiment.newData.englishNative = $('input[name=englishNative]:checked', '#demographicsForm').val();
+	experiment.newData.maritalStatus = $('input[name=maritalStatus]:checked', '#demographicsForm').val();
+	experiment.newData.vegetarian = $('input[name=vegetarian]:checked', '#demographicsForm').val();
+	experiment.newData.studyMoralPhil = $('input[name=studyMoralPhil]:checked', '#demographicsForm').val();
+	experiment.newData.politicalIdeology = $('input[name=politicalIdeology]:checked', '#demographicsForm').val();
+	experiment.newData.beliefGod = $('input[name=beliefGod]:checked', '#demographicsForm').val();
+	experiment.newData.beliefTradition = $('input[name=beliefTradition]:checked', '#demographicsForm').val();
+	experiment.newData.beliefAfterlife = $('input[name=beliefAfterlife]:checked', '#demographicsForm').val();
+	experiment.newData.beliefLeader = $('input[name=beliefLeader]:checked', '#demographicsForm').val();
+	experiment.newData.beliefRules = $('input[name=beliefRules]:checked', '#demographicsForm').val();
 
 	// multiple answer checkboxes
 	$('input[name=ethnicity]:checked', '#demographicsForm').each(function() {
-		demographics.ethnicity.push($(this).val());
+		experiment.newData.ethnicity.push($(this).val());
 	});
 	$('input[name=religionChild]:checked', '#demographicsForm').each(function() {
-		demographics.religionChild.push($(this).val());
+		experiment.newData.religionChild.push($(this).val());
 	});
 	$('input[name=religionNow]:checked', '#demographicsForm').each(function() {
-		demographics.religionNow.push($(this).val());
+		experiment.newData.religionNow.push($(this).val());
 	});
-
-	// send demographic info to experiment object
-	experiment.info.demographics = demographics;
 
 	// set up results page
 	resultsSlide.calculateMeans(); 
@@ -218,7 +170,7 @@ var charactersSlide = {
 			$("img#character"+charNum).attr("src", charactersSlide.order[i].imageSource);
 			$("p#character"+charNum).text(charactersSlide.order[i].charDescrip);
 		};
-		experiment.info.charIntroOrder = this.order; // store order of introduction of conditions in experiment object
+		experiment.newData.charIntroOrder = this.order; // store order of introduction of conditions in experiment object
 	}
 }
 
@@ -239,25 +191,213 @@ var surveysSlide = {
 			$("#surveys p#"+condNum).text("This survey asks you to judge which character is more capable of "+surveysSlide.order[i].wording+".");
 			$("#surveys button#"+condNum).text("Start "+surveysSlide.order[i].condName+" Survey");
 		}
-		experiment.info.condIntroOrder = this.order; // store order of introduction of conditions in experiment object
+		experiment.newData.condIntroOrder = this.order; // store order of introduction of conditions in experiment object
 	}
 }
 
 /* set up how to display stage slide (experiment trials) */
 
+// var experiment = {
+// 	// array for making each new trial
+// 	trials: pairs,
+
+// 	// where to store all the data
+// 	newData: {
+// 		// what the participant saw
+// 		charIntroOrder: [],
+// 		condIntroOrder: [],
+// 		condition: "",
+// 		wording: "",
+
+// 		// demographic information about the participant
+// 		age: "",
+// 		gender: "",
+// 		job: "",
+// 		education: "",
+// 		ethnicity: [],
+// 		religionChild: [],
+// 		religionNow: [],
+// 		country: "",
+// 		englishNative: "",
+// 		maritalStatus: "",
+// 		children: "",
+// 		vegetarian: "",
+// 		studyMoralPhil: "",
+// 		politicalIdeology: "",
+// 		beliefGod: "",
+// 		beliefTradition: "",
+// 		beliefAfterlife: "",
+// 		beliefLeader: "",
+// 		beliefRules: "",
+// 		comments: "",
+
+// 		// trial by trial data
+// 		trialData: [],
+
+// 		// summary data for use in results slide
+// 		charScores: {
+// 			charlie_dog: [],
+// 			delores_gleitman_deceased: [],
+// 			fetus: [],
+// 			gerald_schiff_pvs: [],
+// 			god: [],
+// 			green_frog: [],
+// 			kismet_robot: [],
+// 			nicholas_gannon_baby: [],
+// 			samantha_hill_girl: [],
+// 			sharon_harvey_woman: [],
+// 			toby_chimp: [],
+// 			todd_billingsley_man: [],
+// 			you: []
+// 		},
+// 		charMeans: {
+// 			charlie_dog: NaN,
+// 			delores_gleitman_deceased: NaN,
+// 			fetus: NaN,
+// 			gerald_schiff_pvs: NaN,
+// 			god: NaN,
+// 			green_frog: NaN,
+// 			kismet_robot: NaN,
+// 			nicholas_gannon_baby: NaN,
+// 			samantha_hill_girl: NaN,
+// 			sharon_harvey_woman: NaN,
+// 			toby_chimp: NaN,
+// 			todd_billingsley_man: NaN,
+// 			you: NaN
+// 		}
+// 	}, 
+	
+// 	// what to do when participant has seen all trials
+// 	end: function() { 
+// 		showSlide("demographics");
+// 	},
+
+// 	// what happens when participant sees a new trial
+// 	next: function() {
+// 		if (this.trials.length === 0) {
+// 			experiment.end();
+// 		} else {
+// 			// create place to store data for this trial
+// 			data = {
+// 				trialNum: 79 - this.trials.length,
+// 				pair: randomElementNR(this.trials),
+// 				leftCharacter: [],
+// 				rightCharacter: [],
+// 				response: "",
+// 				rt: ""
+// 			};
+
+// 			// assign left and right characters
+// 			var sideBucket = [0,1]; 
+// 			data.leftCharacter = data.pair[randomElementNR(sideBucket)];
+// 			data.rightCharacter = data.pair[sideBucket];
+
+// 			// display hacky progress bar
+// 			var percentComplete = Math.round((data.trialNum-1)/78 * 100);
+// 			$("#trial-num").text("trial "+data.trialNum.toString()+" of 78: "+percentComplete+"% complete");
+
+// 			// set text and images for this trial
+// 			$(".slide#stage #question").text("Which character do you think is more capable of "+this.newData.wording+"?");
+// 			$("#stage #image-left").attr("src", data.leftCharacter.imageSource);
+// 			$("#stage #image-right").attr("src", data.rightCharacter.imageSource);
+// 			$("#stage #text-left").text(data.leftCharacter.charTitle);
+// 			$("#stage #text-right").text(data.rightCharacter.charTitle);
+
+// 			// show trial
+// 			showSlide("stage");
+
+// 			// record response and rt
+// 			var startTime = (new Date()).getTime();
+// 			var response;
+
+// 			$('.slide#stage button').click(function() {
+// 				// store selected response
+// 				response = $(this).attr('id');
+// 				// experiment.newData.trialData.push(data);
+// 				// experiment.newData.trialData[experiment.trials.length-1] = response;
+
+// 			// 	switch (response) { // omg clean this up
+// 			// 		case "much more left":
+// 			// 			characterMore = data.leftCharacter;
+// 			// 			characterLess = data.rightCharacter;
+// 			// 			this.newData.charScores[characterMore.charName].push(2);
+// 			// 			this.newData.charScores[characterLess.charName].push(-2);
+// 			// 			break;
+// 			// 		case "slightly more left":
+// 			// 			characterMore = data.leftCharacter;
+// 			// 			characterLess = data.rightCharacter;
+// 			// 			this.newData.charScores[characterMore.charName].push(1);
+// 			// 			this.newData.charScores[characterLess.charName].push(-1);
+// 			// 			break;
+// 			// 		case "both equally":
+// 			// 			this.newData.charScores[leftCharacter.charName].push(0);
+// 			// 			this.newData.charScores[leftCharacter.charName].push(0);
+// 			// 			break;
+// 			// 		case "slightly more right":
+// 			// 			characterMore = data.rightCharacter;
+// 			// 			characterLess = data.leftCharacter;
+// 			// 			this.newData.charScores[characterMore.charName].push(1);
+// 			// 			this.newData.charScores[characterLess.charName].push(-1);
+// 			// 			break;
+// 			// 		case "much more right":
+// 			// 			characterMore = data.rightCharacter;
+// 			// 			characterLess = data.leftCharacter;
+// 			// 			this.newData.charScores[characterMore.charName].push(2);
+// 			// 			this.newData.charScores[characterLess.charName].push(-2);
+// 			// 			break;
+// 			// 		default: 
+// 			// 			console.log("whoops");
+// 			// 	};
+
+// 				var clickHandler = function(event) {
+// 					var endTime = (new Date()).getTime();
+// 					var data = data;
+// 					data.rt = endTime - startTime;
+// 					data.response = response;
+// 				};
+// 			}
+// 		}
+// 	}
+// }
+
 var experiment = {
+	// array for making each new trial
 	trials: pairs,
-	info: { // where to store data
+
+	// where to store all the data
+	newData: {
+		// condition and session information
 		charIntroOrder: [],
 		condIntroOrder: [],
-		condition: [],
-		wording: [],
-		data: {
-			leftImage: [],
-			rightImage: [],
-			response: []
-			// , rt: []
-		},
+		condition: "",
+		wording: "",
+
+		// demographic information about participant
+		age: "",
+		gender: "",
+		job: "",
+		education: "",
+		ethnicity: [],
+		religionChild: [],
+		religionNow: [],
+		country: "",
+		englishNative: "",
+		maritalStatus: "",
+		children: "",
+		vegetarian: "",
+		studyMoralPhil: "",
+		politicalIdeology: "",
+		beliefGod: "",
+		beliefTradition: "",
+		beliefAfterlife: "",
+		beliefLeader: "",
+		beliefRules: "",
+		comments: "",
+
+		// trial by trial data
+		trialData: [],
+
+		// summary data for use in results slide
 		charScores: {
 			charlie_dog: [],
 			delores_gleitman_deceased: [],
@@ -272,83 +412,95 @@ var experiment = {
 			toby_chimp: [],
 			todd_billingsley_man: [],
 			you: []
+		},
+		charMeans: {
+			charlie_dog: NaN,
+			delores_gleitman_deceased: NaN,
+			fetus: NaN,
+			gerald_schiff_pvs: NaN,
+			god: NaN,
+			green_frog: NaN,
+			kismet_robot: NaN,
+			nicholas_gannon_baby: NaN,
+			samantha_hill_girl: NaN,
+			sharon_harvey_woman: NaN,
+			toby_chimp: NaN,
+			todd_billingsley_man: NaN,
+			you: NaN
 		}
-	}, 
-	end: function() { 
+	},
+
+	// what to do when the participant has seen all trials
+	end: function() {
 		showSlide("demographics");
 	},
-	next: function() { // code from long
+
+	// what happens when participant sees a new trial
+	next: function() {
 		if (this.trials.length === 0) {
 			experiment.end();
-		} else { 
-			// create bucket for selecting left vs. right position of images
-			var sideBucket = [0,1]; 
+		} else {
+			// create place to store data for this trial
+			var data = {
+				trialNum: 79 - this.trials.length,
+				pair: randomElementNR(this.trials),
+				leftCharacter: {},
+				rightCharacter: {},
+				response: "",
+				rt: NaN
+			};
 
-			// store data about which pair and positions of characters for this trial
-			var trialPair = randomElementNR(this.trials);
+			// assign left and right characters
+			var sideBucket = [0,1];
+			data.leftCharacter = data.pair[randomElementNR(sideBucket)];
+			data.rightCharacter = data.pair[sideBucket]
 
-			this.info.data.leftImage.push(trialPair[randomElementNR(sideBucket)]);
-			this.info.data.rightImage.push(trialPair[sideBucket]);
-
-			// display trial number (temporary for development?)
-			var trialNum = this.info.data.leftImage.length.toString();
-			var percentComplete = Math.round((this.info.data.leftImage.length-1)/78 * 100);
-			$("#trial-num").text("trial "+trialNum+" of 78: "+percentComplete+"% complete");
+			// display hacky progress bar
+			var percentComplete = Math.round((data.trialNum-1)/78 * 100);
+			$('#trial-num').text("trial "+data.trialNum.toString()+" of 78: "+percentComplete+"% complete");
 
 			// set text and images for this trial
-			$(".slide#stage #question").text("Which character do you think is more capable of "+this.info.wording+"?");
-			$("#stage #image-left").attr("src", this.info.data.leftImage[trialNum-1].imageSource);
-			$("#stage #image-right").attr("src", this.info.data.rightImage[trialNum-1].imageSource);
-			$("#stage #text-left").text(this.info.data.leftImage[trialNum-1].charTitle);
-			$("#stage #text-right").text(this.info.data.rightImage[trialNum-1].charTitle);
-
+			$(".slide#stage #question").text("Which character do you think is more capable of "+this.newData.wording+"?");
+			$("#stage #image-left").attr("src", data.leftCharacter.imageSource);
+			$("#stage #image-right").attr("src", data.rightCharacter.imageSource);
+			$("#stage #text-left").text(data.leftCharacter.charTitle);
+			$("#stage #text-right").text(data.rightCharacter.charTitle);
+			
 			// show trial
 			showSlide("stage");
 
-			// // start timing 
-			// var startTime = (new Date()).getTime();
-			// var keyPressHandler = function(event) {
-			// 	var endTime = (new Date()).getTime();
-			// 	var rt = endTime - startTime;
-			// 	experiment.info.data.rt.push(rt);
-			// 	console.log(rt);
-			// }
+			// record response and rt
+			var startTime = (new Date()).getTime();
 
-			// $('.slide#stage button').one("click", keyPressHandler);
+			// $('.slide#stage button').click(function() {
+			// 	// store selected responses
+			// 	data.response = $('.slide#stage button').attr('id');
+			// });
+
+			var clickHandler = function(event) {
+				var endTime = (new Date()).getTime();
+				// var data = data;
+				data.rt = endTime - startTime;
+				experiment.newData.trialData.push(data);
+			};
+
+			$(".slide#stage button").click(function() {
+				data.response = $(this).attr('id');
+			})
+
+			$(document).one("click", function() {
+				clickHandler();
+				experiment.next();
+			})
 		}
 	}
-};
-
-/* gather data from demographics survey */
-
-var demographics = {
-	age: [],
-	gender: [],
-	job: [],
-	education: [],
-	ethnicity: [],
-	religionChild: [],
-	religionNow: [],
-	country: [],
-	englishNative: [],
-	maritalStatus: [],
-	children: [],
-	vegetarian: [],
-	studyMoralPhil: [],
-	politicalIdeology: [],
-	beliefGod: [],
-	beliefTradition: [],
-	beliefAfterlife: [],
-	beliefLeader: [],
-	beliefRules: [],
-	comments: []
 }
 
 /* set up how to display results */
 
 var resultsSlide = {
 	list: characters,
-	charScores: experiment.info.charScores,
+	charScores: experiment.newData.charScores,
 	charMeans: {
 		charlie_dog: [],
 		delores_gleitman_deceased: [],
@@ -388,7 +540,7 @@ var resultsSlide = {
 		for (i = 0; i < this.charSorted.length; i++) {
 			var charNum = i+1;
 			var charName = this.charSorted[i][0];
-			$("p#rankingIntro").text("Here's how you ranked these characters, from most to least capable of "+experiment.info.wording+":");
+			$("p#rankingIntro").text("Here's how you ranked these characters, from most to least capable of "+experiment.newData.wording+":");
 			$("p#rank"+charNum).text(characters[charName].charTitle);
 			$("img#rank"+charNum).attr("src", characters[charName].imageSource);
 		}
