@@ -41,8 +41,22 @@ h2 {
 	font-size: 18px;
 }
 
+.fun-text#question {
+	margin-left: auto;
+	margin-right: auto;
+	width: 550px;
+	font-weight: 500;
+	color: darkred;
+	font-size: 20px;
+}
+
 .subtitle {
 	text-align: center;
+}
+
+.legal {
+	text-align: justify;
+	font-style: italic;
 }
 
 /*style table*/
