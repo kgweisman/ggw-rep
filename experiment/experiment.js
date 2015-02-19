@@ -165,12 +165,17 @@ var charactersSlide = {
 	},
 	showOrder: function() {
 		for (i = 0; i < this.order.length; i++) {
+
+			// fill in text on slide
 			var charNum = i.toString();
 			$("h2#character"+charNum).text(charactersSlide.order[i].charTitle.split(",")[0]);
 			$("img#character"+charNum).attr("src", charactersSlide.order[i].imageSource);
 			$("p#character"+charNum).text(charactersSlide.order[i].charDescrip);
+
+			// store order in experiment data object
+			experiment.newData.charIntroOrder.push(this.order[i].charName);
+			
 		};
-		experiment.newData.charIntroOrder = this.order; // store order of introduction of conditions in experiment object
 	}
 }
 
@@ -186,6 +191,7 @@ var surveysSlide = {
 	},
 	showOrder: function() {
 		for (i = 0; i < this.order.length; i++) {
+
 			// fill in text on slide
 			var condNum = i.toString();
 			$("#surveys h2#"+condNum).text(this.order[i].condName);
