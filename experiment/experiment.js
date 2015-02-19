@@ -369,8 +369,9 @@ var experiment = {
 
 				// end trial
 				clickHandler();
+
 				// $(".slide#stage button").unclick();
-				$(".slide#stage button").unbind();
+				$(".slide#stage button").unbind().blur();
 				window.scrollTo(0, 0);
 				experiment.next();
 			})
