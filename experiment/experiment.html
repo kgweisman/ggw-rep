@@ -990,7 +990,14 @@
 
       <h1>Your Results</h1>
 
-      <p class="subtitle" id="rankingIntro">{{}}</p>
+      <p class="fun-text" id="rankingIntro">{{}}</p>
+
+      <table>
+        <tr>
+          <td><p style="text-align:left">&#8592; <i>Most capable</i></p></td>
+          <td><p style="text-align:right"><i>Least capable</i> &#8594;</p></td>
+        </tr>
+      </table>
 
       <div>
         <table id="resultsTable">
@@ -1054,13 +1061,6 @@
           </tbody>
         </table>
       </div>
-
-      <table>
-        <tr>
-          <td><p style="text-align:left">&#8592; Most capable</p></td>
-          <td><p style="text-align:right">Least capable &#8594;</p></td>
-        </tr>
-      </table>
 
       <div class="button" id = "form">
         <button type="submit" class="btn btn-default" onclick="showSlide('finished')">Next</button>
