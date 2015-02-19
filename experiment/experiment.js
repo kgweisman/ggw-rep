@@ -186,12 +186,15 @@ var surveysSlide = {
 	},
 	showOrder: function() {
 		for (i = 0; i < this.order.length; i++) {
+			// fill in text on slide
 			var condNum = i.toString();
-			$("#surveys h2#"+condNum).text(surveysSlide.order[i].condName);
-			$("#surveys p#"+condNum).text("This survey asks you to judge which character is more capable of "+surveysSlide.order[i].wording+".");
-			$("#surveys button#"+condNum).text("Start "+surveysSlide.order[i].condName+" Survey");
+			$("#surveys h2#"+condNum).text(this.order[i].condName);
+			$("#surveys p#"+condNum).text("This survey asks you to judge which character is more capable of "+this.order[i].wording+".");
+			$("#surveys button#"+condNum).text("Start "+this.order[i].condName+" Survey");
+
+			// store order in experiment data object
+			experiment.newData.condIntroOrder.push(this.order[i].condName);
 		}
-		experiment.newData.condIntroOrder = this.order; // store order of introduction of conditions in experiment object
 	}
 }
 
