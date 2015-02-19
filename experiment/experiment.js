@@ -303,8 +303,12 @@ var experiment = {
 			data.rightCharacter = pair[sideBucket]
 
 			// display hacky progress bar
-			var percentComplete = Math.round((data.trialNum-1)/78 * 100);
-			$('#trial-num').text("trial "+data.trialNum.toString()+" of 78: "+percentComplete+"% complete");
+			var percentComplete = (data.trialNum-1)/78 * 100;
+			var percentCompleteRounded = Math.round(percentComplete);
+			$('#trial-num').text("trial "+data.trialNum.toString()+" of 78: "+percentCompleteRounded+"% complete");
+			$('#stage .progress-bar').attr("aria-valuenow", percentComplete.toString());
+			$('#stage .progress-bar').css("width", percentComplete.toString()+"%");
+			// $('#stage .progress-bar').text(percentCompleteRounded+"%");
 
 			// set text and images for this trial
 			$(".slide#stage #question").text("Which character do you think is more capable of "+this.newData.wording+"?");
@@ -369,8 +373,6 @@ var experiment = {
 
 				// end trial
 				clickHandler();
-
-				// $(".slide#stage button").unclick();
 				$(".slide#stage button").unbind().blur();
 				window.scrollTo(0, 0);
 				experiment.next();

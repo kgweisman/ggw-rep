@@ -100,6 +100,21 @@ table#resultsTable {
 	padding: 10px;
 }
 
+.progress {
+	height: 10px;
+}
+
+.progress-bar {
+	transition: none;
+	text-align: center;
+}
+
+.progress-text {
+	font-style: italic;
+	font-size: 12px;
+	margin-bottom: 6px;
+}
+
 /*center buttons*/
 .button {
 	text-align: center;
