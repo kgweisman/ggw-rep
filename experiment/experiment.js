@@ -197,169 +197,6 @@ var surveysSlide = {
 
 /* set up how to display stage slide (experiment trials) */
 
-// var experiment = {
-// 	// array for making each new trial
-// 	trials: pairs,
-
-// 	// where to store all the data
-// 	newData: {
-// 		// what the participant saw
-// 		charIntroOrder: [],
-// 		condIntroOrder: [],
-// 		condition: "",
-// 		wording: "",
-
-// 		// demographic information about the participant
-// 		age: "",
-// 		gender: "",
-// 		job: "",
-// 		education: "",
-// 		ethnicity: [],
-// 		religionChild: [],
-// 		religionNow: [],
-// 		country: "",
-// 		englishNative: "",
-// 		maritalStatus: "",
-// 		children: "",
-// 		vegetarian: "",
-// 		studyMoralPhil: "",
-// 		politicalIdeology: "",
-// 		beliefGod: "",
-// 		beliefTradition: "",
-// 		beliefAfterlife: "",
-// 		beliefLeader: "",
-// 		beliefRules: "",
-// 		comments: "",
-
-// 		// trial by trial data
-// 		trialData: [],
-
-// 		// summary data for use in results slide
-// 		charScores: {
-// 			charlie_dog: [],
-// 			delores_gleitman_deceased: [],
-// 			fetus: [],
-// 			gerald_schiff_pvs: [],
-// 			god: [],
-// 			green_frog: [],
-// 			kismet_robot: [],
-// 			nicholas_gannon_baby: [],
-// 			samantha_hill_girl: [],
-// 			sharon_harvey_woman: [],
-// 			toby_chimp: [],
-// 			todd_billingsley_man: [],
-// 			you: []
-// 		},
-// 		charMeans: {
-// 			charlie_dog: NaN,
-// 			delores_gleitman_deceased: NaN,
-// 			fetus: NaN,
-// 			gerald_schiff_pvs: NaN,
-// 			god: NaN,
-// 			green_frog: NaN,
-// 			kismet_robot: NaN,
-// 			nicholas_gannon_baby: NaN,
-// 			samantha_hill_girl: NaN,
-// 			sharon_harvey_woman: NaN,
-// 			toby_chimp: NaN,
-// 			todd_billingsley_man: NaN,
-// 			you: NaN
-// 		}
-// 	}, 
-	
-// 	// what to do when participant has seen all trials
-// 	end: function() { 
-// 		showSlide("demographics");
-// 	},
-
-// 	// what happens when participant sees a new trial
-// 	next: function() {
-// 		if (this.trials.length === 0) {
-// 			experiment.end();
-// 		} else {
-// 			// create place to store data for this trial
-// 			data = {
-// 				trialNum: 79 - this.trials.length,
-// 				pair: randomElementNR(this.trials),
-// 				leftCharacter: [],
-// 				rightCharacter: [],
-// 				response: "",
-// 				rt: ""
-// 			};
-
-// 			// assign left and right characters
-// 			var sideBucket = [0,1]; 
-// 			data.leftCharacter = data.pair[randomElementNR(sideBucket)];
-// 			data.rightCharacter = data.pair[sideBucket];
-
-// 			// display hacky progress bar
-// 			var percentComplete = Math.round((data.trialNum-1)/78 * 100);
-// 			$("#trial-num").text("trial "+data.trialNum.toString()+" of 78: "+percentComplete+"% complete");
-
-// 			// set text and images for this trial
-// 			$(".slide#stage #question").text("Which character do you think is more capable of "+this.newData.wording+"?");
-// 			$("#stage #image-left").attr("src", data.leftCharacter.imageSource);
-// 			$("#stage #image-right").attr("src", data.rightCharacter.imageSource);
-// 			$("#stage #text-left").text(data.leftCharacter.charTitle);
-// 			$("#stage #text-right").text(data.rightCharacter.charTitle);
-
-// 			// show trial
-// 			showSlide("stage");
-
-// 			// record response and rt
-// 			var startTime = (new Date()).getTime();
-// 			var response;
-
-// 			$('.slide#stage button').click(function() {
-// 				// store selected response
-// 				response = $(this).attr('id');
-// 				// experiment.newData.trialData.push(data);
-// 				// experiment.newData.trialData[experiment.trials.length-1] = response;
-
-// 			// 	switch (response) { // omg clean this up
-// 			// 		case "much more left":
-// 			// 			characterMore = data.leftCharacter;
-// 			// 			characterLess = data.rightCharacter;
-// 			// 			this.newData.charScores[characterMore.charName].push(2);
-// 			// 			this.newData.charScores[characterLess.charName].push(-2);
-// 			// 			break;
-// 			// 		case "slightly more left":
-// 			// 			characterMore = data.leftCharacter;
-// 			// 			characterLess = data.rightCharacter;
-// 			// 			this.newData.charScores[characterMore.charName].push(1);
-// 			// 			this.newData.charScores[characterLess.charName].push(-1);
-// 			// 			break;
-// 			// 		case "both equally":
-// 			// 			this.newData.charScores[leftCharacter.charName].push(0);
-// 			// 			this.newData.charScores[leftCharacter.charName].push(0);
-// 			// 			break;
-// 			// 		case "slightly more right":
-// 			// 			characterMore = data.rightCharacter;
-// 			// 			characterLess = data.leftCharacter;
-// 			// 			this.newData.charScores[characterMore.charName].push(1);
-// 			// 			this.newData.charScores[characterLess.charName].push(-1);
-// 			// 			break;
-// 			// 		case "much more right":
-// 			// 			characterMore = data.rightCharacter;
-// 			// 			characterLess = data.leftCharacter;
-// 			// 			this.newData.charScores[characterMore.charName].push(2);
-// 			// 			this.newData.charScores[characterLess.charName].push(-2);
-// 			// 			break;
-// 			// 		default: 
-// 			// 			console.log("whoops");
-// 			// 	};
-
-// 				var clickHandler = function(event) {
-// 					var endTime = (new Date()).getTime();
-// 					var data = data;
-// 					data.rt = endTime - startTime;
-// 					data.response = response;
-// 				};
-// 			}
-// 		}
-// 	}
-// }
-
 var experiment = {
 	// array for making each new trial
 	trials: pairs,
@@ -443,7 +280,6 @@ var experiment = {
 			// create place to store data for this trial
 			var data = {
 				trialNum: 79 - this.trials.length,
-				pair: randomElementNR(this.trials),
 				leftCharacter: {},
 				rightCharacter: {},
 				response: "",
@@ -451,9 +287,10 @@ var experiment = {
 			};
 
 			// assign left and right characters
+			var pair = randomElementNR(this.trials);
 			var sideBucket = [0,1];
-			data.leftCharacter = data.pair[randomElementNR(sideBucket)];
-			data.rightCharacter = data.pair[sideBucket]
+			data.leftCharacter = pair[randomElementNR(sideBucket)];
+			data.rightCharacter = pair[sideBucket]
 
 			// display hacky progress bar
 			var percentComplete = Math.round((data.trialNum-1)/78 * 100);
@@ -472,26 +309,29 @@ var experiment = {
 			// record response and rt
 			var startTime = (new Date()).getTime();
 
-			// $('.slide#stage button').click(function() {
-			// 	// store selected responses
-			// 	data.response = $('.slide#stage button').attr('id');
-			// });
-
 			var clickHandler = function(event) {
 				var endTime = (new Date()).getTime();
-				// var data = data;
 				data.rt = endTime - startTime;
 				experiment.newData.trialData.push(data);
 			};
 
-			$(".slide#stage button").click(function() {
+			$(".slide#stage button").click(function() { console.log("button1")
 				data.response = $(this).attr('id');
-			})
-
-			$(document).one("click", function() {
+				data.leftCharacter = data.leftCharacter.charName;
+				data.rightCharacter = data.rightCharacter.charName;
 				clickHandler();
+				$(".slide#stage button").unbind();
 				experiment.next();
 			})
+
+			// $(document).one("click", function() { console.log("button2")
+			// 	clickHandler();
+			// 	experiment.next();
+
+			// 	// console.log experiment data object
+			// 	var str = JSON.stringify(experiment.newData.trialData, null, 2);
+			// 	// console.log(str);
+			// })
 		}
 	}
 }
