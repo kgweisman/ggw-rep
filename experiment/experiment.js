@@ -1,6 +1,7 @@
 /* set up helper functions from long */
 
-function showSlide(id) { console.log(id);
+function showSlide(id) { 
+	// console.log(id); // show which slide is being presented
 	$(".slide").hide(); // hide all slides
 	$("#"+id).show(); // show selected slide
 };
@@ -174,7 +175,7 @@ var charactersSlide = {
 
 			// store order in experiment data object
 			experiment.newData.charIntroOrder.push(this.order[i].charName);
-			
+
 		};
 	}
 }
@@ -324,23 +325,55 @@ var experiment = {
 				experiment.newData.trialData.push(data);
 			};
 
-			$(".slide#stage button").click(function() { console.log("button1")
+			$(".slide#stage button").click(function() { 
+				// record response
 				data.response = $(this).attr('id');
+
+				// recode response as number
+				switch (data.response) { 
+					case "much more left":
+						characterMore = data.leftCharacter.charName;
+						characterLess = data.rightCharacter.charName;
+						experiment.newData.charScores[characterMore].push(2);
+						experiment.newData.charScores[characterLess].push(-2);
+						break;
+					case "slightly more left":
+						characterMore = data.leftCharacter.charName;
+						characterLess = data.rightCharacter.charName;
+						experiment.newData.charScores[characterMore].push(1);
+						experiment.newData.charScores[characterLess].push(-1);
+						break;
+					case "both equally":
+						experiment.newData.charScores[data.leftCharacter.charName].push(0);
+						experiment.newData.charScores[data.rightCharacter.charName].push(0);
+						break;
+					case "slightly more right":
+						characterMore = data.rightCharacter.charName;
+						characterLess = data.leftCharacter.charName;
+						experiment.newData.charScores[characterMore].push(1);
+						experiment.newData.charScores[characterLess].push(-1);
+						break;
+					case "much more right":
+						characterMore = data.rightCharacter.charName;
+						characterLess = data.leftCharacter.charName;
+						experiment.newData.charScores[characterMore].push(2);
+						experiment.newData.charScores[characterLess].push(-2);
+						break;
+					default: 
+						console.log("whoops");
+				}
+
+				// store only character names instead of character objects
 				data.leftCharacter = data.leftCharacter.charName;
 				data.rightCharacter = data.rightCharacter.charName;
+
+				// end trial
 				clickHandler();
+				// $(".slide#stage button").unclick();
 				$(".slide#stage button").unbind();
+				window.scrollTo(0, 0);
 				experiment.next();
 			})
-
-			// $(document).one("click", function() { console.log("button2")
-			// 	clickHandler();
-			// 	experiment.next();
-
-			// 	// console.log experiment data object
-			// 	var str = JSON.stringify(experiment.newData.trialData, null, 2);
-			// 	// console.log(str);
-			// })
 		}
 	}
 }
