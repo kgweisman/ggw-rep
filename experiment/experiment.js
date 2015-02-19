@@ -383,7 +383,7 @@ var experiment = {
 
 var resultsSlide = {
 	list: characters,
-	charScores: experiment.newData.charScores,
+	// charScores: experiment.newData.charScores,
 	charMeans: {
 		charlie_dog: [],
 		delores_gleitman_deceased: [],
@@ -403,13 +403,14 @@ var resultsSlide = {
 	calculateMeans: function() {
 		for (i in this.charMeans) {
 			var total = 0;
-			array = this.charScores[i];
+			array = experiment.newData.charScores[i];
 			for (j = 0; j < array.length; j++) {
 				total += array[j];
 			}
 			var mean = total/array.length;
 			this.charMeans[i] = mean;
-		}
+		};
+		experiment.newData.charMeans = this.charMeans;
 	},
 	orderCharacters: function() {
 		sortedCharacters = [];
