@@ -18,7 +18,7 @@ function randomElementNR(bucket) {
 	return bucket.splice(randomIndex, 1)[0];
 }
 
-// define function for preloading images
+// define function for preloading images (code from long)
 function preload(images, onLoadedOne, onLoadedAll) {
 	showSlide("preload");
 
@@ -58,8 +58,15 @@ function preload(images, onLoadedOne, onLoadedAll) {
 // define a function that will get called every time one image is successfully loaded
 var numLoadedImages = 0;
 function onLoadedOne() {
-  numLoadedImages++;
-  // $("#num-loaded").text(numLoadedImages); 
+	numLoadedImages++;
+	
+	// $("#num-loaded").text(numLoadedImages); 
+
+	// display progress bar
+	var percentComplete = (numLoadedImages)/13 * 100;
+	var percentCompleteRounded = Math.round(percentComplete);
+	$('#preload .progress-bar').attr("aria-valuenow", percentComplete.toString());
+	$('#preload .progress-bar').css("width", percentComplete.toString()+"%");
 }
 
 // define a function that will get called once all images have been successfully loaded
@@ -354,13 +361,12 @@ var experiment = {
 			data.leftCharacter = pair[randomElementNR(sideBucket)];
 			data.rightCharacter = pair[sideBucket]
 
-			// display hacky progress bar
+			// display progress bar
 			var percentComplete = (data.trialNum-1)/78 * 100;
 			var percentCompleteRounded = Math.round(percentComplete);
 			$('#trial-num').text("trial "+data.trialNum.toString()+" of 78: "+percentCompleteRounded+"% complete");
 			$('#stage .progress-bar').attr("aria-valuenow", percentComplete.toString());
 			$('#stage .progress-bar').css("width", percentComplete.toString()+"%");
-			// $('#stage .progress-bar').text(percentCompleteRounded+"%");
 
 			// set text and images for this trial
 			$(".slide#stage #question").text("Which character do you think is more capable of "+this.newData.wording+"?");
