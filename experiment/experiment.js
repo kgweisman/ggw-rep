@@ -27,7 +27,7 @@ function preload(images, onLoadedOne, onLoadedAll) {
 
 	// set delayInterval to 800 for testing to see that everything actually loads
 	// for real use, set to 0 
-	var loadDelayInterval = 800;
+	var loadDelayInterval = 0;
 
 	var worker = function() {
 	  if (remainingImages.length == 0) {
