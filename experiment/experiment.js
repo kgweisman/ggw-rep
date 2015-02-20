@@ -272,6 +272,9 @@ var experiment = {
 
 	// where to store all the data
 	newData: {
+		// fingerprinting information
+		fingerprintData: {},
+
 		// condition and session information
 		charIntroOrder: [],
 		condIntroOrder: [],
@@ -500,8 +503,4 @@ for (i = 0; i < Object.keys(characters).length; i++) {
 
 preload(images,
         onLoadedOne,
-        onLoadedAll);
-
-//  show consent slide (which then advances through all remaining slides) 
-
-// showSlide("consent");
+        onLoadedAll); // shows consent slide
