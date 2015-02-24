@@ -149,15 +149,15 @@ addCondition("Thought", "thinking");
 /* set up button behaviors */
 
 $('.slide#consent button').click(function() {
-	if(turk.previewMode === true) {
+	// if(turk.previewMode === true) {
 		showSlide('instructions');
-	} else {
+	// } else {
 		// try to open in new window... broken right now
 		// window.open("experiment.html"); 
-		var win = window.open("experiment.html")
-		win.showSlide('instructions');
+		// var win = window.open("experiment.html")
+		// showSlide('instructions');
 		// win.showSlide('instructions');
-	}
+	// }
 })
 
 $('.slide#instructions button').click(function() {
@@ -233,9 +233,9 @@ $('.slide#results button').click(function() {
 	turk.submit(experiment); // is it ok to wait this long to submit? what if people quit when they see the demographics slide, or don't care about looking at their results?
 	window.scrollTo(0, 0);
 	showSlide('finished');
-	setTimeout(function() {
-		$('.slide#finished p').text("You're finished - thanks for participating! Submitting to Mechanical Turk... done.");
-	}, 1500);
+	// setTimeout(function() {
+	// 	$('.slide#finished p').text("You're finished - thanks for participating! Submitting to Mechanical Turk... done.");
+	// }, 1500);
 });
 
 /* set up how to display characters slide */
