@@ -71,7 +71,7 @@ function onLoadedOne() {
 
 // define a function that will get called once all images have been successfully loaded
 function onLoadedAll() {
-  showSlide("consent");
+	showSlide("consent");
 }
 
 /* set up list of characters with titles, descriptions, and image sources */ 
@@ -149,15 +149,7 @@ addCondition("Thought", "thinking");
 /* set up button behaviors */
 
 $('.slide#consent button').click(function() {
-	// if(turk.previewMode === true) {
 		showSlide('instructions');
-	// } else {
-		// try to open in new window... broken right now
-		// window.open("experiment.html"); 
-		// var win = window.open("experiment.html")
-		// showSlide('instructions');
-		// win.showSlide('instructions');
-	// }
 })
 
 $('.slide#instructions button').click(function() {
