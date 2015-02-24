@@ -2,7 +2,7 @@
 
 // define function to show a slide
 function showSlide(id) { 
-	// console.log(id); // show which slide is being presented
+	console.log(id); // show which slide is being presented
 	$(".slide").hide(); // hide all slides
 	$("#"+id).show(); // show selected slide
 };
@@ -21,7 +21,7 @@ var previewSlide = {
 	showPreview: function() {
 		if (turk.previewMode === true) {
 			$('.slide #preview-text').text("You must accept the HIT before continuing to the study.");
-			$('.slide button').text("[disabled]");
+			$('.slide button').hide();
 			showSlide("preview");
 		} else {
 			$('.slide #preview-text').text("Click the 'Next' button to begin! The study will open in a new window.");
