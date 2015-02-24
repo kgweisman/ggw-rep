@@ -149,7 +149,13 @@ addCondition("Thought", "thinking");
 /* set up button behaviors */
 
 $('.slide#consent button').click(function() {
-	showSlide('instructions');
+	if(turk.previewMode === true) {
+		showSlide('instructions');
+	} else {
+		// try to open in new window... broken right now
+		// window.open("experiment.html"); 
+		showSlide('instructions');
+	}
 })
 
 $('.slide#instructions button').click(function() {
