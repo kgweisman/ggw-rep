@@ -44,7 +44,7 @@ h2 {
 .fun-text#question {
 	margin-left: auto;
 	margin-right: auto;
-	width: 600px;
+	width: 500px;
 	font-weight: 500;
 	color: darkred;
 	/*font-size: 20px;*/
@@ -133,7 +133,7 @@ img {
 
 /*display images during experiment stage slides*/
 #stage img {
-	height: 200px;
+	height: 270px;
 	/*display: block;*/
 }
 
