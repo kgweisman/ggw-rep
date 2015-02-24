@@ -148,6 +148,15 @@ addCondition("Thought", "thinking");
 
 /* set up button behaviors */
 
+$('.slide#instructions button').click(function() {
+	if(turk.previewMode === false) {
+		window.scrollTo(0, 0);
+		charactersSlide.makeOrder();
+		charactersSlide.showOrder();
+		showSlide('characters');
+	}
+})
+
 $('.slide#characters button').click(function() {
 	window.scrollTo(0, 0);
 });
