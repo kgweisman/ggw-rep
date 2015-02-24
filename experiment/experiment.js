@@ -154,8 +154,8 @@ $('.slide#consent button').click(function() {
 	} else {
 		// try to open in new window... broken right now
 		// window.open("experiment.html"); 
-		var win = window.open("experiment.html");
-		win.showSlide('instructions');
+		var win = window.open("experiment.html").showSlide('instructions');
+		// win.showSlide('instructions');
 	}
 })
 
