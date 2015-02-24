@@ -222,7 +222,8 @@ $('.slide#demographics button').click(function() {
 });
 
 $('.slide#results button').click(function() {
-	turk.submit(experiment); // is it ok to wait this long to submit? what if people quit when they see the demographics slide, or don't care about looking at their results?
+	// old: turk.submit(experiment); // is it ok to wait this long to submit? what if people quit when they see the demographics slide, or don't care about looking at their results?
+	opener.turk.submit(experiment);
 	window.scrollTo(0, 0);
 	showSlide('finished');
 	// setTimeout(function() {
