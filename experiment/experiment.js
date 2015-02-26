@@ -162,10 +162,8 @@ $('.slide#instructions button').click(function() {
 })
 
 $('.slide#characters button').click(function() {
-	surveysSlide.makeOrder();
-	surveysSlide.showOrder();
 	window.scrollTo(0, 0);
-	showSlide('surveys')
+	charactersSlide.next();
 });
 
 $('.slide#surveys button').click(function() { // select condition
@@ -249,6 +247,8 @@ var charactersSlide = {
 		this.trials = this.order.slice();
 	},
 	end: function() {
+		surveysSlide.makeOrder();
+		surveysSlide.showOrder();
 		showSlide("surveys");
 	},
 	next: function() {
