@@ -155,7 +155,7 @@ $('.slide#consent button').click(function() {
 $('.slide#instructions button').click(function() {
 	if(turk.previewMode === false) {
 		charactersSlide.makeOrder();
-		charactersSlide.showOrder();
+		charactersSlide.next();
 		window.scrollTo(0, 0);
 		showSlide('characters');
 	}
@@ -236,25 +236,47 @@ $('.slide#results button').click(function() {
 var charactersSlide = {
 	list: Object.keys(characters).map(function (key) {return characters[key]}),
 	order: [],
+	trials: [],
 	makeOrder: function() {
 		for (i = 0; i < 13; i++) {
 			this.order.push(randomElementNR(this.list))
-		}
-	},
-	showOrder: function() {
-		for (i = 0; i < this.order.length; i++) {
-
-			// fill in text on slide
-			var charNum = i.toString();
-			$("h2#character"+charNum).text(charactersSlide.order[i].charTitle.split(",")[0]);
-			$("img#character"+charNum).attr("src", charactersSlide.order[i].imageSource);
-			$("p#character"+charNum).text(charactersSlide.order[i].charDescrip);
-
-			// store order in experiment data object
-			experiment.newData.charIntroOrder.push(this.order[i].charName);
-
 		};
+		this.trials = this.order;
+	},
+	end: function() {
+		showSlide("surveys");
+	},
+	next: function() {
+		if (this.trials.length === 0) {
+			charactersSlide.end();
+		} else {
+			currentChar = this.trials.shift();
+
+			// set text and images for this trial
+			$("#characters h2#character").text(currentChar.charTitle);
+			$("#characters .block-text#character").text(currentChar.charDescrip);
+			$("#characters img#character").attr("src", currentChar.imageSource);
+			
+			// show trial
+			showSlide("characters");
+		}
 	}
+
+	// showOrder: function() {
+	// 	for (i = 0; i < this.order.length; i++) {
+
+	// 		// fill in text on slide
+	// 		var charNum = i.toString();
+	// 		$("h2#character"+charNum).text(charactersSlide.order[i].charTitle.split(",")[0]);
+	// 		$("img#character"+charNum).attr("src", charactersSlide.order[i].imageSource);
+	// 		$("p#character"+charNum).text(charactersSlide.order[i].charDescrip);
+
+	// 		// store order in experiment data object
+	// 		experiment.newData.charIntroOrder.push(this.order[i].charName);
+
+	// 	};
+	// }
+
 }
 
 /* set up how to display surveys slide */
