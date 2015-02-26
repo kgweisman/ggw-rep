@@ -267,13 +267,13 @@ var charactersSlide = {
 			showSlide("characters");
 
 			// record response and rt
-			var startTime = (new Date()).getTime();
+			// var startTime = (new Date()).getTime();
 
-			var clickHandler = function(event) {
-				var endTime = (new Date()).getTime();
-				var rt = endTime - startTime;
-				experiment.newData.charIntroRTs.push(rt);
-			};
+			// var clickHandler = function(event) {
+			// 	var endTime = (new Date()).getTime();
+			// 	var rt = endTime - startTime;
+			// 	experiment.newData.charIntroRTs.push(rt);
+			// };
 
 			// end trial
 			// clickHandler();
@@ -482,7 +482,7 @@ var experiment = {
 				clickHandler();
 				$(".slide#stage button").unbind().blur();
 				window.scrollTo(0, 0);
-				characters.next();
+				experiment.next();
 			})
 		}
 	}
