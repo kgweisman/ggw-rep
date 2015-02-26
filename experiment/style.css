@@ -59,6 +59,10 @@ h2 {
 	font-style: italic;
 }
 
+.block-text#character {
+	text-align: center;
+}
+
 /*style table*/
 table {
 	text-align: justify;
@@ -127,7 +131,7 @@ img {
 	margin-top: 10px;
 	margin-left: auto;
 	margin-right: auto;
-	height: 180px;
+	height: 270px;
 	border: solid black 3px;
 }
 
