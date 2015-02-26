@@ -231,14 +231,11 @@ var charactersSlide = {
 	order: [],
 	trials: [],
 	makeOrder: function() {
+		// create random order
 		for (i = 0; i < 13; i++) {
-			// create random order
 			this.order.push(randomElementNR(this.list));
-
-			// store in experiment data
-			experiment.newData.charIntroOrder.push(this.order[i].charName);
 		};
-		// experiment.newData.charIntroOrder.push(this.order);
+
 		this.trials = this.order.slice();
 	},
 	end: function() {
@@ -260,13 +257,18 @@ var charactersSlide = {
 			// show trial
 			showSlide("characters");
 
-			// record rt
+			// record character and rt
 			var startTime = (new Date()).getTime();
 
 			var clickHandler = function(event) {
 				var endTime = (new Date()).getTime();
-				rt = endTime - startTime;
-				experiment.newData.charIntroRTs.push(rt);
+				var data = {
+					trialNum: 13 - charactersSlide.trials.length,
+					character: currentChar.charName,
+					rt: NaN
+				}
+				data.rt = endTime - startTime;
+				experiment.newData.charIntroData.push(data);
 			};
 
 			$(".slide#characters button").click(function() {
@@ -316,8 +318,7 @@ var experiment = {
 		fingerprintData: {},
 
 		// condition and session information
-		charIntroOrder: [],
-		charIntroRTs: [],
+		charIntroData: [],
 		condIntroOrder: [],
 		condition: "",
 		wording: "",
