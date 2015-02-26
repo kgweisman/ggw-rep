@@ -161,12 +161,6 @@ $('.slide#instructions button').click(function() {
 	}
 })
 
-$('.slide#characters button').click(function() {
-	window.scrollTo(0, 0);
-	$(".slide#characters button").blur();
-	charactersSlide.next();
-});
-
 $('.slide#surveys button').click(function() { // select condition
 	var chosen = $(this).attr('id');
 	experiment.newData.condition = surveysSlide.order[chosen].condName;
@@ -266,20 +260,21 @@ var charactersSlide = {
 			// show trial
 			showSlide("characters");
 
-			// record response and rt
-			// var startTime = (new Date()).getTime();
+			// record rt
+			var startTime = (new Date()).getTime();
 
-			// var clickHandler = function(event) {
-			// 	var endTime = (new Date()).getTime();
-			// 	var rt = endTime - startTime;
-			// 	experiment.newData.charIntroRTs.push(rt);
-			// };
+			var clickHandler = function(event) {
+				var endTime = (new Date()).getTime();
+				rt = endTime - startTime;
+				experiment.newData.charIntroRTs.push(rt);
+			};
 
-			// end trial
-			// clickHandler();
-			// $(".slide#characters button").unbind().blur();
-			// window.scrollTo(0, 0);
-			// charactersSlide.next();
+			$(".slide#characters button").click(function() {
+				clickHandler();
+				$(".slide#characters button").unbind().blur();
+				window.scrollTo(0, 0);
+				charactersSlide.next();
+			})
 		}
 	}
 }
