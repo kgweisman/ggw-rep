@@ -149,7 +149,7 @@ addCondition("Thought", "thinking");
 /* set up button behaviors */
 
 $('.slide#consent button').click(function() {
-		showSlide('instructions');
+	showSlide('instructions');
 })
 
 $('.slide#instructions button').click(function() {
@@ -163,6 +163,7 @@ $('.slide#instructions button').click(function() {
 
 $('.slide#characters button').click(function() {
 	window.scrollTo(0, 0);
+	$(".slide#characters button").blur();
 	charactersSlide.next();
 });
 
@@ -264,6 +265,21 @@ var charactersSlide = {
 			
 			// show trial
 			showSlide("characters");
+
+			// record response and rt
+			var startTime = (new Date()).getTime();
+
+			var clickHandler = function(event) {
+				var endTime = (new Date()).getTime();
+				var rt = endTime - startTime;
+				experiment.newData.charIntroRTs.push(rt);
+			};
+
+			// end trial
+			// clickHandler();
+			// $(".slide#characters button").unbind().blur();
+			// window.scrollTo(0, 0);
+			// charactersSlide.next();
 		}
 	}
 }
@@ -306,6 +322,7 @@ var experiment = {
 
 		// condition and session information
 		charIntroOrder: [],
+		charIntroRTs: [],
 		condIntroOrder: [],
 		condition: "",
 		wording: "",
@@ -465,7 +482,7 @@ var experiment = {
 				clickHandler();
 				$(".slide#stage button").unbind().blur();
 				window.scrollTo(0, 0);
-				experiment.next();
+				characters.next();
 			})
 		}
 	}
