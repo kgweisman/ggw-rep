@@ -228,15 +228,12 @@ $('.slide#results button').click(function() {
 
 var charactersSlide = {
 	list: Object.keys(characters).map(function (key) {return characters[key]}),
-	order: [],
 	trials: [],
 	makeOrder: function() {
 		// create random order
 		for (i = 0; i < 13; i++) {
-			this.order.push(randomElementNR(this.list));
+			this.trials.push(randomElementNR(this.list));
 		};
-
-		this.trials = this.order.slice();
 	},
 	end: function() {
 		surveysSlide.makeOrder();
