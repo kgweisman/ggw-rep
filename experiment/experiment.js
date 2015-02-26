@@ -247,7 +247,7 @@ var charactersSlide = {
 			var currentChar = this.trials.shift();
 
 			// set text and images for this trial
-			$("#characters h2#character").text(currentChar.charTitle);
+			$("#characters h2#character").text(currentChar.charTitle.split(",")[0]);
 			$("#characters .block-text#character").text(currentChar.charDescrip);
 			$("#characters img#character").attr("src", currentChar.imageSource);
 			
