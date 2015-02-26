@@ -239,9 +239,14 @@ var charactersSlide = {
 	trials: [],
 	makeOrder: function() {
 		for (i = 0; i < 13; i++) {
-			this.order.push(randomElementNR(this.list))
+			// create random order
+			this.order.push(randomElementNR(this.list));
+
+			// store in experiment data
+			experiment.newData.charIntroOrder.push(this.order[i].charName);
 		};
-		this.trials = this.order;
+		// experiment.newData.charIntroOrder.push(this.order);
+		this.trials = this.order.slice();
 	},
 	end: function() {
 		showSlide("surveys");
@@ -250,7 +255,7 @@ var charactersSlide = {
 		if (this.trials.length === 0) {
 			charactersSlide.end();
 		} else {
-			currentChar = this.trials.shift();
+			var currentChar = this.trials.shift();
 
 			// set text and images for this trial
 			$("#characters h2#character").text(currentChar.charTitle);
@@ -261,22 +266,6 @@ var charactersSlide = {
 			showSlide("characters");
 		}
 	}
-
-	// showOrder: function() {
-	// 	for (i = 0; i < this.order.length; i++) {
-
-	// 		// fill in text on slide
-	// 		var charNum = i.toString();
-	// 		$("h2#character"+charNum).text(charactersSlide.order[i].charTitle.split(",")[0]);
-	// 		$("img#character"+charNum).attr("src", charactersSlide.order[i].imageSource);
-	// 		$("p#character"+charNum).text(charactersSlide.order[i].charDescrip);
-
-	// 		// store order in experiment data object
-	// 		experiment.newData.charIntroOrder.push(this.order[i].charName);
-
-	// 	};
-	// }
-
 }
 
 /* set up how to display surveys slide */
