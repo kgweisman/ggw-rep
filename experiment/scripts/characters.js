@@ -51,8 +51,6 @@ var charactersSlide = {
 		};
 	},
 	end: function() {
-		// surveysSlide.makeOrder();
-		// surveysSlide.showOrder();
 		showSlide("surveys");
 	},
 	next: function() {
