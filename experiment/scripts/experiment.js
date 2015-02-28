@@ -99,7 +99,7 @@ var experiment = {
 			data.rightCharacter = pair[sideBucket]
 
 			// display progress bar
-			var percentComplete = (data.trialNum-1)/78 * 100;
+			var percentComplete = (data.trialNum-1)/79 * 100;
 			var percentCompleteRounded = Math.round(percentComplete);
 			$('#trial-num').text("trial "+data.trialNum.toString()+" of 78: "+percentCompleteRounded+"% complete");
 			$('#stage .progress-bar').attr("aria-valuenow", percentComplete.toString());

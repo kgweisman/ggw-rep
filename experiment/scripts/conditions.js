@@ -32,9 +32,8 @@ addCondition("Thought", "thinking");
 // set up button behaviors for surveys slide
 
 $('.slide#surveys button').click(function() { // select condition
-	var chosen = $(this).attr('id');
-	experiment.newData.condition = surveysSlide.order[chosen].condName;
-	experiment.newData.wording = surveysSlide.order[chosen].wording;
+	experiment.newData.condition = surveysSlide.condition.condName;
+	experiment.newData.wording = surveysSlide.condition.wording;
 	experiment.next();
 	window.scrollTo(0, 0);
 });
@@ -44,22 +43,10 @@ $('.slide#surveys button').click(function() { // select condition
 var surveysSlide = {
 	list: Object.keys(conditions).map(function (key) {return conditions[key]}),
 	order: [],
-	makeOrder: function() {
-		for (i = 0; i < 18; i++) {
-			this.order.push(randomElementNR(this.list))
-		}
-	},
-	showOrder: function() {
-		for (i = 0; i < this.order.length; i++) {
-
-			// fill in text on slide
-			var condNum = i.toString();
-			$("#surveys h2#"+condNum).text(this.order[i].condName);
-			$("#surveys p#"+condNum).text("This survey asks you to judge which character is more capable of "+this.order[i].wording+".");
-			$("#surveys button#"+condNum).text("Start "+this.order[i].condName+" Survey");
-
-			// store order in experiment data object
-			experiment.newData.condIntroOrder.push(this.order[i].condName);
-		}
-	}
+	condition: ""
 }
+
+surveysSlide.condition = randomElementNR(surveysSlide.list);
+
+$('.slide#surveys span#survey-descrip1').text(surveysSlide.condition.condName)
+$('.slide#surveys span#survey-descrip2').text(surveysSlide.condition.wording);
