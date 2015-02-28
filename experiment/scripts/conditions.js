@@ -22,7 +22,7 @@ addCondition("Memory", "remembering things");
 addCondition("Morality", "telling right from wrong and trying to do the right thing");
 addCondition("Pain", "experiencing physical or emotional pain");
 addCondition("Personality", "having personality traits that make it unique from others");
-addCondition("Planning", "making plans and working toward goal");
+addCondition("Planning", "making plans and working toward a goal");
 addCondition("Pleasure", "experiencing physical or emotional pleasure");
 addCondition("Pride", "experiencing pride");
 addCondition("Rage", "experiencing violent or uncontrolled anger");

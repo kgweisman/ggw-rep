@@ -44,14 +44,14 @@ var resultsSlide = {
 		for (i in this.charMeans) {
 			sortedCharacters.push([i, this.charMeans[i]]);
 		}		
-		sortedCharacters = sortedCharacters.sort(function(a, b) {return b[1] - a[1]});
+		sortedCharacters = sortedCharacters.sort(function(a, b) {return a[1] - b[1]});
 		this.charSorted = sortedCharacters;
 	},
 	showOrder: function() {
 		for (i = 0; i < this.charSorted.length; i++) {
 			var charNum = i+1;
 			var charName = this.charSorted[i][0];
-			$("p#rankingIntro").text("Here's how you ranked these characters, from most to least capable of "+experiment.newData.wording+":");
+			$("#ranking-intro span").text(experiment.newData.wording);
 			$("p#rank"+charNum).text(characters[charName].charTitle);
 			$("img#rank"+charNum).attr("src", characters[charName].imageSource);
 		}

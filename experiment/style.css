@@ -61,6 +61,12 @@ h2 {
 	/*font-size: 20px;*/
 }
 
+.fun-text#ranking-intro {
+	width: 350px;
+	margin: 20px auto 20px auto;
+	text-align: justify;
+}
+
 .subtitle {
 	text-align: center;
 }
