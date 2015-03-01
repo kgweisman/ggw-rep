@@ -1,5 +1,13 @@
 /*general style*/
 
+/*disable text selection*/
+body {
+  -webkit-user-select: none;
+     -moz-user-select: -moz-none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
 /*general styling for slides*/
 .slide {
 	/*pad the inside of the slide*/
