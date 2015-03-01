@@ -12,6 +12,18 @@
 
   <body>
 
+<!-- use uniqueturker to prevent duplicates -->
+	<script src="//uniqueturker.myleott.com/lib.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	(function(){
+	var ut_id = "ggw-rep01";
+	if (UTWorkerLimitReached(ut_id)) {
+	document.getElementById('mturk_form').style.display = 'none';
+	document.getElementsByTagName('body')[0].innerHTML = "You have already completed this HIT. Thanks for participating, and hope to see you next time!";
+	}
+	})();
+	</script>
+
       <div class="slide" id="preview">
       
       <h1 id='title-text'>Mind Survey</h1>
