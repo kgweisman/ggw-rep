@@ -23,6 +23,8 @@ var previewSlide = {
 			$('.slide #preview-text').text("You must accept the HIT before continuing to the study.");
 			$('.slide button').hide();
 			showSlide("preview");
+		} else if (UTWorkerLimitReached(ut_id)) {
+			$('.slide #preview-text').text("You have already completed this HIT. Thanks for participating, and hope to see you next time!");
 		} else {
 			$('.slide #preview-text').text("Click the 'Next' button to begin! The study will open in a new window.");
 			$('.slide button').text("Next");
