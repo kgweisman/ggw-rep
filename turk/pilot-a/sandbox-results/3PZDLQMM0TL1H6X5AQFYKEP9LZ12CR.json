@@ -1,0 +1,944 @@
+{
+    "ApprovalTime": "2015-03-02T04:30:20Z",
+    "AutoApprovalTime": "2015-03-02T04:27:44Z",
+    "AssignmentId": "3PZDLQMM0TL1H6X5AQFYKEP9LZ12CR",
+    "WorkerId": "A30D0ZW3Y1YMEW",
+    "answers": {
+        "data": {
+            "trials": [],
+            "newData": {
+                "charScores": {
+                    "gerald_schiff_pvs": [
+                        1,
+                        -1,
+                        -1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        -1,
+                        -1,
+                        1,
+                        -1,
+                        1
+                    ],
+                    "toby_chimp": [
+                        -2,
+                        -1,
+                        -1,
+                        1,
+                        1,
+                        -1,
+                        1,
+                        1,
+                        1,
+                        -1,
+                        -1,
+                        1
+                    ],
+                    "fetus": [
+                        0,
+                        -1,
+                        -1,
+                        -1,
+                        1,
+                        1,
+                        -1,
+                        1,
+                        1,
+                        -1,
+                        -1,
+                        -1
+                    ],
+                    "god": [
+                        0,
+                        1,
+                        -1,
+                        -1,
+                        -1,
+                        -1,
+                        -1,
+                        -1,
+                        -1,
+                        -1,
+                        1,
+                        1
+                    ],
+                    "delores_gleitman_deceased": [
+                        -2,
+                        -1,
+                        -1,
+                        1,
+                        -1,
+                        1,
+                        1,
+                        -1,
+                        -1,
+                        -1,
+                        1,
+                        1
+                    ],
+                    "sharon_harvey_woman": [
+                        2,
+                        -1,
+                        -1,
+                        -1,
+                        1,
+                        1,
+                        -1,
+                        1,
+                        1,
+                        1,
+                        -1,
+                        -1
+                    ],
+                    "green_frog": [
+                        -2,
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        -1,
+                        -1,
+                        -1,
+                        1,
+                        1,
+                        1
+                    ],
+                    "todd_billingsley_man": [
+                        2,
+                        2,
+                        2,
+                        1,
+                        1,
+                        -1,
+                        -1,
+                        -1,
+                        1,
+                        1,
+                        1,
+                        -1
+                    ],
+                    "charlie_dog": [
+                        -2,
+                        1,
+                        -1,
+                        1,
+                        1,
+                        1,
+                        -1,
+                        1,
+                        1,
+                        -1,
+                        -1,
+                        -1
+                    ],
+                    "nicholas_gannon_baby": [
+                        1,
+                        1,
+                        1,
+                        -1,
+                        1,
+                        1,
+                        1,
+                        -1,
+                        1,
+                        -1,
+                        -1,
+                        1
+                    ],
+                    "samantha_hill_girl": [
+                        -1,
+                        1,
+                        1,
+                        1,
+                        -1,
+                        -1,
+                        -1,
+                        1,
+                        1,
+                        1,
+                        -1,
+                        1
+                    ],
+                    "kismet_robot": [
+                        -2,
+                        -1,
+                        1,
+                        1,
+                        -1,
+                        -1,
+                        1,
+                        -1,
+                        -1,
+                        -1,
+                        -1,
+                        1
+                    ],
+                    "you": [
+                        2,
+                        -1,
+                        -1,
+                        -1,
+                        -1,
+                        -1,
+                        1,
+                        -1,
+                        1,
+                        1,
+                        -1,
+                        1
+                    ]
+                },
+                "education": "hs_none",
+                "englishNative": "no",
+                "trialData": [
+                    {
+                        "rt": 2700,
+                        "leftCharacter": "sharon_harvey_woman",
+                        "trialNum": 1,
+                        "response": "much more left",
+                        "rightCharacter": "green_frog"
+                    },
+                    {
+                        "rt": 1504,
+                        "leftCharacter": "todd_billingsley_man",
+                        "trialNum": 2,
+                        "response": "much more left",
+                        "rightCharacter": "delores_gleitman_deceased"
+                    },
+                    {
+                        "rt": 49640,
+                        "leftCharacter": "todd_billingsley_man",
+                        "trialNum": 3,
+                        "response": "much more left",
+                        "rightCharacter": "toby_chimp"
+                    },
+                    {
+                        "rt": 2709,
+                        "leftCharacter": "charlie_dog",
+                        "trialNum": 4,
+                        "response": "much more right",
+                        "rightCharacter": "you"
+                    },
+                    {
+                        "rt": 2215,
+                        "leftCharacter": "gerald_schiff_pvs",
+                        "trialNum": 5,
+                        "response": "slightly more left",
+                        "rightCharacter": "delores_gleitman_deceased"
+                    },
+                    {
+                        "rt": 1363,
+                        "leftCharacter": "kismet_robot",
+                        "trialNum": 6,
+                        "response": "much more right",
+                        "rightCharacter": "todd_billingsley_man"
+                    },
+                    {
+                        "rt": 4055,
+                        "leftCharacter": "fetus",
+                        "trialNum": 7,
+                        "response": "both equally",
+                        "rightCharacter": "god"
+                    },
+                    {
+                        "rt": 2001,
+                        "leftCharacter": "fetus",
+                        "trialNum": 8,
+                        "response": "slightly more right",
+                        "rightCharacter": "nicholas_gannon_baby"
+                    },
+                    {
+                        "rt": 3282,
+                        "leftCharacter": "nicholas_gannon_baby",
+                        "trialNum": 9,
+                        "response": "slightly more left",
+                        "rightCharacter": "toby_chimp"
+                    },
+                    {
+                        "rt": 1404,
+                        "leftCharacter": "toby_chimp",
+                        "trialNum": 10,
+                        "response": "slightly more right",
+                        "rightCharacter": "charlie_dog"
+                    },
+                    {
+                        "rt": 469,
+                        "leftCharacter": "you",
+                        "trialNum": 11,
+                        "response": "slightly more right",
+                        "rightCharacter": "green_frog"
+                    },
+                    {
+                        "rt": 661,
+                        "leftCharacter": "delores_gleitman_deceased",
+                        "trialNum": 12,
+                        "response": "slightly more right",
+                        "rightCharacter": "god"
+                    },
+                    {
+                        "rt": 440,
+                        "leftCharacter": "charlie_dog",
+                        "trialNum": 13,
+                        "response": "slightly more right",
+                        "rightCharacter": "todd_billingsley_man"
+                    },
+                    {
+                        "rt": 525,
+                        "leftCharacter": "sharon_harvey_woman",
+                        "trialNum": 14,
+                        "response": "slightly more right",
+                        "rightCharacter": "delores_gleitman_deceased"
+                    },
+                    {
+                        "rt": 407,
+                        "leftCharacter": "you",
+                        "trialNum": 15,
+                        "response": "slightly more right",
+                        "rightCharacter": "nicholas_gannon_baby"
+                    },
+                    {
+                        "rt": 366,
+                        "leftCharacter": "you",
+                        "trialNum": 16,
+                        "response": "slightly more right",
+                        "rightCharacter": "toby_chimp"
+                    },
+                    {
+                        "rt": 510,
+                        "leftCharacter": "samantha_hill_girl",
+                        "trialNum": 17,
+                        "response": "slightly more right",
+                        "rightCharacter": "green_frog"
+                    },
+                    {
+                        "rt": 382,
+                        "leftCharacter": "nicholas_gannon_baby",
+                        "trialNum": 18,
+                        "response": "slightly more right",
+                        "rightCharacter": "green_frog"
+                    },
+                    {
+                        "rt": 325,
+                        "leftCharacter": "fetus",
+                        "trialNum": 19,
+                        "response": "slightly more right",
+                        "rightCharacter": "green_frog"
+                    },
+                    {
+                        "rt": 456,
+                        "leftCharacter": "god",
+                        "trialNum": 20,
+                        "response": "slightly more right",
+                        "rightCharacter": "todd_billingsley_man"
+                    },
+                    {
+                        "rt": 317,
+                        "leftCharacter": "gerald_schiff_pvs",
+                        "trialNum": 21,
+                        "response": "slightly more right",
+                        "rightCharacter": "green_frog"
+                    },
+                    {
+                        "rt": 221,
+                        "leftCharacter": "green_frog",
+                        "trialNum": 22,
+                        "response": "slightly more right",
+                        "rightCharacter": "charlie_dog"
+                    },
+                    {
+                        "rt": 270,
+                        "leftCharacter": "you",
+                        "trialNum": 23,
+                        "response": "slightly more right",
+                        "rightCharacter": "samantha_hill_girl"
+                    },
+                    {
+                        "rt": 222,
+                        "leftCharacter": "god",
+                        "trialNum": 24,
+                        "response": "slightly more right",
+                        "rightCharacter": "samantha_hill_girl"
+                    },
+                    {
+                        "rt": 206,
+                        "leftCharacter": "todd_billingsley_man",
+                        "trialNum": 25,
+                        "response": "slightly more right",
+                        "rightCharacter": "samantha_hill_girl"
+                    },
+                    {
+                        "rt": 165,
+                        "leftCharacter": "delores_gleitman_deceased",
+                        "trialNum": 26,
+                        "response": "slightly more right",
+                        "rightCharacter": "charlie_dog"
+                    },
+                    {
+                        "rt": 165,
+                        "leftCharacter": "fetus",
+                        "trialNum": 27,
+                        "response": "slightly more right",
+                        "rightCharacter": "charlie_dog"
+                    },
+                    {
+                        "rt": 140,
+                        "leftCharacter": "charlie_dog",
+                        "trialNum": 28,
+                        "response": "slightly more right",
+                        "rightCharacter": "nicholas_gannon_baby"
+                    },
+                    {
+                        "rt": 150,
+                        "leftCharacter": "gerald_schiff_pvs",
+                        "trialNum": 29,
+                        "response": "slightly more right",
+                        "rightCharacter": "toby_chimp"
+                    },
+                    {
+                        "rt": 150,
+                        "leftCharacter": "sharon_harvey_woman",
+                        "trialNum": 30,
+                        "response": "slightly more right",
+                        "rightCharacter": "gerald_schiff_pvs"
+                    },
+                    {
+                        "rt": 158,
+                        "leftCharacter": "kismet_robot",
+                        "trialNum": 31,
+                        "response": "slightly more right",
+                        "rightCharacter": "gerald_schiff_pvs"
+                    },
+                    {
+                        "rt": 144,
+                        "leftCharacter": "todd_billingsley_man",
+                        "trialNum": 32,
+                        "response": "slightly more right",
+                        "rightCharacter": "nicholas_gannon_baby"
+                    },
+                    {
+                        "rt": 141,
+                        "leftCharacter": "god",
+                        "trialNum": 33,
+                        "response": "slightly more right",
+                        "rightCharacter": "charlie_dog"
+                    },
+                    {
+                        "rt": 150,
+                        "leftCharacter": "sharon_harvey_woman",
+                        "trialNum": 34,
+                        "response": "slightly more right",
+                        "rightCharacter": "nicholas_gannon_baby"
+                    },
+                    {
+                        "rt": 165,
+                        "leftCharacter": "todd_billingsley_man",
+                        "trialNum": 35,
+                        "response": "slightly more right",
+                        "rightCharacter": "fetus"
+                    },
+                    {
+                        "rt": 142,
+                        "leftCharacter": "green_frog",
+                        "trialNum": 36,
+                        "response": "slightly more right",
+                        "rightCharacter": "todd_billingsley_man"
+                    },
+                    {
+                        "rt": 173,
+                        "leftCharacter": "samantha_hill_girl",
+                        "trialNum": 37,
+                        "response": "slightly more right",
+                        "rightCharacter": "delores_gleitman_deceased"
+                    },
+                    {
+                        "rt": 125,
+                        "leftCharacter": "nicholas_gannon_baby",
+                        "trialNum": 38,
+                        "response": "slightly more right",
+                        "rightCharacter": "kismet_robot"
+                    },
+                    {
+                        "rt": 158,
+                        "leftCharacter": "you",
+                        "trialNum": 39,
+                        "response": "slightly more right",
+                        "rightCharacter": "fetus"
+                    },
+                    {
+                        "rt": 158,
+                        "leftCharacter": "green_frog",
+                        "trialNum": 40,
+                        "response": "slightly more right",
+                        "rightCharacter": "delores_gleitman_deceased"
+                    },
+                    {
+                        "rt": 152,
+                        "leftCharacter": "god",
+                        "trialNum": 41,
+                        "response": "slightly more right",
+                        "rightCharacter": "sharon_harvey_woman"
+                    },
+                    {
+                        "rt": 158,
+                        "leftCharacter": "toby_chimp",
+                        "trialNum": 42,
+                        "response": "slightly more right",
+                        "rightCharacter": "green_frog"
+                    },
+                    {
+                        "rt": 166,
+                        "leftCharacter": "fetus",
+                        "trialNum": 43,
+                        "response": "slightly more right",
+                        "rightCharacter": "sharon_harvey_woman"
+                    },
+                    {
+                        "rt": 156,
+                        "leftCharacter": "delores_gleitman_deceased",
+                        "trialNum": 44,
+                        "response": "slightly more right",
+                        "rightCharacter": "kismet_robot"
+                    },
+                    {
+                        "rt": 142,
+                        "leftCharacter": "kismet_robot",
+                        "trialNum": 45,
+                        "response": "slightly more right",
+                        "rightCharacter": "fetus"
+                    },
+                    {
+                        "rt": 158,
+                        "leftCharacter": "god",
+                        "trialNum": 46,
+                        "response": "slightly more right",
+                        "rightCharacter": "green_frog"
+                    },
+                    {
+                        "rt": 158,
+                        "leftCharacter": "delores_gleitman_deceased",
+                        "trialNum": 47,
+                        "response": "slightly more right",
+                        "rightCharacter": "toby_chimp"
+                    },
+                    {
+                        "rt": 158,
+                        "leftCharacter": "god",
+                        "trialNum": 48,
+                        "response": "slightly more right",
+                        "rightCharacter": "you"
+                    },
+                    {
+                        "rt": 150,
+                        "leftCharacter": "god",
+                        "trialNum": 49,
+                        "response": "slightly more right",
+                        "rightCharacter": "toby_chimp"
+                    },
+                    {
+                        "rt": 144,
+                        "leftCharacter": "kismet_robot",
+                        "trialNum": 50,
+                        "response": "slightly more right",
+                        "rightCharacter": "charlie_dog"
+                    },
+                    {
+                        "rt": 149,
+                        "leftCharacter": "samantha_hill_girl",
+                        "trialNum": 51,
+                        "response": "slightly more right",
+                        "rightCharacter": "toby_chimp"
+                    },
+                    {
+                        "rt": 165,
+                        "leftCharacter": "you",
+                        "trialNum": 52,
+                        "response": "slightly more right",
+                        "rightCharacter": "gerald_schiff_pvs"
+                    },
+                    {
+                        "rt": 151,
+                        "leftCharacter": "samantha_hill_girl",
+                        "trialNum": 53,
+                        "response": "slightly more right",
+                        "rightCharacter": "nicholas_gannon_baby"
+                    },
+                    {
+                        "rt": 148,
+                        "leftCharacter": "god",
+                        "trialNum": 54,
+                        "response": "slightly more right",
+                        "rightCharacter": "kismet_robot"
+                    },
+                    {
+                        "rt": 149,
+                        "leftCharacter": "kismet_robot",
+                        "trialNum": 55,
+                        "response": "slightly more right",
+                        "rightCharacter": "green_frog"
+                    },
+                    {
+                        "rt": 166,
+                        "leftCharacter": "charlie_dog",
+                        "trialNum": 56,
+                        "response": "slightly more right",
+                        "rightCharacter": "gerald_schiff_pvs"
+                    },
+                    {
+                        "rt": 373,
+                        "leftCharacter": "toby_chimp",
+                        "trialNum": 57,
+                        "response": "slightly more right",
+                        "rightCharacter": "fetus"
+                    },
+                    {
+                        "rt": 578,
+                        "leftCharacter": "delores_gleitman_deceased",
+                        "trialNum": 58,
+                        "response": "slightly more right",
+                        "rightCharacter": "you"
+                    },
+                    {
+                        "rt": 140,
+                        "leftCharacter": "sharon_harvey_woman",
+                        "trialNum": 59,
+                        "response": "slightly more right",
+                        "rightCharacter": "samantha_hill_girl"
+                    },
+                    {
+                        "rt": 157,
+                        "leftCharacter": "gerald_schiff_pvs",
+                        "trialNum": 60,
+                        "response": "slightly more right",
+                        "rightCharacter": "todd_billingsley_man"
+                    },
+                    {
+                        "rt": 142,
+                        "leftCharacter": "kismet_robot",
+                        "trialNum": 61,
+                        "response": "slightly more right",
+                        "rightCharacter": "you"
+                    },
+                    {
+                        "rt": 134,
+                        "leftCharacter": "fetus",
+                        "trialNum": 62,
+                        "response": "slightly more right",
+                        "rightCharacter": "samantha_hill_girl"
+                    },
+                    {
+                        "rt": 158,
+                        "leftCharacter": "you",
+                        "trialNum": 63,
+                        "response": "slightly more right",
+                        "rightCharacter": "todd_billingsley_man"
+                    },
+                    {
+                        "rt": 141,
+                        "leftCharacter": "kismet_robot",
+                        "trialNum": 64,
+                        "response": "slightly more right",
+                        "rightCharacter": "sharon_harvey_woman"
+                    },
+                    {
+                        "rt": 152,
+                        "leftCharacter": "charlie_dog",
+                        "trialNum": 65,
+                        "response": "slightly more right",
+                        "rightCharacter": "sharon_harvey_woman"
+                    },
+                    {
+                        "rt": 150,
+                        "leftCharacter": "nicholas_gannon_baby",
+                        "trialNum": 66,
+                        "response": "slightly more right",
+                        "rightCharacter": "god"
+                    },
+                    {
+                        "rt": 134,
+                        "leftCharacter": "todd_billingsley_man",
+                        "trialNum": 67,
+                        "response": "slightly more right",
+                        "rightCharacter": "sharon_harvey_woman"
+                    },
+                    {
+                        "rt": 158,
+                        "leftCharacter": "nicholas_gannon_baby",
+                        "trialNum": 68,
+                        "response": "slightly more right",
+                        "rightCharacter": "delores_gleitman_deceased"
+                    },
+                    {
+                        "rt": 164,
+                        "leftCharacter": "gerald_schiff_pvs",
+                        "trialNum": 69,
+                        "response": "slightly more right",
+                        "rightCharacter": "god"
+                    },
+                    {
+                        "rt": 167,
+                        "leftCharacter": "fetus",
+                        "trialNum": 70,
+                        "response": "slightly more right",
+                        "rightCharacter": "gerald_schiff_pvs"
+                    },
+                    {
+                        "rt": 150,
+                        "leftCharacter": "gerald_schiff_pvs",
+                        "trialNum": 71,
+                        "response": "slightly more right",
+                        "rightCharacter": "nicholas_gannon_baby"
+                    },
+                    {
+                        "rt": 157,
+                        "leftCharacter": "charlie_dog",
+                        "trialNum": 72,
+                        "response": "slightly more right",
+                        "rightCharacter": "samantha_hill_girl"
+                    },
+                    {
+                        "rt": 165,
+                        "leftCharacter": "sharon_harvey_woman",
+                        "trialNum": 73,
+                        "response": "slightly more right",
+                        "rightCharacter": "you"
+                    },
+                    {
+                        "rt": 328,
+                        "leftCharacter": "samantha_hill_girl",
+                        "trialNum": 74,
+                        "response": "slightly more right",
+                        "rightCharacter": "gerald_schiff_pvs"
+                    },
+                    {
+                        "rt": 293,
+                        "leftCharacter": "fetus",
+                        "trialNum": 75,
+                        "response": "slightly more right",
+                        "rightCharacter": "delores_gleitman_deceased"
+                    },
+                    {
+                        "rt": 238,
+                        "leftCharacter": "kismet_robot",
+                        "trialNum": 76,
+                        "response": "slightly more right",
+                        "rightCharacter": "samantha_hill_girl"
+                    },
+                    {
+                        "rt": 230,
+                        "leftCharacter": "toby_chimp",
+                        "trialNum": 77,
+                        "response": "slightly more right",
+                        "rightCharacter": "kismet_robot"
+                    },
+                    {
+                        "rt": 266,
+                        "leftCharacter": "sharon_harvey_woman",
+                        "trialNum": 78,
+                        "response": "slightly more right",
+                        "rightCharacter": "toby_chimp"
+                    }
+                ],
+                "religionNow": [
+                    "prefNo"
+                ],
+                "gender": "male",
+                "age": "12",
+                "charMeans": {
+                    "gerald_schiff_pvs": 0.16666666666666666,
+                    "toby_chimp": -0.08333333333333333,
+                    "fetus": -0.25,
+                    "god": -0.4166666666666667,
+                    "delores_gleitman_deceased": -0.25,
+                    "sharon_harvey_woman": 0.08333333333333333,
+                    "green_frog": 0.25,
+                    "todd_billingsley_man": 0.5833333333333334,
+                    "charlie_dog": -0.08333333333333333,
+                    "nicholas_gannon_baby": 0.3333333333333333,
+                    "samantha_hill_girl": 0.16666666666666666,
+                    "kismet_robot": -0.4166666666666667,
+                    "you": -0.08333333333333333
+                },
+                "comments": "",
+                "country": "",
+                "condIntroOrder": [],
+                "job": "asdf",
+                "maritalStatus": "other_prefNo",
+                "ethnicity": [
+                    "white"
+                ],
+                "charIntroData": [
+                    {
+                        "rt": 2547,
+                        "character": "fetus",
+                        "trialNum": 1
+                    },
+                    {
+                        "rt": 5478,
+                        "character": "gerald_schiff_pvs",
+                        "trialNum": 2
+                    },
+                    {
+                        "rt": 2342,
+                        "character": "nicholas_gannon_baby",
+                        "trialNum": 3
+                    },
+                    {
+                        "rt": 2957,
+                        "character": "you",
+                        "trialNum": 4
+                    },
+                    {
+                        "rt": 4065,
+                        "character": "green_frog",
+                        "trialNum": 5
+                    },
+                    {
+                        "rt": 2104,
+                        "character": "charlie_dog",
+                        "trialNum": 6
+                    },
+                    {
+                        "rt": 4718,
+                        "character": "god",
+                        "trialNum": 7
+                    },
+                    {
+                        "rt": 2277,
+                        "character": "sharon_harvey_woman",
+                        "trialNum": 8
+                    },
+                    {
+                        "rt": 3332,
+                        "character": "delores_gleitman_deceased",
+                        "trialNum": 9
+                    },
+                    {
+                        "rt": 4454,
+                        "character": "kismet_robot",
+                        "trialNum": 10
+                    },
+                    {
+                        "rt": 2900,
+                        "character": "todd_billingsley_man",
+                        "trialNum": 11
+                    },
+                    {
+                        "rt": 2348,
+                        "character": "samantha_hill_girl",
+                        "trialNum": 12
+                    },
+                    {
+                        "rt": 1520,
+                        "character": "toby_chimp",
+                        "trialNum": 13
+                    }
+                ],
+                "fingerprintData": {
+                    "ip": "216.21.160.45",
+                    "screenHeight": 900,
+                    "plugins": [
+                        {
+                            "description": "Enables Widevine licenses for playback of HTML audio/video content. (version: 1.4.6.758)",
+                            "filename": "widevinecdmadapter.plugin"
+                        },
+                        {
+                            "description": "Shockwave Flash 16.0 r0",
+                            "filename": "PepperFlashPlayer.plugin"
+                        },
+                        {
+                            "description": "This plugin allows you to securely access other computers that have been shared with you. To use this plugin you must first install the <a href=\"https://chrome.google.com/remotedesktop\">Chrome Remote Desktop</a> webapp.",
+                            "filename": "internal-remoting-viewer"
+                        },
+                        {
+                            "description": "",
+                            "filename": "internal-nacl-plugin"
+                        },
+                        {
+                            "description": "",
+                            "filename": "PDF.plugin"
+                        },
+                        {
+                            "description": "Plugin that detects installed Citrix Online products (visit www.citrixonline.com).",
+                            "filename": "CitrixOnlineWebDeploymentPlugin.plugin"
+                        },
+                        {
+                            "description": "WebEx64 General Plugin Container Version 205",
+                            "filename": "WebEx64.plugin"
+                        },
+                        {
+                            "description": "A plugin to detect whether the Adobe Creative Cloud is installed on this machine.v_2_0_0_0",
+                            "filename": "AdobeAAMDetect.plugin"
+                        },
+                        {
+                            "description": "Amazon MP3 Downloader Plugin 1.0.17",
+                            "filename": "AmazonMP3DownloaderPlugin1017265.plugin"
+                        },
+                        {
+                            "description": "Amazon MP3 Downloader Plugin 1.0.17",
+                            "filename": "AmazonMP3DownloaderPlugin1017277.plugin"
+                        },
+                        {
+                            "description": "Provides information about the default web browser",
+                            "filename": "Default Browser.plugin"
+                        },
+                        {
+                            "description": "Shockwave Flash 16.0 r0",
+                            "filename": "Flash Player.plugin"
+                        },
+                        {
+                            "description": "The Flip4Mac WMV Plugin allows you to view Windows Media content using QuickTime.",
+                            "filename": "Flip4Mac WMV Plugin.plugin"
+                        },
+                        {
+                            "description": "Version 5.40.2.0",
+                            "filename": "googletalkbrowserplugin.plugin"
+                        },
+                        {
+                            "description": "Displays Java applet content, or a placeholder if Java is not installed.",
+                            "filename": "JavaAppletPlugin.plugin"
+                        },
+                        {
+                            "description": "Version 5.40.2.0",
+                            "filename": "o1dbrowserplugin.plugin"
+                        },
+                        {
+                            "description": "Microsoft Office for Mac SharePoint Browser Plug-in",
+                            "filename": "SharePointBrowserPlugin.plugin"
+                        }
+                    ],
+                    "timezone": 480,
+                    "colorDepth": 24,
+                    "screenWidth": 1440,
+                    "geo": {
+                        "city": "Stanford",
+                        "region_code": "CA",
+                        "region_name": "California",
+                        "ip": "216.21.160.45",
+                        "time_zone": "America/Los_Angeles",
+                        "longitude": -122.172,
+                        "metro_code": 807,
+                        "latitude": 37.418,
+                        "country_code": "US",
+                        "country_name": "United States",
+                        "zip_code": "94305"
+                    },
+                    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36"
+                },
+                "religionChild": [
+                    "nativeAmerican"
+                ],
+                "children": "",
+                "condition": "Pride",
+                "wording": "experiencing pride"
+            }
+        }
+    },
+    "AcceptTime": "2015-03-02T04:18:34Z",
+    "HITId": "3M47JKRKCX1K0KS0QD6UJLEJXWY863",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2015-03-02T04:22:44Z"
+}
