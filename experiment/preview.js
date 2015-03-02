@@ -29,7 +29,8 @@ var previewSlide = {
 			$('.slide button').hide();
 			showSlide("preview");
 		} else {
-			$('.slide #preview-text').text("Click the 'Next' button to begin! The study will open in a new window.");
+			$('.slide #preview-text').text("Important: Please keep this window open as you complete the survey, which will open in a new window. Click the 'Next' button to begin!");
+			$('.slide #preview-text').css({ "color": "darkred", "font-weight": "bold"});
 			$('.slide button').text("Next");
 			showSlide("preview");
 		}
@@ -37,7 +38,7 @@ var previewSlide = {
 }
 
 // create unique turker id
-var ut_id = "dummy";
+var ut_id = "dummy2";
 
 // show preview slide
 previewSlide.showPreview();
