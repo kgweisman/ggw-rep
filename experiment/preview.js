@@ -24,7 +24,8 @@ var previewSlide = {
 			$('.slide button').hide();
 			showSlide("preview");
 		} else if (UTWorkerLimitReached(ut_id)) {
-			$('.slide #preview-text').text("You have already completed or returned this HIT, or something very similar. Please return this HIT to allow someone else to participant. Thanks for your interest, and hope to see you again next time!");
+			$('.slide #preview-text').text("You have already completed this HIT, or something very similar. Please return this HIT to allow someone else to participate. Thanks for your interest, and hope to see you again next time!");
+			$('.slide #preview-text').attr("color", "darkred");
 			$('.slide button').hide();
 			showSlide("preview");
 		} else {
