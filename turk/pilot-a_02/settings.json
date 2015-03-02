@@ -3,7 +3,7 @@
     "description":         "Make judgments about the mental capacities of a variety of characters",
     "keywords":            "research, psychology, survey, science, mind",
     "url":                 "https://web.stanford.edu/~kweisman/GGW-rep/ggw-rep/experiment/preview.html",
-    "frame_height":         400,
+    "frame_height":         420,
     "assignment_duration":  "1 hour",
     "auto_approval_delay":  "5 minutes",
     "reward":               1.00,
