@@ -25,7 +25,7 @@ var previewSlide = {
 			showSlide("preview");
 		} else if (UTWorkerLimitReached(ut_id)) {
 			$('.slide #preview-text').text("You have already completed this survey, or something very similar. Please return this HIT to allow someone else to participate. Thanks for your interest - we hope to see you again next time!");
-			$('.slide #preview-text').css({ "color": "darkred", "font-weight": "bold"});
+			$('.slide #preview-text').css({ "color": "darkred", "font-weight": "bold", "width": "80%"});
 			$('.slide button').hide();
 			showSlide("preview");
 		} else {
