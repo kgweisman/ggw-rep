@@ -6,7 +6,7 @@
     "frame_height":         350,
     "assignment_duration":  "1 hour",
     "auto_approval_delay":  "5 minutes",
-    "reward":               0.60,
+    "reward":               1.00,
     "qualifications": {
         "location": "US",
         "approval_percentage": 95
