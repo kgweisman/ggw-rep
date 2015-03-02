@@ -37,7 +37,7 @@ var previewSlide = {
 }
 
 // create unique turker id
-var ut_id = "ggw-rep01";
+var ut_id = "dummy";
 
 // show preview slide
 previewSlide.showPreview();
