@@ -233,7 +233,6 @@ pts <- data.frame(x = x, y = y, character = row.names(upperDissim))
 pts <- left_join(pts, row.names(upperDissim))
 
 # Plot!
-quartz()
 ggplot(pts, aes(x = x, y = y, label = character, colour = character)) +
   geom_text()+
   theme_bw() +
