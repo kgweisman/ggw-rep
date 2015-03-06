@@ -1,3 +1,5 @@
+# --- PRELIMINARIES ----------------------------------------
+
 # libraries
 library(dplyr)
 library(tidyr)
@@ -8,6 +10,8 @@ library(stats)
 
 # clear environment
 rm(list=ls())
+
+# --- READING IN DATA OBJECTS ----------------------------------------
 
 # set working directory for india
 setwd("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/turk/pilot-b_01/")
@@ -75,6 +79,8 @@ for(i in 1:length(files)) {
 
 glimpse(d.raw)
 
+# --- TIDYING ----------------------------------------
+
 # clean up variables
 d_tidy = d.raw %>%
   mutate(subid = factor(subid),
@@ -107,6 +113,8 @@ d_tidy = d.raw %>%
          )
 
 glimpse(d_tidy)
+
+# --- WRITING ANONYMIZED CSV ----------------------------------------
 
 # write to de-identified csv file
 write.csv(d_tidy, "/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/pilot-b_01_data_anonymized.csv")
