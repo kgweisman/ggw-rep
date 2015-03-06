@@ -32,7 +32,8 @@ charmeans_table = charmeans %>%
 View(charmeans_table)
 
 
-# --- FACTOR ANALYSIS #1: ORIGINAL GGW2007 _-----------------------------------
+# --- FACTOR ANALYSIS #1: ORIGINAL GGW2007 ------------------------------------
+
 # Extract 2 PCs (unrotated)
 pca1 = principal(charmeans_table[2:6], nfactors = 2, rotate = "none"); pca1
 
