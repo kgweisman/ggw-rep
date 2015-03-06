@@ -17,8 +17,8 @@ files <- dir("production-results/")
 
 d.raw <- data.frame()
 
-# gather files
 for(i in 1:length(files)) {
+  # gather files
   f = files[i]
   jf <- paste("production-results/",f,sep="")
   
