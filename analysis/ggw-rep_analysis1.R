@@ -25,46 +25,53 @@ charmeans = d %>%
 
 glimpse(charmeans)
 
-# format into wideform
+# format into wideform with characters as rows
 charmeans_table = charmeans %>%
   spread(condition, mean)
   
-View(charmeans_table)
+print(charmeans_table)
 
+# make table of mental capacity means by character
+# formatted in wideform with characters as rows
+condmeans = charmeans %>%
+  spread(character, mean)
 
-# --- PRINCIPAL COMPONENTS ANALYSIS #1: ORIGINAL GGW2007 (?) ------------------
+print(condmeans)
 
-d1 = charmeans_table[2:6]
+# --- PRINCIPAL COMPONENTS ANALYSIS A: ORIGINAL GGW2007 ----------------------
+
+d1 = charmeans_table[-1]
 
 # Extract 2 PCs (unrotated)
-pca1 = principal(d1, nfactors = 2, rotate = "none"); pca1
+pca_A1 = principal(d1, nfactors = 2, rotate = "none"); pca_A1
 
 # Extract 2 PCs (rotated)
-pca2 = principal(d1, nfactors = 2, rotate = "varimax"); pca2
+pca_A2 = principal(d1, nfactors = 2, rotate = "varimax"); pca_A2
 
 # Plot PCs against each other for both solutions
 par(mfrow=c(1,2))
 variables = names(d1)
-plot(pca1$loadings, type='n')
-text(pca1$loadings, labels=variables, cex=.9)
-plot(pca2$loadings, type='n')
-text(pca2$loadings, labels=variables, cex=.9)
+plot(pca_A1$loadings, type='n')
+text(pca_A1$loadings, labels=variables, cex=.9)
+plot(pca_A2$loadings, type='n')
+text(pca_A2$loadings, labels=variables, cex=.9)
 
 # Extract PCA loadings for PC1 (unrotated)
-pc1 = pca1$loadings[,1]
+pc1_A = pca_A1$loadings[,1]
 
 # Extract PCA loadings for PC2 (unrotated)
-pc2 = pca1$loadings[,1]
+pc2_A = pca_A1$loadings[,1]
 
 # Set min and max 
-m1.pca = min(c(pc1, pc2))
-m2.pca = max(c(pc1, pc2))
+m1.pca_A = min(c(pc1_A, pc2_A))
+m2.pca_A = max(c(pc1_A, pc2_A))
 
 # Plot participants by principle components (unrotated)
-plot.pca = plot(pc1, pc2, xlim = c(m1.pca, m2.pca)); plot.pca
-plot.pca = plot(pc1, pc2, xlim = c(m1.pca, m2.pca)); plot.pca
+plot.pca_A = plot(pc1_A, pc2_A, xlim = c(m1.pca_A, m2.pca_A)); plot.pca_A
+plot.pca_A = plot(pc1_A, pc2_A, xlim = c(m1.pca_A, m2.pca_A)); plot.pca_A
 
-# --- MAXIMUM LIKELIHOOD FACTOR ANALYSIS #1 -----------------------------------
+# --- MAXIMUM LIKELIHOOD FACTOR ANALYSIS A -----------------------------------
+# Roughly equivalent to PCA #1?
 
 # Factor analysis
 fa1 = factanal(d1, 
@@ -75,8 +82,8 @@ fa1 = factanal(d1,
                cutoff = .4)
 print(fa1)
 
-
-# --- HIERARCHICAL CLUSTER ANALYSIS -------------------------------------------
+# --- HIERARCHICAL CLUSTER ANALYSIS A -----------------------------------------
+# Roughly equivalent to PCA #1?
 
 # Construct dissimilarity matrix
 d2 = as.dist((1-cor(d1))/2)
@@ -90,3 +97,44 @@ rs1=hclust(d2)
 rs1$merge
 plot(rs1$height)
 plot(rs1)
+
+# --- Z-SCORE ANALYSES: ORIGINAL GGW2007 --------------------------------------
+
+# NEED TO DO THIS!!
+
+# --- PRINCIPAL COMPONENTS ANALYSIS B -----------------------------------------
+
+d3 = condmeans[-1]
+
+# Extract 2 PCs (unrotated)
+pca_B1 = principal(d3, nfactors = 2, rotate = "none"); pca_B1
+
+# Extract 2 PCs (rotated)
+pca_B2 = principal(d3, nfactors = 2, rotate = "varimax"); pca_B2
+
+# Plot PCs against each other for both solutions
+par(mfrow=c(1,2))
+variables = names(d3)
+plot(pca_B1$loadings, type='n')
+text(pca_B1$loadings, labels=variables, cex=.9)
+plot(pca_B2$loadings, type='n')
+text(pca_B2$loadings, labels=variables, cex=.9)
+
+# Extract PCA loadings for PC1 (unrotated)
+pc_B1 = pca_B1$loadings[,1]
+
+# Extract PCA loadings for PC2 (unrotated)
+pc_B2 = pca_B1$loadings[,1]
+
+# Set min and max 
+m1.pca_B = min(c(pc_B1, pc_B2))
+m2.pca_B = max(c(pc_B1, pc_B2))
+
+# Plot participants by principle components (unrotated)
+plot.pca_B = plot(pc_B1, pc_B2, xlim = c(m1.pca_B, m2.pca_B)); plot.pca_B
+plot.pca_B = plot(pc_B1, pc_B2, xlim = c(m1.pca_B, m2.pca_B)); plot.pca_B
+
+# --- MULTIDIMENSIONAL SCALING ANALYSES ---------------------------------------
+
+
+
