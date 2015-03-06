@@ -6,14 +6,20 @@ library(tidyr)
 library(ggplot2)
 library(lme4)
 library(psych)
+library(magrittr)
 
 # clear environment
 rm(list=ls())
 
-# read in anonymized data
+# read in data: character means
 d = read.csv("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/pilot-b_01_charmeans.csv")[-1] # get rid of column of obs numbers
 
 glimpse(d)
+
+# read in data: individual scores
+dd = read.csv("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/pilot-b_01_data_anonymized.csv")[-1] # get rid of column of obs numbers
+
+glimpse(dd)
 
 # --- DATA FORMATTING ---------------------------------------------------------
 
@@ -136,5 +142,25 @@ plot.pca_B = plot(pc_B1, pc_B2, xlim = c(m1.pca_B, m2.pca_B)); plot.pca_B
 
 # --- MULTIDIMENSIONAL SCALING ANALYSES ---------------------------------------
 
+# compute pairwise dissimilarities
+dismatrix <- dd %>%
+  select(subid, condition, leftCharacter, rightCharacter, responseNum) %>%
+  group_by(rightCharacter, leftCharacter) %>%
+  mutate(dist = abs(responseNum)) %>% # use absolute values of comparison scores to get distance
+  summarise(mean = mean(dist, na.rm = TRUE)) %>%
+  spread(rightCharacter, mean)
+
+View(dismatrix)
 
 
+
+# Get Base Category types for coloring the plot later
+characters <- dd %>%
+  select(leftCharacter, rightCharacter) %>%
+  distinct()
+
+
+# Convert to matrix form 
+rownames(kara.items) <- t(kara.items[, "BaseSubcat"])
+kara.items %<>% select(-BaseSubcat) %>% 
+  as.matrix
