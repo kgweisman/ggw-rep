@@ -17,8 +17,9 @@ files <- dir("production-results/")
 
 d.raw <- data.frame()
 
-  # gather files
-for (f in files) {
+# gather files
+for(i in 1:length(files)) {
+  f = files[i]
   jf <- paste("production-results/",f,sep="")
   
   # parse JSON object
@@ -27,7 +28,7 @@ for (f in files) {
   # store relevant variables in dataframe 
   id <- data.frame(
     matrix(
-    data = c("condition", "age", "gender", "ethnicity", "education", 
+    data = c("subid", "condition", "age", "gender", "ethnicity", "education", 
                "religionChild", "religionNow", "job", "maritalStatus", 
                "children", "country", "englishNative", "politicalIdeology", 
                "studyMoralPhil", "vegetarian", "beliefGod", "beliefAfterlife", 
@@ -36,6 +37,7 @@ for (f in files) {
     nrow = 78, ncol = 0))
 
   # subject-level data: identity
+  id$subid = paste0("S",i)
   id$condition = jd$answers$data$newData$condition
   
   # subject-level data: demographics
@@ -75,7 +77,8 @@ glimpse(d.raw)
 
 # clean up variables
 d_tidy = d.raw %>%
-  mutate(condition = factor(condition),
+  mutate(subid = factor(subid),
+         condition = factor(condition),
          age = as.numeric(age),
          gender = factor(gender),
          ethnicity = factor(ethnicity), # redo for multiple selected
