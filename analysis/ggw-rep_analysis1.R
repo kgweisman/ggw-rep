@@ -46,35 +46,41 @@ print(condmeans)
 
 # --- PRINCIPAL COMPONENTS ANALYSIS A: ORIGINAL GGW2007 ----------------------
 
+rows = charmeans_table$character
 d1 = charmeans_table[-1]
+rownames(d1) = rows
+d1
 
-# Extract 2 PCs (unrotated)
-pca_A1 = principal(d1, nfactors = 2, rotate = "none"); pca_A1
+# NOTES: 
+# - could also look at unrotated solution by specifying rotate = "none"
+# - should also look at other numbers of factors when we have more data
 
-# Extract 2 PCs (rotated)
+# --------> 1-factor PCA (varimax rotation) ----------
+# extract factors
+pca_A1 = principal(d1, nfactors = 1, rotate = "varimax"); pca_A1
+
+# extract PCA loadings
+pca_A1_pc1 = pca_A1$loadings[,1]
+
+# -------- 2-factor PCA (varimax rotation) ----------
+# extract factors
 pca_A2 = principal(d1, nfactors = 2, rotate = "varimax"); pca_A2
 
-# Plot PCs against each other for both solutions
-par(mfrow=c(1,2))
+# extract PCA loadings
+pca_A2_pc1 = pca_A2$loadings[,1]
+pca_A2_pc2 = pca_A2$loadings[,2]
+
+# plot PCs against each other
 variables = names(d1)
-plot(pca_A1$loadings, type='n')
-text(pca_A1$loadings, labels=variables, cex=.9)
 plot(pca_A2$loadings, type='n')
 text(pca_A2$loadings, labels=variables, cex=.9)
 
-# Extract PCA loadings for PC1 (unrotated)
-pc1_A = pca_A1$loadings[,1]
+# plot character by principle components (unrotated)
+# NOT CORRECT! need to multiply individual characters' scores by factor loadings?
+# pca_A2_m1 = min(c(pca_A2_pc1, pca_A2_pc2))
+# pca_A2_m2 = max(c(pca_A2_pc1, pca_A2_pc2))plot(pca_A2_pc1, pca_A2_pc2, xlim = c(0,1), ylim = c(0,1))
+# text(pca_A2_pc1, labels = pca_A2_pc1, cex = .5)
 
-# Extract PCA loadings for PC2 (unrotated)
-pc2_A = pca_A1$loadings[,1]
-
-# Set min and max 
-m1.pca_A = min(c(pc1_A, pc2_A))
-m2.pca_A = max(c(pc1_A, pc2_A))
-
-# Plot participants by principle components (unrotated)
-plot.pca_A = plot(pc1_A, pc2_A, xlim = c(m1.pca_A, m2.pca_A)); plot.pca_A
-plot.pca_A = plot(pc1_A, pc2_A, xlim = c(m1.pca_A, m2.pca_A)); plot.pca_A
 
 # --- MAXIMUM LIKELIHOOD FACTOR ANALYSIS A -----------------------------------
 # Roughly equivalent to PCA #1?
