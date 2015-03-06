@@ -1,16 +1,16 @@
-# # libraries
-# library(dplyr)
-# library(tidyr)
-# library(ggplot2)
-# library(lme4)
-# library(jsonlite)
-# library(stats)
+# libraries
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(lme4)
+library(jsonlite)
+library(stats)
 
 # clear environment
 rm(list=ls())
 
 # set working directory for india
-# setwd("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/turk/pilot-b_01/")
+setwd("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/turk/pilot-b_01/")
 
 # mike's json for-loop
 files <- dir("production-results/")
