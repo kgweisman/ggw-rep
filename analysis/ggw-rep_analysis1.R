@@ -6,7 +6,7 @@ library(tidyr)
 library(ggplot2)
 library(lme4)
 library(psych)
-library(magrittr)
+library(stats)
 
 # clear environment
 rm(list=ls())
@@ -142,25 +142,97 @@ plot.pca_B = plot(pc_B1, pc_B2, xlim = c(m1.pca_B, m2.pca_B)); plot.pca_B
 
 # --- MULTIDIMENSIONAL SCALING ANALYSES ---------------------------------------
 
-# compute pairwise dissimilarities
-dismatrix <- dd %>%
-  select(subid, condition, leftCharacter, rightCharacter, responseNum) %>%
-  group_by(rightCharacter, leftCharacter) %>%
+upperDissim <- dd %>%
+  # alphabetize for upper triangle matrix
+  mutate(
+    character1 = 
+      ifelse(leftCharacter == "charlie_dog" | 
+               rightCharacter == "charlie_dog",
+             "charlie_dog",
+             ifelse(leftCharacter == "delores_gleitman_deceased" |
+                      rightCharacter == "delores_gleitman_deceased",
+                    "delores_gleitman_deceased",
+                    ifelse(leftCharacter == "fetus" |
+                             rightCharacter == "fetus",
+                           "fetus",
+                           ifelse(leftCharacter == "gerald_schiff_pvs" |
+                                    rightCharacter == "gerald_schiff_pvs",
+                                  "gerald_schiff_pvs",
+                                  ifelse(leftCharacter == "god" |
+                                           rightCharacter == "god",
+                                         "god",
+                                         ifelse(leftCharacter == "green_frog" |
+                                                  rightCharacter == "green_frog",
+                                                "green_frog",
+                                                ifelse(leftCharacter == "kismet_robot" |
+                                                         rightCharacter == "kismet_robot",
+                                                       "kismet_robot",
+                                                       ifelse(leftCharacter == "nicholas_gannon_baby" |
+                                                                rightCharacter == "nicholas_gannon_baby",
+                                                              "nicholas_gannon_baby",
+                                                              ifelse(leftCharacter == "samantha_hill_girl" |
+                                                                       rightCharacter == "samantha_hill_girl",
+                                                                     "samantha_hill_girl",
+                                                                     ifelse(leftCharacter == "sharon_harvey_woman" |
+                                                                              rightCharacter == "sharon_harvey_woman",
+                                                                            "sharon_harvey_woman",
+                                                                            ifelse(leftCharacter == "toby_chimp" |
+                                                                                     rightCharacter == "toby_chimp",
+                                                                                   "toby_chimp",
+                                                                                   ifelse(leftCharacter == "todd_billingsley_man" |
+                                                                                            rightCharacter == "todd_billingsley_man",
+                                                                                          "todd_billingsley_man",
+                                                                                          ifelse(leftCharacter == "you" |
+                                                                                                   rightCharacter == "you",
+                                                                                                 "you",
+                                                                                                 "NA")))))))))))))) %>%
+  mutate(character2 = ifelse(leftCharacter == character1, as.character(rightCharacter), as.character(leftCharacter))) %>%
+  select(subid, condition, character1, character2, responseNum) %>%
+  group_by(character1, character2) %>%
   mutate(dist = abs(responseNum)) %>% # use absolute values of comparison scores to get distance
   summarise(mean = mean(dist, na.rm = TRUE)) %>%
-  spread(rightCharacter, mean)
+  spread(character2, mean)
 
-View(dismatrix)
+# add in NA column for charlie_dog, NA row for you
+upperDissim$charlie_dog = NA
+upperDissim[13,] = c("you", rep(NA, 13))
 
+# reorder columns
+upperDissim = upperDissim[, c(1, 14, 2:13)]
 
+# rename rows
+rows = upperDissim$character1
+upperDissim = upperDissim[-1]
+rownames(upperDissim) = rows
+colnames(upperDissim) = rows
 
-# Get Base Category types for coloring the plot later
-characters <- dd %>%
-  select(leftCharacter, rightCharacter) %>%
-  distinct()
+# fill in lower triangle matrix
+for(i in 1:12) {
+  for(j in (i+1):13) {
+    upperDissim[j,i] = upperDissim[i,j]
+  }
+}
 
+# replace NAs with 0 and convert to numeric
+for(i in 1:13) {
+  upperDissim[i,i] = 0
+}
 
-# Convert to matrix form 
-rownames(kara.items) <- t(kara.items[, "BaseSubcat"])
-kara.items %<>% select(-BaseSubcat) %>% 
-  as.matrix
+# Convert to numeric matrix form 
+upperDissim = data.matrix(upperDissim)
+
+# Do MDS, pull out x and y coords
+fit <- cmdscale(upperDissim, eig = TRUE, k = 2)
+x <- fit$points[, 1]
+y <- fit$points[, 2]
+
+# Convert to a dataframe and join in category labels
+pts <- data.frame(x = x, y = y, character = row.names(upperDissim))
+pts <- left_join(pts, row.names(upperDissim))
+
+# Plot!
+quartz()
+ggplot(pts, aes(x = x, y = y, label = character, colour = character)) +
+  geom_text()+
+  theme_bw() +
+  theme(legend.position = "none")
