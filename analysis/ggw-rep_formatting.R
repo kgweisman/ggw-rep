@@ -104,3 +104,8 @@ d_tidy = d.raw %>%
          )
 
 glimpse(d_tidy)
+
+# write to de-identified csv file
+write.csv(d_tidy, "/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/pilot-b_01_data_anonymized.csv")
+
+d = read.csv("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/pilot-b_01_data_anonymized.csv")[-1] # get rid of column of obs numbers
