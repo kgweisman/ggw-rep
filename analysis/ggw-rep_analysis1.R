@@ -142,6 +142,8 @@ plot.pca_B = plot(pc_B1, pc_B2, xlim = c(m1.pca_B, m2.pca_B)); plot.pca_B
 
 # --- MULTIDIMENSIONAL SCALING ANALYSES ---------------------------------------
 
+# NOTE: in addition to running for all conditions together (as here), need to filter by condition and run for each condition separately!
+
 upperDissim <- dd %>%
   # alphabetize for upper triangle matrix
   mutate(
