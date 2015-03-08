@@ -47,7 +47,10 @@ print(d1)
 condmeans = charmeans %>%
   spread(character, mean)
 
-print(condmeans)
+rows = condmeans$condition
+d3 = condmeans[-1]
+rownames(d3) = rows
+print(d3)
 
 # --- PRINCIPAL COMPONENTS ANALYSIS A: ORIGINAL GGW2007 ----------------------
 
@@ -55,7 +58,7 @@ print(condmeans)
 # - could also look at unrotated solution by specifying rotate = "none"
 # - should also look at other numbers of factors when we have more data
 
-# --------> 1-factor PCA (varimax rotation, usring principal) ----------
+# --------> 1-factor PCA (varimax rotation, using principal) ----------
 # extract factors
 pca_A1 = principal(d1, nfactors = 1, rotate = "varimax"); pca_A1
 
@@ -129,35 +132,48 @@ plot(rs1)
 
 # --- PRINCIPAL COMPONENTS ANALYSIS B -----------------------------------------
 
-d3 = condmeans[-1]
+# NOTES: 
+# - could also look at unrotated solution by specifying rotate = "none"
+# - should also look at other numbers of factors when we have more data
 
-# Extract 2 PCs (unrotated)
-pca_B1 = principal(d3, nfactors = 2, rotate = "none"); pca_B1
+# --------> 1-factor PCA (varimax rotation, using principal) ----------
+# extract factors
+pca_B1 = principal(d3, nfactors = 1, rotate = "varimax"); pca_B1
 
-# Extract 2 PCs (rotated)
+# extract PCA loadings
+pca_B1_pc1 = pca_B1$loadings[,1]
+
+# --------> 2-factor PCA (varimax rotation, using principal) ----------
+# extract factors
 pca_B2 = principal(d3, nfactors = 2, rotate = "varimax"); pca_B2
 
-# Plot PCs against each other for both solutions
-par(mfrow=c(1,2))
-variables = names(d3)
-plot(pca_B1$loadings, type='n')
-text(pca_B1$loadings, labels=variables, cex=.9)
-plot(pca_B2$loadings, type='n')
-text(pca_B2$loadings, labels=variables, cex=.9)
+# extract PCA loadings
+pca_B2_pc1 = pca_B2$loadings[,1]
+pca_B2_pc2 = pca_B2$loadings[,2]
 
-# Extract PCA loadings for PC1 (unrotated)
-pc_B1 = pca_B1$loadings[,1]
+# plot PCs against each other
+ggplot(data.frame(pca_B2$loadings[1:13,]), aes(x = RC2, y = RC1, label = names(d3))) +
+  geom_text() +
+  theme_bw() +
+  labs(title = "Factor loadings\n",
+       x = "\nRotated PC2",
+       y = "Rotated PC1\n")
 
-# Extract PCA loadings for PC2 (unrotated)
-pc_B2 = pca_B1$loadings[,1]
+# plot characters by principle components, PC1 on y-axis
+ggplot(data.frame(pca_B2$scores), aes(x = RC2, y = RC1, label = rownames(d3))) +
+  geom_text() +
+  theme_bw() +
+  labs(title = "Raw condition factor scores\n",
+       x = "\nRotated PC2",
+       y = "Rotated PC1\n")
 
-# Set min and max 
-m1.pca_B = min(c(pc_B1, pc_B2))
-m2.pca_B = max(c(pc_B1, pc_B2))
-
-# Plot participants by principle components (unrotated)
-plot.pca_B = plot(pc_B1, pc_B2, xlim = c(m1.pca_B, m2.pca_B)); plot.pca_B
-plot.pca_B = plot(pc_B1, pc_B2, xlim = c(m1.pca_B, m2.pca_B)); plot.pca_B
+# re-plot characters with rescaling (as in GGW2007 original), PC1 on y-axis
+ggplot(data.frame(pca_B2$scores), aes(x = rescale(RC2, to = c(0,1)), y = rescale(RC1, to = c(0,1)), label = rownames(d3))) +
+  geom_text() +
+  theme_bw() +
+  labs(title = "Adjusted condition factor scores\n",
+       x = "\nRotated PC2 (rescaled)",
+       y = "Rotated PC1 (rescaled)\n")
 
 # --- MULTIDIMENSIONAL SCALING ANALYSES ---------------------------------------
 
