@@ -65,7 +65,7 @@ pca_A1 = principal(d1, nfactors = 1, rotate = "varimax"); pca_A1
 # extract PCA loadings
 pca_A1_pc1 = pca_A1$loadings[,1]
 
-# -------- 2-factor PCA (varimax rotation, using principal) ----------
+# --------> 2-factor PCA (varimax rotation, using principal) ----------
 # extract factors
 pca_A2 = principal(d1, nfactors = 2, rotate = "varimax"); pca_A2
 
@@ -98,34 +98,6 @@ ggplot(data.frame(pca_A2$scores), aes(x = rescale(RC2, to = c(0,1)), y = rescale
        x = "\nRotated PC2 (rescaled)",
        y = "Rotated PC1 (rescaled)\n")
 
-# --- MAXIMUM LIKELIHOOD FACTOR ANALYSIS A -----------------------------------
-# Roughly equivalent to PCA #1?
-
-# Factor analysis
-fa1 = factanal(d1, 
-               factors = 2, 
-               rotation = "varimax", 
-               na.action = na.omit, 
-               scores =  'regression', 
-               cutoff = .4)
-print(fa1)
-
-# --- HIERARCHICAL CLUSTER ANALYSIS A -----------------------------------------
-# Roughly equivalent to PCA #1?
-
-# Construct dissimilarity matrix
-d2 = as.dist((1-cor(d1))/2)
-
-# Conduct hierarchical cluster analysis
-hca = hclust(d2); hca
-
-# Plot dendogram
-par(mfrow=c(1,2))
-rs1=hclust(d2)
-rs1$merge
-plot(rs1$height)
-plot(rs1)
-
 # --- Z-SCORE ANALYSES: ORIGINAL GGW2007 --------------------------------------
 
 # NEED TO DO THIS!!
@@ -133,6 +105,7 @@ plot(rs1)
 # --- PRINCIPAL COMPONENTS ANALYSIS B -----------------------------------------
 
 # NOTES: 
+# - in addition to running for all conditions together (as here), need to filter by condition and run for each condition separately!
 # - could also look at unrotated solution by specifying rotate = "none"
 # - should also look at other numbers of factors when we have more data
 
@@ -272,3 +245,35 @@ ggplot(pts, aes(x = x, y = y, label = character, colour = character)) +
   geom_text()+
   theme_bw() +
   theme(legend.position = "none")
+
+# --- MAXIMUM LIKELIHOOD FACTOR ANALYSIS A -----------------------------------
+# Roughly equivalent to pca_A?
+# Could also do the parallel version of pca_B
+
+# Factor analysis
+fa1 = factanal(d1, 
+               factors = 2, 
+               rotation = "varimax", 
+               na.action = na.omit, 
+               scores =  'regression', 
+               cutoff = .4)
+print(fa1)
+
+# --- HIERARCHICAL CLUSTER ANALYSIS A -----------------------------------------
+# Roughly equivalent to pca_A
+# Could also do the parallel version of pca_B
+
+# Construct dissimilarity matrix
+d2 = as.dist((1-cor(d1))/2)
+
+# Conduct hierarchical cluster analysis
+hca = hclust(d2); hca
+
+# Plot dendogram
+par(mfrow=c(1,2))
+rs1=hclust(d2)
+rs1$merge
+plot(rs1$height)
+plot(rs1)
+
+
