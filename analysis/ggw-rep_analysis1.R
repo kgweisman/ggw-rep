@@ -7,6 +7,7 @@ library(ggplot2)
 library(lme4)
 library(psych)
 library(stats)
+library(scales)
 
 # clear environment
 rm(list=ls())
@@ -71,12 +72,24 @@ pca_A2_pc2 = pca_A2$loadings[,2]
 
 # plot PCs against each other
 variables = names(d1)
-plot(pca_A2$loadings, type='n')
-text(pca_A2$loadings, labels=variables, cex=.9)
+plot(pca_A2$loadings, type = 'n')
+text(pca_A2$loadings, labels = variables, cex = .9)
 
-# plot character by principle components (unrotated)
-plot(pca_A2$scores, type='n')
-text(pca_A2$scores, labels = rownames(d1))
+# plot characters by principle components
+plot(pca_A2$scores, type = 'n')
+text(pca_A2$scores, labels = rownames(d1), cex = .9)
+
+# re-plot characters with rescaling (as in GGW2007 original), PC1 on y-axis
+plot(rescale(pca_A2$scores[,2], to = c(0,1)),
+     rescale(pca_A2$scores[,1], to = c(0,1)),
+     type = 'n',
+     xlab = "PC2",
+     ylab = "PC1",
+     main = "Adjusted character factor scores")
+text(x = rescale(pca_A2$scores[,2], to = c(0,1)),
+     y = rescale(pca_A2$scores[,1], to = c(0,1)), 
+     labels = rownames(d1), 
+     cex = .6)
 
 # --- MAXIMUM LIKELIHOOD FACTOR ANALYSIS A -----------------------------------
 # Roughly equivalent to PCA #1?
