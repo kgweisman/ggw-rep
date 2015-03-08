@@ -71,25 +71,29 @@ pca_A2_pc1 = pca_A2$loadings[,1]
 pca_A2_pc2 = pca_A2$loadings[,2]
 
 # plot PCs against each other
-variables = names(d1)
-plot(pca_A2$loadings, type = 'n')
-text(pca_A2$loadings, labels = variables, cex = .9)
+# NOTE: need to adjust "1:5" to "1:18" if all 18 conditions are run
+ggplot(data.frame(pca_A2$loadings[1:5,]), aes(x = RC2, y = RC1, label = names(d1))) +
+  geom_text() +
+  theme_bw() +
+  labs(title = "Factor loadings\n",
+       x = "\nRotated PC2",
+       y = "Rotated PC1\n")
 
-# plot characters by principle components
-plot(pca_A2$scores, type = 'n')
-text(pca_A2$scores, labels = rownames(d1), cex = .9)
+# plot characters by principle components, PC1 on y-axis
+ggplot(data.frame(pca_A2$scores), aes(x = RC2, y = RC1, label = rownames(d1))) +
+  geom_text() +
+  theme_bw() +
+  labs(title = "Raw character factor scores\n",
+       x = "\nRotated PC2",
+       y = "Rotated PC1\n")
 
 # re-plot characters with rescaling (as in GGW2007 original), PC1 on y-axis
-plot(rescale(pca_A2$scores[,2], to = c(0,1)),
-     rescale(pca_A2$scores[,1], to = c(0,1)),
-     type = 'n',
-     xlab = "PC2",
-     ylab = "PC1",
-     main = "Adjusted character factor scores")
-text(x = rescale(pca_A2$scores[,2], to = c(0,1)),
-     y = rescale(pca_A2$scores[,1], to = c(0,1)), 
-     labels = rownames(d1), 
-     cex = .6)
+ggplot(data.frame(pca_A2$scores), aes(x = rescale(RC2, to = c(0,1)), y = rescale(RC1, to = c(0,1)), label = rownames(d1))) +
+  geom_text() +
+  theme_bw() +
+  labs(title = "Adjusted character factor scores\n",
+       x = "\nRotated PC2 (rescaled)",
+       y = "Rotated PC1 (rescaled)\n")
 
 # --- MAXIMUM LIKELIHOOD FACTOR ANALYSIS A -----------------------------------
 # Roughly equivalent to PCA #1?
