@@ -152,6 +152,9 @@ ggplot(data.frame(pca_B2$scores), aes(x = rescale(RC2, to = c(0,1)), y = rescale
 
 # NOTE: in addition to running for all conditions together (as here), need to filter by condition and run for each condition separately!
 
+# --------> MDS 1: all conditions ---------------------------------------------
+
+# ----------------> data formatting -------------------------------------------
 # make alphabetized list of characters, cycle through to fill in alphabetized pairs
 upperDissim <- dd %>%
   mutate(character1 = array(),
@@ -211,23 +214,117 @@ for(i in 1:13) {
 # Convert to numeric matrix form 
 upperDissim = data.matrix(upperDissim)
 
-# Do MDS, pull out x and y coords
-fit <- cmdscale(upperDissim, eig = TRUE, k = 2)
-x <- fit$points[, 1]
-y <- fit$points[, 2]
+# ----------------> do MDS ----------------------------------------------------
+# do MDS, pull out x_all and y_all coords
+fit_all <- cmdscale(upperDissim, eig = TRUE, k = 2)
+x_all <- fit_all$points[, 1]
+y_all <- fit_all$points[, 2]
 
-# Convert to a dataframe and join in category labels
-pts <- data.frame(x = x, y = y, character = row.names(upperDissim))
-pts <- left_join(pts, row.names(upperDissim))
+# convert to a dataframe
+pts <- data.frame(x = x_all, y = y_all, character = row.names(upperDissim))
 
-# Plot!
-ggplot(pts, aes(x = x, y = y, label = character)) +
+# plot!
+ggplot(pts, aes(x = x_all, y = y_all, label = character)) +
   geom_text() +
   theme_bw() +
-  labs(title = "Multidimensional scaling of characters\n",
+  labs(title = "Multidimensional scaling of characters:\nAll conditions\n",
        x = NULL,
        y = NULL)
 
+# --------> MDS 2: each condition separately ----------------------------------
+
+# ----------------> data formatting & MDS -------------------------------------
+
+for(k in 1:length(levels(dd$condition))) {
+  condition_temp = levels(dd$condition)[k]
+  
+  upperDissim_temp = NULL
+  fit_temp = NULL
+  x_temp = NULL
+  y_temp = NULL
+  pts_temp = NULL
+  
+  # make alphabetized list of characters, cycle through to fill in alphabetized pairs
+  upperDissim_temp <- dd %>%
+    filter(condition == condition_temp) %>%
+    mutate(character1 = array(),
+           character2 = array())
+  
+  charsort = sort(levels(upperDissim_temp$leftCharacter), decreasing = TRUE)
+  
+  for(i in 1:length(charsort)) {
+    upperDissim_temp <- upperDissim_temp %>%
+      mutate(
+        character1 = 
+          ifelse(leftCharacter == charsort[i] |
+                   rightCharacter == charsort[i],
+                 as.character(charsort[i]),
+                 as.character(character1)),
+        character2 = 
+          ifelse(character1 == leftCharacter,
+                 as.character(rightCharacter),
+                 as.character(leftCharacter))) %>%
+      mutate(character1 = factor(character1),
+             character2 = factor(character2))
+  }
+  
+  # make upper matrix of dissimilarity values
+  upperDissim_temp <- upperDissim_temp %>%
+    select(subid, condition, character1, character2, responseNum) %>%
+    group_by(character1, character2) %>%
+    mutate(dist = abs(responseNum)) %>% # use absolute values of comparison scores to get distance
+    summarise(mean = mean(dist, na.rm = TRUE)) %>%
+    spread(character2, mean)
+  
+  # add in NA column for charlie_dog, NA row for you
+  upperDissim_temp <- upperDissim_temp %>%
+    mutate(charlie_dog = NA,
+           character1 = as.character(character1)) %>%
+    rbind(c("you", rep(NA, 13))) %>%
+    mutate(character1 = factor(character1))
+  
+  # reorder columns
+  upperDissim_temp = upperDissim_temp[, c(1, 14, 2:13)]
+  
+  # rename rows and columns
+  names = sort(charsort, decreasing = FALSE)
+  upperDissim_temp = upperDissim_temp[-1]
+  rownames(upperDissim_temp) = names
+  colnames(upperDissim_temp) = names
+  
+  # fill in lower triangle matrix
+  for(i in 1:12) {
+    for(j in (i+1):13) {
+      upperDissim_temp[j,i] = upperDissim_temp[i,j]
+    }
+  }
+  
+  # replace NAs with 0 and convert to numeric
+  for(i in 1:13) {
+    upperDissim_temp[i,i] = 0
+  }
+  
+  # Convert to numeric matrix form 
+  upperDissim_temp = data.matrix(upperDissim_temp)
+  
+  # do MDS, pull out x_temp and y_temp coords
+  fit_temp <- cmdscale(upperDissim_temp, eig = TRUE, k = 2)
+  x_temp <- fit_temp$points[, 1]
+  y_temp <- fit_temp$points[, 2]
+  
+  # convert to a dataframe and join in category_temp labels
+  pts_temp <- data.frame(x = x_temp, y = y_temp, character = row.names(upperDissim_temp))
+  
+  # plot!
+  plot = 
+    ggplot(pts_temp, aes(x = x_temp, y = y_temp, label = character)) +
+      geom_text() +
+      theme_bw() +
+      labs(title = paste0("Multidimensional scaling of characters:\n",condition_temp,"\n"),
+           x = NULL,
+           y = NULL)
+  print(plot)
+}
 
 # --- ADDITIONAL ALTERNATIVE ANALYES ------------------------------------------
 
