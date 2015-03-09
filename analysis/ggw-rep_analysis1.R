@@ -12,6 +12,9 @@ library(scales)
 # clear environment
 rm(list=ls())
 
+# clear graphics
+graphics.off()
+
 # read in data: character means
 d = read.csv("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/run-01_2015-03-09_charmeans.csv")[-1] # get rid of column of obs numbers
 
@@ -706,14 +709,14 @@ for(k in 1:length(levels(dd$condition))) {
   pts_temp <- data.frame(x = x_temp, y = y_temp, character = row.names(upperDissim_temp))
   
   # plot!
-  plot = 
+  print(
     ggplot(pts_temp, aes(x = x_temp, y = y_temp, label = character)) +
       geom_text() +
       theme_bw() +
       labs(title = paste0("Multidimensional scaling of characters:\n",condition_temp,"\n"),
            x = NULL,
            y = NULL)
-  print(plot)
+  )
 }
 
 # --- ADDITIONAL ALTERNATIVE ANALYES ------------------------------------------
