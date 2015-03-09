@@ -26,16 +26,41 @@ for(i in 1:length(files)) {
   jd <- fromJSON(paste(readLines(jf), collapse=""))
   
   kd <- data.frame(matrix(
-    data = c("subid", "condition", "gerald_schiff_pvs", "toby_chimp", "fetus",
-             "god", "delores_gleitman_deceased", "sharon_harvey_woman",
-             "green_frog", "todd_billingsley_man", "charlie_dog", 
-             "nicholas_gannon_baby", "samantha_hill_girl", "kismet_robot", 
-             "you"),
+    data = c(
+      # session info
+      "subid", "condition", 
+             
+      # individual diffs items for z-score analysis
+      "gender", "age", "beliefGod", "education", "politicalIdeology",
+      "maritalStatus", "children", 
+#       "dog", # add back in for real study
+      "beliefAfterlife",
+      
+      # character means
+      "gerald_schiff_pvs", "toby_chimp", "fetus",
+      "god", "delores_gleitman_deceased", "sharon_harvey_woman",
+      "green_frog", "todd_billingsley_man", "charlie_dog", 
+      "nicholas_gannon_baby", "samantha_hill_girl", "kismet_robot", 
+      "you"),
     nrow = 12, 
     ncol = 0))
 
+  # session info
   kd$subid = paste0("S",i)
   kd$condition = jd$answers$data$newData$condition
+
+  # individual diffs items for z-score analysis
+  kd$gender = jd$answers$data$newData$gender
+  kd$age = jd$answers$data$newData$age
+  kd$beliefGod = jd$answers$data$beliefGod$age
+  kd$education = jd$answers$data$newData$education
+  kd$politicalIdeology = jd$answers$data$newData$politicalIdeology
+  kd$maritalStatus = jd$answers$data$newData$maritalStatus
+  kd$children = jd$answers$data$newData$children
+#   kd$dog = jd$answers$data$newData$dog # add back in for real study
+  kd$beliefAfterlife = jd$answers$data$newData$beliefAfterlife
+
+  # character means
   kd$gerald_schiff_pvs = jd$answers$data$newData$charScores$gerald_schiff_pvs
   kd$toby_chimp = jd$answers$data$newData$charScores$toby_chimp
   kd$fetus = jd$answers$data$newData$charScores$fetus
@@ -59,7 +84,14 @@ glimpse(d.raw)
 # clean up variables
 d_tidy = d.raw %>%
   mutate(subid = factor(subid),
-         condition = factor(condition))
+         condition = factor(condition),
+         gender = factor(gender),
+         age = as.numeric(age),
+         education = factor(education),
+         politicalIdeology = factor(politicalIdeology),
+         maritalStatus = factor(maritalStatus),
+         children = as.numeric(children),
+         beliefAfterlife = factor(beliefAfterlife))
 
 glimpse(d_tidy)
 
