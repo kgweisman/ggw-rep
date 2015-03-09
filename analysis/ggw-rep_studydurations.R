@@ -39,4 +39,6 @@ d_times = d.raw %>%
          endTime = chron(times = substr(SubmitTime, 12, 19), format = 'h:m:s'),
          duration = endTime - startTime)
 
-View(d_times)
+summary(d_times)
+
+qplot(d_times$duration)
