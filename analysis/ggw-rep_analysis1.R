@@ -152,34 +152,30 @@ ggplot(data.frame(pca_B2$scores), aes(x = rescale(RC2, to = c(0,1)), y = rescale
 
 # NOTE: in addition to running for all conditions together (as here), need to filter by condition and run for each condition separately!
 
-# alphabetize characters within pairs
-character1 = matrix(nrow = 390)
-character2 = matrix(nrow = 390)
-charsort = sort(charnames, decreasing = TRUE)
-for(j in 1:length(dd$leftCharacter)) {
-  for(i in 1:length(charsort)) {
-    character1[j] = ifelse(dd$leftCharacter[j] == charsort[i] |
-                             dd$rightCharacter[j] == charsort[i],
-                           charsort[i],
-                           character1[j])
-    character2[j] = ifelse(character1[j] == dd$leftCharacter[j],
-                           as.character(dd$rightCharacter[j]),
-                           as.character(dd$leftCharacter[j]))  
-  }
+# make alphabetized list of characters, cycle through to fill in alphabetized pairs
+upperDissim <- dd %>%
+  mutate(character1 = array(),
+         character2 = array())
+
+charsort = sort(levels(upperDissim$leftCharacter), decreasing = TRUE)
+
+for(i in 1:length(charsort)) {
+  upperDissim <- upperDissim %>%
+    mutate(
+      character1 = 
+        ifelse(leftCharacter == charsort[i] |
+                 rightCharacter == charsort[i],
+               as.character(charsort[i]),
+               as.character(character1)),
+      character2 = 
+        ifelse(character1 == leftCharacter,
+               as.character(rightCharacter),
+               as.character(leftCharacter))) %>%
+    mutate(character1 = factor(character1),
+           character2 = factor(character2))
 }
-pairs_alphabetized = cbind(character1, character2)
 
-# test alphabetization against true character pairs (for spot-checking)
-colnames(pairs_alphabetized) = c("character1", "character2")
-pairs_true = dd[c("leftCharacter", "rightCharacter")]
-pairs_compare = cbind(pairs_alphabetized, pairs_true)
-# View(pairs_compare)
-
-# add alphabetization to main dataframe
-upperDissim <- dd
-upperDissim$character1 = pairs_compare$character1
-upperDissim$character2 = pairs_compare$character2
-
+# make upper matrix of dissimilarity values
 upperDissim <- upperDissim %>%
   select(subid, condition, character1, character2, responseNum) %>%
   group_by(character1, character2) %>%
@@ -194,11 +190,11 @@ upperDissim[13,] = c("you", rep(NA, 13))
 # reorder columns
 upperDissim = upperDissim[, c(1, 14, 2:13)]
 
-# rename rows
-rows = upperDissim$character1
+# rename rows and columns
+names = sort(charsort, decreasing = FALSE)
 upperDissim = upperDissim[-1]
-rownames(upperDissim) = rows
-colnames(upperDissim) = rows
+rownames(upperDissim) = names
+colnames(upperDissim) = names
 
 # fill in lower triangle matrix
 for(i in 1:12) {
