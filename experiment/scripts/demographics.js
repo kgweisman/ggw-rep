@@ -18,6 +18,7 @@ $('.slide#demographics button').click(function() {
 	experiment.newData.englishNative = $('input[name=englishNative]:checked', '#demographicsForm').val();
 	experiment.newData.maritalStatus = $('input[name=maritalStatus]:checked', '#demographicsForm').val();
 	experiment.newData.vegetarian = $('input[name=vegetarian]:checked', '#demographicsForm').val();
+	experiment.newData.dog = $('input[name=dog]:checked', '#demographicsForm').val();
 	experiment.newData.studyMoralPhil = $('input[name=studyMoralPhil]:checked', '#demographicsForm').val();
 	experiment.newData.politicalIdeology = $('input[name=politicalIdeology]:checked', '#demographicsForm').val();
 	experiment.newData.beliefGod = $('input[name=beliefGod]:checked', '#demographicsForm').val();

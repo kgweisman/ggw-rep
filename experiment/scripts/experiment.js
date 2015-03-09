@@ -28,6 +28,7 @@ var experiment = {
 		maritalStatus: "",
 		children: "",
 		vegetarian: "",
+		dog: "",
 		studyMoralPhil: "",
 		politicalIdeology: "",
 		beliefGod: "",
