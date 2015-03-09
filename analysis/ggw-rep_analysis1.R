@@ -80,8 +80,8 @@ pca_A2_pc1 = pca_A2$loadings[,1]; pca_A2_pc1
 pca_A2_pc2 = pca_A2$loadings[,2]; pca_A2_pc2
 
 # plot PCs against each other
-# NOTE: need to adjust "1:5" to "1:18" if all 18 conditions are run
-ggplot(data.frame(pca_A2$loadings[1:5,]), aes(x = RC2, y = RC1, label = names(d1))) +
+# NOTE: need to adjust "1:4" depending on how many conditions are run
+ggplot(data.frame(pca_A2$loadings[1:4,]), aes(x = RC2, y = RC1, label = names(d1))) +
   geom_text() +
   theme_bw() +
   labs(title = "Factor loadings\n",
@@ -504,7 +504,7 @@ print(d1_afterlifeyes)
 pca_B1 = principal(d3, nfactors = 1, rotate = "varimax"); pca_B1
 
 # extract PCA loadings
-pca_B1_pc1 = pca_B1$loadings[,1]
+pca_B1_pc1 = pca_B1$loadings[,1]; pca_B1_pc1
 
 # --------> 2-factor PCA (varimax rotation, using principal) ----------
 # extract factors
@@ -522,7 +522,7 @@ ggplot(data.frame(pca_B2$loadings[1:13,]), aes(x = RC2, y = RC1, label = names(d
        x = "\nRotated PC2",
        y = "Rotated PC1\n")
 
-# plot characters by principle components, PC1 on y-axis
+# plot conditions by principle components, PC1 on y-axis
 ggplot(data.frame(pca_B2$scores), aes(x = RC2, y = RC1, label = rownames(d3))) +
   geom_text() +
   theme_bw() +
@@ -530,7 +530,7 @@ ggplot(data.frame(pca_B2$scores), aes(x = RC2, y = RC1, label = rownames(d3))) +
        x = "\nRotated PC2",
        y = "Rotated PC1\n")
 
-# re-plot characters with rescaling (as in GGW2007 original), PC1 on y-axis
+# re-plot conditions with rescaling (as in GGW2007 original), PC1 on y-axis
 ggplot(data.frame(pca_B2$scores), aes(x = rescale(RC2, to = c(0,1)), y = rescale(RC1, to = c(0,1)), label = rownames(d3))) +
   geom_text() +
   theme_bw() +
@@ -724,7 +724,7 @@ for(k in 1:length(levels(dd$condition))) {
 
 # Factor analysis
 fa1 = factanal(d1, 
-               factors = 2, 
+               factors = 1, 
                rotation = "varimax", 
                na.action = na.omit, 
                scores =  'regression', 
