@@ -37,8 +37,9 @@ glimpse(d.raw)
 d_times = d.raw %>%
   mutate(startTime = chron(times = substr(AcceptTime, 12, 19), format = 'h:m:s'),
          endTime = chron(times = substr(SubmitTime, 12, 19), format = 'h:m:s'),
-         duration = endTime - startTime)
+         duration = endTime - startTime,
+         duration_mins = as.numeric(substr(duration, 4,5)) + as.numeric(substr(duration, 7,8))/60)
 
 summary(d_times)
 
-qplot(d_times$duration)
+qplot(d_times$duration_mins)
