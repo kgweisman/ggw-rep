@@ -63,15 +63,18 @@ print(d3)
 pca_A1 = principal(d1, nfactors = 1, rotate = "varimax"); pca_A1
 
 # extract PCA loadings
-pca_A1_pc1 = pca_A1$loadings[,1]
+pca_A1_pc1 = pca_A1$loadings[,1]; pca_A1_pc1
 
 # --------> 2-factor PCA (varimax rotation, using principal) ----------
+
+# FROM GGW2007: "For each survey, each character appeared in 12 different comparisons, and mean relative ratings were computed for each character across all respondents to that survey. We merged data sets from the 18 mental capacity surveys to compute correlations between mental capacities across the characters, and submitted these to principal components factor analysis with varimax rotation." (SOM p. 3)
+
 # extract factors
 pca_A2 = principal(d1, nfactors = 2, rotate = "varimax"); pca_A2
 
 # extract PCA loadings
-pca_A2_pc1 = pca_A2$loadings[,1]
-pca_A2_pc2 = pca_A2$loadings[,2]
+pca_A2_pc1 = pca_A2$loadings[,1]; pca_A2_pc1
+pca_A2_pc2 = pca_A2$loadings[,2]; pca_A2_pc2
 
 # plot PCs against each other
 # NOTE: need to adjust "1:5" to "1:18" if all 18 conditions are run
@@ -79,28 +82,184 @@ ggplot(data.frame(pca_A2$loadings[1:5,]), aes(x = RC2, y = RC1, label = names(d1
   geom_text() +
   theme_bw() +
   labs(title = "Factor loadings\n",
-       x = "\nRotated PC2",
-       y = "Rotated PC1\n")
+       x = "\nRotated Component 2",
+       y = "Rotated Component 1\n")
+
+# FROM GGW2007: "We used the regression approach to estimate factor scores for each character." (SOM p. 3) 
+# ?principal confirms that "component scores are found by regression"
 
 # plot characters by principle components, PC1 on y-axis
 ggplot(data.frame(pca_A2$scores), aes(x = RC2, y = RC1, label = rownames(d1))) +
   geom_text() +
   theme_bw() +
   labs(title = "Raw character factor scores\n",
-       x = "\nRotated PC2",
-       y = "Rotated PC1\n")
+       x = "\nRotated Component 2",
+       y = "Rotated Component 1\n")
+
+# FROM GGW2007: "For ease of interpretation, factor scores in Figure 1 were adjusted to be anchored at 0 and 1" (SOM p. 3)
 
 # re-plot characters with rescaling (as in GGW2007 original), PC1 on y-axis
 ggplot(data.frame(pca_A2$scores), aes(x = rescale(RC2, to = c(0,1)), y = rescale(RC1, to = c(0,1)), label = rownames(d1))) +
   geom_text() +
   theme_bw() +
   labs(title = "Adjusted character factor scores\n",
-       x = "\nRotated PC2 (rescaled)",
-       y = "Rotated PC1 (rescaled)\n")
+       x = "\nRotated Component 2 (rescaled)",
+       y = "Rotated Component 1 (rescaled)\n")
 
 # --- Z-SCORE ANALYSES: ORIGINAL GGW2007 --------------------------------------
 
 # NEED TO DO THIS!!
+
+# from GGW2007: "We examined the role of individual-difference variables by partitioning respondents according to 9 variables: gender, age, strength of religious beliefs, attainment of college education, political affiliation (Democrat or Republican), marital status, parental status, dog ownership, and strength of belief in a spiritual afterlife. Median splits were made for the 3 continuous variables (age, strength of religious beliefs, and belief in a spiritual afterlife) so that all variables had 2 levels. We then computed means for each character for each level of the individual-difference variable (e.g., men versus women). We used factor score coefficients from the omnibus factor analysis to estimate scores on Experience and Agency separately for each group, and then calculated the difference in factor scores between the two groups. We divided the difference scores by the standard error for the difference to produce z-statistics” (SOM p. 4)."
+
+# --------> gender ------------------------------------------------------------
+
+# make two dataframes
+dgen_f = dd %>% filter(gender == "female")
+dgen_m = dd %>% filter(gender == "male")
+
+
+
+# --------> age ---------------------------------------------------------------
+
+# make two dataframes
+dage_young = dd %>% filter(age < median(age))
+dage_old = dd %>% filter(age > median(age))
+
+
+
+# --------> religious beliefs -------------------------------------------------
+
+# make two dataframes
+drelig_noGod = dd %>% 
+  mutate(beliefGod_num = 
+           ifelse(beliefGod == "disagree_strong", -3,
+                  ifelse(beliefGod == "disagree_moderate", -2,
+                         ifelse(beliefGod == "disagree_little", -1,
+                                ifelse(beliefGod == "neither", 0,
+                                       ifelse(beliefGod == "agree_litte", 1,
+                                              ifelse(beliefGod == "agree_moderate", 2,
+                                                     ifelse(beliefGod == "agree_strong", 3,
+                                                            NA)))))))) %>%
+  filter(beliefGod_num < median(beliefGod_num))
+drelig_yesGod = dd %>% 
+  mutate(beliefGod_num = 
+           ifelse(beliefGod == "disagree_strong", -3,
+                  ifelse(beliefGod == "disagree_moderate", -2,
+                         ifelse(beliefGod == "disagree_little", -1,
+                                ifelse(beliefGod == "neither", 0,
+                                       ifelse(beliefGod == "agree_litte", 1,
+                                              ifelse(beliefGod == "agree_moderate", 2,
+                                                     ifelse(beliefGod == "agree_strong", 3,
+                                                            NA)))))))) %>%
+  filter(beliefGod_num > median(beliefGod_num))
+
+
+
+# --------> education ---------------------------------------------------------
+
+# make two dataframes
+dedu_noCollegeDeg = dd %>%
+  mutate(education_split =
+           ifelse(education == "hs_none" |
+                    education == "hs_some" |
+                    education == "hs_diploma" |
+                    education == "college_some",
+                  "noCollegeDegree",
+                  ifelse(education == "college_assocDegree" |
+                           education == "college_bachDegree" | 
+                           education == "grad_some" |
+                           education == "grad_degree",
+                         "yesCollegeDegree",
+                         NA)
+                  )) %>%
+  filter(education_split == "noCollegeDegree")
+dedu_yesCollegeDeg = dd %>%
+  mutate(education_split =
+           ifelse(education == "hs_none" |
+                    education == "hs_some" |
+                    education == "hs_diploma" |
+                    education == "college_some",
+                  "noCollegeDegree",
+                  ifelse(education == "college_assocDegree" |
+                           education == "college_bachDegree" | 
+                           education == "grad_some" |
+                           education == "grad_degree",
+                         "yesCollegeDegree",
+                         NA)
+           )) %>%
+  filter(education_split == "yesCollegeDegree")
+
+
+
+# --------> political affiliation ---------------------------------------------
+
+# make two dataframes
+dpol_democrat = dd %>%
+  filter(politicalIdeology == "democrat")
+dpol_republican = dd %>%
+  filter(politicalIdeology == "republican")
+
+
+
+# --------> marital status ----------------------------------------------------
+
+# make two dataframes
+dmar_noMarriage = dd %>%
+  filter(maritalStatus == "yes")
+dmar_yesMarriage = dd %>%
+  filter(maritalStatus == "no_committed" |
+           maritalStatus == "no")
+
+
+
+# --------> parental status ---------------------------------------------------
+
+# make two dataframes
+dpar_noChild = dd %>%
+  filter(children == 0)
+dpar_yesChild = dd %>%
+  filter(children > 0)
+
+
+
+# --------> dog ownership -----------------------------------------------------
+
+# make two dataframes
+ddog_noDog = dd %>%
+  filter(dog == "yes")
+ddog_yesDog = dd %>%
+  filter(dog == "no")
+
+
+
+# --------> belief in spiritual afterlife -------------------------------------
+
+# make two dataframes
+dgen_noAfterlife = dd %>% 
+  mutate(beliefAfterlife_num = 
+           ifelse(beliefAfterlife == "disagree_strong", -3,
+                  ifelse(beliefAfterlife == "disagree_moderate", -2,
+                         ifelse(beliefAfterlife == "disagree_little", -1,
+                                ifelse(beliefAfterlife == "neither", 0,
+                                       ifelse(beliefAfterlife == "agree_litte", 1,
+                                              ifelse(beliefAfterlife == "agree_moderate", 2,
+                                                     ifelse(beliefAfterlife == "agree_strong", 3,
+                                                            NA)))))))) %>%
+  filter(beliefAfterlife_num < median(beliefAfterlife_num))
+dgen_yesAfterlife = dd %>% 
+  mutate(beliefAfterlife_num = 
+           ifelse(beliefAfterlife == "disagree_strong", -3,
+                  ifelse(beliefAfterlife == "disagree_moderate", -2,
+                         ifelse(beliefAfterlife == "disagree_little", -1,
+                                ifelse(beliefAfterlife == "neither", 0,
+                                       ifelse(beliefAfterlife == "agree_litte", 1,
+                                              ifelse(beliefAfterlife == "agree_moderate", 2,
+                                                     ifelse(beliefAfterlife == "agree_strong", 3,
+                                                            NA)))))))) %>%
+  filter(beliefAfterlife_num > median(beliefAfterlife_num))
+
+
 
 # --- PRINCIPAL COMPONENTS ANALYSIS B -----------------------------------------
 
