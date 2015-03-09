@@ -35,18 +35,18 @@
 "34","S3","Hunger","female",27,"college_bachDegree","democrat","no",0,"disagree_strong",-2,2,-2,-2,-2,2,2,2,2,2,2,-2,0
 "35","S3","Hunger","female",27,"college_bachDegree","democrat","no",0,"disagree_strong",-2,2,-2,-2,0,0,2,2,2,-1,0,0,0
 "36","S3","Hunger","female",27,"college_bachDegree","democrat","no",0,"disagree_strong",-2,0,-2,-2,-2,0,2,2,0,0,0,0,2
-"37","S4","Emotion Recognition","male",25,"hs_diploma","democrat","no",0,"agree_little",1,2,-2,-1,-2,2,1,2,1,-2,2,-1,-2
-"38","S4","Emotion Recognition","male",25,"hs_diploma","democrat","no",0,"agree_little",1,1,-2,-2,-1,2,1,2,-1,1,2,1,-2
-"39","S4","Emotion Recognition","male",25,"hs_diploma","democrat","no",0,"agree_little",1,2,0,0,-2,2,-1,2,-2,2,2,-1,0
-"40","S4","Emotion Recognition","male",25,"hs_diploma","democrat","no",0,"agree_little",-2,-2,-2,-1,-1,2,-2,2,2,2,2,-2,-2
-"41","S4","Emotion Recognition","male",25,"hs_diploma","democrat","no",0,"agree_little",-2,2,2,1,-1,2,1,2,2,2,2,-2,-2
-"42","S4","Emotion Recognition","male",25,"hs_diploma","democrat","no",0,"agree_little",-2,2,2,2,-2,2,-2,2,1,-2,-2,-1,-1
-"43","S4","Emotion Recognition","male",25,"hs_diploma","democrat","no",0,"agree_little",1,2,1,2,-1,2,-2,2,1,-2,2,-2,0
-"44","S4","Emotion Recognition","male",25,"hs_diploma","democrat","no",0,"agree_little",0,2,-2,0,0,2,-2,0,1,2,2,-2,-2
-"45","S4","Emotion Recognition","male",25,"hs_diploma","democrat","no",0,"agree_little",-1,0,0,1,0,2,-2,2,-2,2,-2,-2,-2
-"46","S4","Emotion Recognition","male",25,"hs_diploma","democrat","no",0,"agree_little",-2,-2,-2,2,-2,2,-1,-1,1,-1,0,-2,-1
-"47","S4","Emotion Recognition","male",25,"hs_diploma","democrat","no",0,"agree_little",-2,2,1,1,-1,0,1,2,-1,2,-2,-2,1
-"48","S4","Emotion Recognition","male",25,"hs_diploma","democrat","no",0,"agree_little",-1,-2,-2,1,-2,-1,-2,2,-2,0,2,-1,-1
+"37","S4","EmotionRecognition","male",25,"hs_diploma","democrat","no",0,"agree_little",1,2,-2,-1,-2,2,1,2,1,-2,2,-1,-2
+"38","S4","EmotionRecognition","male",25,"hs_diploma","democrat","no",0,"agree_little",1,1,-2,-2,-1,2,1,2,-1,1,2,1,-2
+"39","S4","EmotionRecognition","male",25,"hs_diploma","democrat","no",0,"agree_little",1,2,0,0,-2,2,-1,2,-2,2,2,-1,0
+"40","S4","EmotionRecognition","male",25,"hs_diploma","democrat","no",0,"agree_little",-2,-2,-2,-1,-1,2,-2,2,2,2,2,-2,-2
+"41","S4","EmotionRecognition","male",25,"hs_diploma","democrat","no",0,"agree_little",-2,2,2,1,-1,2,1,2,2,2,2,-2,-2
+"42","S4","EmotionRecognition","male",25,"hs_diploma","democrat","no",0,"agree_little",-2,2,2,2,-2,2,-2,2,1,-2,-2,-1,-1
+"43","S4","EmotionRecognition","male",25,"hs_diploma","democrat","no",0,"agree_little",1,2,1,2,-1,2,-2,2,1,-2,2,-2,0
+"44","S4","EmotionRecognition","male",25,"hs_diploma","democrat","no",0,"agree_little",0,2,-2,0,0,2,-2,0,1,2,2,-2,-2
+"45","S4","EmotionRecognition","male",25,"hs_diploma","democrat","no",0,"agree_little",-1,0,0,1,0,2,-2,2,-2,2,-2,-2,-2
+"46","S4","EmotionRecognition","male",25,"hs_diploma","democrat","no",0,"agree_little",-2,-2,-2,2,-2,2,-1,-1,1,-1,0,-2,-1
+"47","S4","EmotionRecognition","male",25,"hs_diploma","democrat","no",0,"agree_little",-2,2,1,1,-1,0,1,2,-1,2,-2,-2,1
+"48","S4","EmotionRecognition","male",25,"hs_diploma","democrat","no",0,"agree_little",-1,-2,-2,1,-2,-1,-2,2,-2,0,2,-1,-1
 "49","S5","Pain","male",26,"college_bachDegree","independent","yes",0,"agree_strong",-1,-2,-1,0,-2,2,-1,0,1,2,0,-2,1
 "50","S5","Pain","male",26,"college_bachDegree","independent","yes",0,"agree_strong",0,2,1,2,-1,2,-2,-1,1,1,0,-1,0
 "51","S5","Pain","male",26,"college_bachDegree","independent","yes",0,"agree_strong",-2,1,-2,1,-1,2,-1,0,0,0,2,-2,0

@@ -84,6 +84,9 @@ glimpse(d.raw)
 # clean up variables
 d_tidy = d.raw %>%
   mutate(subid = factor(subid),
+         condition = ifelse(condition == "Emotion Recognition", 
+                            "EmotionRecognition",
+                            condition),
          condition = factor(condition),
          gender = factor(gender),
          age = as.numeric(age),
