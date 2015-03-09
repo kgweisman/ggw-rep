@@ -152,51 +152,35 @@ ggplot(data.frame(pca_B2$scores), aes(x = rescale(RC2, to = c(0,1)), y = rescale
 
 # NOTE: in addition to running for all conditions together (as here), need to filter by condition and run for each condition separately!
 
-upperDissim <- dd %>%
-  # alphabetize for upper triangle matrix
-  mutate(
-    character1 = 
-      ifelse(leftCharacter == "charlie_dog" | 
-               rightCharacter == "charlie_dog",
-             "charlie_dog",
-             ifelse(leftCharacter == "delores_gleitman_deceased" |
-                      rightCharacter == "delores_gleitman_deceased",
-                    "delores_gleitman_deceased",
-                    ifelse(leftCharacter == "fetus" |
-                             rightCharacter == "fetus",
-                           "fetus",
-                           ifelse(leftCharacter == "gerald_schiff_pvs" |
-                                    rightCharacter == "gerald_schiff_pvs",
-                                  "gerald_schiff_pvs",
-                                  ifelse(leftCharacter == "god" |
-                                           rightCharacter == "god",
-                                         "god",
-                                         ifelse(leftCharacter == "green_frog" |
-                                                  rightCharacter == "green_frog",
-                                                "green_frog",
-                                                ifelse(leftCharacter == "kismet_robot" |
-                                                         rightCharacter == "kismet_robot",
-                                                       "kismet_robot",
-                                                       ifelse(leftCharacter == "nicholas_gannon_baby" |
-                                                                rightCharacter == "nicholas_gannon_baby",
-                                                              "nicholas_gannon_baby",
-                                                              ifelse(leftCharacter == "samantha_hill_girl" |
-                                                                       rightCharacter == "samantha_hill_girl",
-                                                                     "samantha_hill_girl",
-                                                                     ifelse(leftCharacter == "sharon_harvey_woman" |
-                                                                              rightCharacter == "sharon_harvey_woman",
-                                                                            "sharon_harvey_woman",
-                                                                            ifelse(leftCharacter == "toby_chimp" |
-                                                                                     rightCharacter == "toby_chimp",
-                                                                                   "toby_chimp",
-                                                                                   ifelse(leftCharacter == "todd_billingsley_man" |
-                                                                                            rightCharacter == "todd_billingsley_man",
-                                                                                          "todd_billingsley_man",
-                                                                                          ifelse(leftCharacter == "you" |
-                                                                                                   rightCharacter == "you",
-                                                                                                 "you",
-                                                                                                 "NA")))))))))))))) %>%
-  mutate(character2 = ifelse(leftCharacter == character1, as.character(rightCharacter), as.character(leftCharacter))) %>%
+# alphabetize characters within pairs
+character1 = matrix(nrow = 390)
+character2 = matrix(nrow = 390)
+charsort = sort(charnames, decreasing = TRUE)
+for(j in 1:length(dd$leftCharacter)) {
+  for(i in 1:length(charsort)) {
+    character1[j] = ifelse(dd$leftCharacter[j] == charsort[i] |
+                             dd$rightCharacter[j] == charsort[i],
+                           charsort[i],
+                           character1[j])
+    character2[j] = ifelse(character1[j] == dd$leftCharacter[j],
+                           as.character(dd$rightCharacter[j]),
+                           as.character(dd$leftCharacter[j]))  
+  }
+}
+pairs_alphabetized = cbind(character1, character2)
+
+# test alphabetization against true character pairs (for spot-checking)
+colnames(pairs_alphabetized) = c("character1", "character2")
+pairs_true = dd[c("leftCharacter", "rightCharacter")]
+pairs_compare = cbind(pairs_alphabetized, pairs_true)
+# View(pairs_compare)
+
+# add alphabetization to main dataframe
+upperDissim <- dd
+upperDissim$character1 = pairs_compare$character1
+upperDissim$character2 = pairs_compare$character2
+
+upperDissim <- upperDissim %>%
   select(subid, condition, character1, character2, responseNum) %>%
   group_by(character1, character2) %>%
   mutate(dist = abs(responseNum)) %>% # use absolute values of comparison scores to get distance
@@ -241,10 +225,12 @@ pts <- data.frame(x = x, y = y, character = row.names(upperDissim))
 pts <- left_join(pts, row.names(upperDissim))
 
 # Plot!
-ggplot(pts, aes(x = x, y = y, label = character, colour = character)) +
-  geom_text()+
+ggplot(pts, aes(x = x, y = y, label = character)) +
+  geom_text() +
   theme_bw() +
-  theme(legend.position = "none")
+  labs(title = "Multidimensional scaling of characters\n",
+       x = NULL,
+       y = NULL)
 
 # --- MAXIMUM LIKELIHOOD FACTOR ANALYSIS A -----------------------------------
 # Roughly equivalent to pca_A?
