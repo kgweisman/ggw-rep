@@ -26,7 +26,10 @@ glimpse(dd)
 
 # make table of character means by mental capacity
 charmeans = d %>%
-  gather(character, response, -subid, -condition) %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
   group_by(condition, character) %>%
   summarise(mean = mean(response, na.rm = T))
 
@@ -108,30 +111,83 @@ ggplot(data.frame(pca_A2$scores), aes(x = rescale(RC2, to = c(0,1)), y = rescale
 
 # --- Z-SCORE ANALYSES: ORIGINAL GGW2007 --------------------------------------
 
-# NEED TO DO THIS!!
+# ** in progress **
 
-# from GGW2007: "We examined the role of individual-difference variables by partitioning respondents according to 9 variables: gender, age, strength of religious beliefs, attainment of college education, political affiliation (Democrat or Republican), marital status, parental status, dog ownership, and strength of belief in a spiritual afterlife. Median splits were made for the 3 continuous variables (age, strength of religious beliefs, and belief in a spiritual afterlife) so that all variables had 2 levels. We then computed means for each character for each level of the individual-difference variable (e.g., men versus women). We used factor score coefficients from the omnibus factor analysis to estimate scores on Experience and Agency separately for each group, and then calculated the difference in factor scores between the two groups. We divided the difference scores by the standard error for the difference to produce z-statistics” (SOM p. 4)."
+# from GGW2007: "We examined the role of individual-difference variables by partitioning respondents according to 9 variables: gender, age, strength of religious beliefs, attainment of college education, political affiliation (Democrat or Republican), marital status, parental status, dog ownership, and strength of belief in a spiritual afterlife. Median splits were made for the 3 continuous variables (age, strength of religious beliefs, and belief in a spiritual afterlife) so that all variables had 2 levels. We then computed means for each character for each level of the individual-difference variable (e.g., men versus women). --> DONE
+# We used factor score coefficients from the omnibus factor analysis to estimate scores on Experience and Agency separately for each group, and then calculated the difference in factor scores between the two groups. We divided the difference scores by the standard error for the difference to produce z-statistics” (SOM p. 4)." --> NEED TO DO
 
 # --------> gender ------------------------------------------------------------
 
-# make two dataframes
-dgen_f = dd %>% filter(gender == "female")
-dgen_m = dd %>% filter(gender == "male")
+# make d1 for women
+charmeans_genf_table = d %>%
+  filter(gender == "female") %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
 
+rows_genf = charmeans_genf_table$character
+d1_genf = charmeans_genf_table[-1]
+rownames(d1_genf) = rows_genf
+print(d1_genf)
 
+# make d1 for men
+charmeans_genm_table = d %>%
+  filter(gender == "male") %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
+
+rows_genm = charmeans_genm_table$character
+d1_genm = charmeans_genm_table[-1]
+rownames(d1_genm) = rows_genm
+print(d1_genm)
 
 # --------> age ---------------------------------------------------------------
 
-# make two dataframes
-dage_young = dd %>% filter(age < median(age))
-dage_old = dd %>% filter(age > median(age))
+# make d1 for younger participants
+charmeans_ageyoung_table = d %>%
+  filter(age <= median(age)) %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
 
+rows_ageyoung = charmeans_ageyoung_table$character
+d1_ageyoung = charmeans_ageyoung_table[-1]
+rownames(d1_ageyoung) = rows_ageyoung
+print(d1_ageyoung)
 
+# make d1 for older participants
+charmeans_ageold_table = d %>%
+  filter(age > median(age)) %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
+
+rows_ageold = charmeans_ageold_table$character
+d1_ageold = charmeans_ageold_table[-1]
+rownames(d1_ageold) = rows_ageold
+print(d1_ageold)
 
 # --------> religious beliefs -------------------------------------------------
 
-# make two dataframes
-drelig_noGod = dd %>% 
+# make d1 for less religious participants
+charmeans_religno_table = d %>%
   mutate(beliefGod_num = 
            ifelse(beliefGod == "disagree_strong", -3,
                   ifelse(beliefGod == "disagree_moderate", -2,
@@ -141,8 +197,23 @@ drelig_noGod = dd %>%
                                               ifelse(beliefGod == "agree_moderate", 2,
                                                      ifelse(beliefGod == "agree_strong", 3,
                                                             NA)))))))) %>%
-  filter(beliefGod_num < median(beliefGod_num))
-drelig_yesGod = dd %>% 
+  filter(beliefGod_num != "NA") %>%
+  filter(beliefGod_num <= median(beliefGod_num, na.rm = TRUE)) %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -beliefGod_num, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
+
+rows_religno = charmeans_religno_table$character
+d1_religno = charmeans_religno_table[-1]
+rownames(d1_religno) = rows_religno
+print(d1_religno)
+
+# make d1 for more religious participants
+charmeans_religyes_table = d %>%
   mutate(beliefGod_num = 
            ifelse(beliefGod == "disagree_strong", -3,
                   ifelse(beliefGod == "disagree_moderate", -2,
@@ -152,29 +223,25 @@ drelig_yesGod = dd %>%
                                               ifelse(beliefGod == "agree_moderate", 2,
                                                      ifelse(beliefGod == "agree_strong", 3,
                                                             NA)))))))) %>%
-  filter(beliefGod_num > median(beliefGod_num))
+  filter(beliefGod_num != "NA") %>%
+  filter(beliefGod_num > median(beliefGod_num, na.rm = TRUE)) %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -beliefGod_num, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
 
-
+rows_religyes = charmeans_religyes_table$character
+d1_religyes = charmeans_religyes_table[-1]
+rownames(d1_religyes) = rows_religyes
+print(d1_religyes)
 
 # --------> education ---------------------------------------------------------
 
-# make two dataframes
-dedu_noCollegeDeg = dd %>%
-  mutate(education_split =
-           ifelse(education == "hs_none" |
-                    education == "hs_some" |
-                    education == "hs_diploma" |
-                    education == "college_some",
-                  "noCollegeDegree",
-                  ifelse(education == "college_assocDegree" |
-                           education == "college_bachDegree" | 
-                           education == "grad_some" |
-                           education == "grad_degree",
-                         "yesCollegeDegree",
-                         NA)
-                  )) %>%
-  filter(education_split == "noCollegeDegree")
-dedu_yesCollegeDeg = dd %>%
+# make d1 for less educated participants (no college degree)
+charmeans_eduless_table = d %>%
   mutate(education_split =
            ifelse(education == "hs_none" |
                     education == "hs_some" |
@@ -188,55 +255,193 @@ dedu_yesCollegeDeg = dd %>%
                          "yesCollegeDegree",
                          NA)
            )) %>%
-  filter(education_split == "yesCollegeDegree")
+  filter(education_split != "NA") %>%
+  filter(education_split == "noCollegeDegree") %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -education, -education_split, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
 
+rows_eduless = charmeans_eduless_table$character
+d1_eduless = charmeans_eduless_table[-1]
+rownames(d1_eduless) = rows_eduless
+print(d1_eduless)
 
+# make d1 for more educated participants (college degree)
+charmeans_edumore_table = d %>%
+  mutate(education_split =
+           ifelse(education == "hs_none" |
+                    education == "hs_some" |
+                    education == "hs_diploma" |
+                    education == "college_some",
+                  "noCollegeDegree",
+                  ifelse(education == "college_assocDegree" |
+                           education == "college_bachDegree" | 
+                           education == "grad_some" |
+                           education == "grad_degree",
+                         "yesCollegeDegree",
+                         NA)
+           )) %>%
+  filter(education_split != "NA") %>%
+  filter(education_split == "yesCollegeDegree") %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -education, -education_split, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
+
+rows_edumore = charmeans_edumore_table$character
+d1_edumore = charmeans_edumore_table[-1]
+rownames(d1_edumore) = rows_edumore
+print(d1_edumore)
 
 # --------> political affiliation ---------------------------------------------
 
-# make two dataframes
-dpol_democrat = dd %>%
-  filter(politicalIdeology == "democrat")
-dpol_republican = dd %>%
-  filter(politicalIdeology == "republican")
+# make d1 for democrats
+charmeans_poldem_table = d %>%
+  filter(politicalIdeology == "democrat") %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
 
+rows_poldem = charmeans_poldem_table$character
+d1_poldem = charmeans_poldem_table[-1]
+rownames(d1_poldem) = rows_poldem
+print(d1_poldem)
 
+# make d1 for republicans
+charmeans_polrep_table = d %>%
+  filter(politicalIdeology == "republican") %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
+
+rows_polrep = charmeans_polrep_table$character
+d1_polrep = charmeans_polrep_table[-1]
+rownames(d1_polrep) = rows_polrep
+print(d1_polrep)
 
 # --------> marital status ----------------------------------------------------
 
-# make two dataframes
-dmar_noMarriage = dd %>%
-  filter(maritalStatus == "yes")
-dmar_yesMarriage = dd %>%
-  filter(maritalStatus == "no_committed" |
-           maritalStatus == "no")
+# make d1 for married participants
+charmeans_maryes_table = d %>%
+  filter(maritalStatus == "yes") %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
 
+rows_maryes = charmeans_maryes_table$character
+d1_maryes = charmeans_maryes_table[-1]
+rownames(d1_maryes) = rows_maryes
+print(d1_maryes)
 
+# make d1 for unmarried participants
+charmeans_marno_table = d %>%
+  filter(maritalStatus == "no" | maritalStatus == "no_committed") %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
+
+rows_marno = charmeans_marno_table$character
+d1_marno = charmeans_marno_table[-1]
+rownames(d1_marno) = rows_marno
+print(d1_marno)
 
 # --------> parental status ---------------------------------------------------
 
-# make two dataframes
-dpar_noChild = dd %>%
-  filter(children == 0)
-dpar_yesChild = dd %>%
-  filter(children > 0)
+# make d1 for parents
+charmeans_childyes_table = d %>%
+  filter(children > 0) %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
 
+rows_childyes = charmeans_childyes_table$character
+d1_childyes = charmeans_childyes_table[-1]
+rownames(d1_childyes) = rows_childyes
+print(d1_childyes)
 
+# make d1 for non-parents
+charmeans_childno_table = d %>%
+  filter(children == 0) %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
+
+rows_childno = charmeans_childno_table$character
+d1_childno = charmeans_childno_table[-1]
+rownames(d1_childno) = rows_childno
+print(d1_childno)
 
 # --------> dog ownership -----------------------------------------------------
 
-# make two dataframes
-ddog_noDog = dd %>%
-  filter(dog == "yes")
-ddog_yesDog = dd %>%
-  filter(dog == "no")
+# NOTE: need to update all table formatting with "-dog" once dog is actually a variable
 
-
+# # make d1 for dog-owners
+# charmeans_dogyes_table = d %>%
+#   filter(dog == "yes") %>%
+#   gather(character, response, 
+#          -subid, -condition, -gender, -age, 
+#          -beliefGod, -education, -politicalIdeology, 
+#          -maritalStatus, -children, -beliefAfterlife) %>%
+#   group_by(condition, character) %>%
+#   summarise(mean = mean(response, na.rm = T)) %>%
+#   spread(condition, mean)
+# 
+# rows_dogyes = charmeans_dogyes_table$character
+# d1_dogyes = charmeans_dogyes_table[-1]
+# rownames(d1_dogyes) = rows_dogyes
+# print(d1_dogyes)
+# 
+# # make d1 for non-dog-owners
+# charmeans_dogno_table = d %>%
+#   filter(dog == "no") %>%
+#   gather(character, response, 
+#          -subid, -condition, -gender, -age, 
+#          -beliefGod, -education, -politicalIdeology, 
+#          -maritalStatus, -children, -beliefAfterlife) %>%
+#   group_by(condition, character) %>%
+#   summarise(mean = mean(response, na.rm = T)) %>%
+#   spread(condition, mean)
+# 
+# rows_dogno = charmeans_dogno_table$character
+# d1_dogno = charmeans_dogno_table[-1]
+# rownames(d1_dogno) = rows_dogno
+# print(d1_dogno)
 
 # --------> belief in spiritual afterlife -------------------------------------
 
-# make two dataframes
-dgen_noAfterlife = dd %>% 
+# make d1 for participants who don't belief in afterlife
+charmeans_afterlifeno_table = d %>%
   mutate(beliefAfterlife_num = 
            ifelse(beliefAfterlife == "disagree_strong", -3,
                   ifelse(beliefAfterlife == "disagree_moderate", -2,
@@ -246,8 +451,23 @@ dgen_noAfterlife = dd %>%
                                               ifelse(beliefAfterlife == "agree_moderate", 2,
                                                      ifelse(beliefAfterlife == "agree_strong", 3,
                                                             NA)))))))) %>%
-  filter(beliefAfterlife_num < median(beliefAfterlife_num))
-dgen_yesAfterlife = dd %>% 
+  filter(beliefAfterlife_num != "NA") %>%
+  filter(beliefAfterlife_num <= median(beliefAfterlife_num, na.rm = TRUE)) %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -beliefAfterlife_num, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
+
+rows_afterlifeno = charmeans_afterlifeno_table$character
+d1_afterlifeno = charmeans_afterlifeno_table[-1]
+rownames(d1_afterlifeno) = rows_afterlifeno
+print(d1_afterlifeno)
+
+# make d1 for participants who do belief in afterlife
+charmeans_afterlifeyes_table = d %>%
   mutate(beliefAfterlife_num = 
            ifelse(beliefAfterlife == "disagree_strong", -3,
                   ifelse(beliefAfterlife == "disagree_moderate", -2,
@@ -257,9 +477,20 @@ dgen_yesAfterlife = dd %>%
                                               ifelse(beliefAfterlife == "agree_moderate", 2,
                                                      ifelse(beliefAfterlife == "agree_strong", 3,
                                                             NA)))))))) %>%
-  filter(beliefAfterlife_num > median(beliefAfterlife_num))
+  filter(beliefAfterlife_num != "NA") %>%
+  filter(beliefAfterlife_num > median(beliefAfterlife_num, na.rm = TRUE)) %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -beliefAfterlife_num, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, character) %>%
+  summarise(mean = mean(response, na.rm = T)) %>%
+  spread(condition, mean)
 
-
+rows_afterlifeyes = charmeans_afterlifeyes_table$character
+d1_afterlifeyes = charmeans_afterlifeyes_table[-1]
+rownames(d1_afterlifeyes) = rows_afterlifeyes
+print(d1_afterlifeyes)
 
 # --- PRINCIPAL COMPONENTS ANALYSIS B -----------------------------------------
 
