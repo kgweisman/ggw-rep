@@ -52,7 +52,7 @@ for(i in 1:length(files)) {
   # individual diffs items for z-score analysis
   kd$gender = jd$answers$data$newData$gender
   kd$age = jd$answers$data$newData$age
-  kd$beliefGod = jd$answers$data$beliefGod$age
+  kd$beliefGod = jd$answers$data$newData$beliefGod
   kd$education = jd$answers$data$newData$education
   kd$politicalIdeology = jd$answers$data$newData$politicalIdeology
   kd$maritalStatus = jd$answers$data$newData$maritalStatus
