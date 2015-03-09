@@ -45,26 +45,26 @@ for(i in 1:length(files)) {
   id$condition = jd$answers$data$newData$condition
   
   # subject-level data: demographics
-  id$age = jd$answers$data$newData$age
-  id$gender = jd$answers$data$newData$gender
-  id$ethnicity = jd$answers$data$newData$ethnicity
-  id$education = jd$answers$data$newData$education
-  id$religionChild = jd$answers$data$newData$religionChild
-  id$religionNow = jd$answers$data$newData$religionNow
-  id$job = jd$answers$data$newData$job
-  id$maritalStatus = jd$answers$data$newData$maritalStatus
-  id$children = jd$answers$data$newData$children
-  id$country = jd$answers$data$newData$country
-  id$englishNative = jd$answers$data$newData$englishNative
-  id$politicalIdeology = jd$answers$data$newData$politicalIdeology
-  id$studyMoralPhil = jd$answers$data$newData$studyMoralPhil
-  id$vegetarian = jd$answers$data$newData$vegetarian
-  id$beliefGod = jd$answers$data$newData$beliefGod
-  id$beliefAfterlife = jd$answers$data$newData$beliefAfterlife
-  id$beliefTradition = jd$answers$data$newData$beliefTradition
-  id$beliefRules = jd$answers$data$newData$beliefRules
-  id$beliefLeader = jd$answers$data$newData$beliefLeader
-  id$comments = jd$answers$data$newData$comments
+  id$age = ifelse(jd$answers$data$newData$age == "", "NA", jd$answers$data$newData$age)
+  id$gender = ifelse(jd$answers$data$newData$gender == "", "NA", jd$answers$data$newData$gender)
+  id$ethnicity = ifelse(jd$answers$data$newData$ethnicity == "", "NA", jd$answers$data$newData$ethnicity)
+  id$education = ifelse(jd$answers$data$newData$education == "", "NA", jd$answers$data$newData$education)
+  id$religionChild = ifelse(jd$answers$data$newData$religionChild == "", "NA", jd$answers$data$newData$religionChild)
+#   id$religionNow = ifelse(jd$answers$data$newData$religionNow == "", "NA", jd$answers$data$newData$religionNow)
+  id$job = ifelse(jd$answers$data$newData$job == "", "NA", jd$answers$data$newData$job)
+  id$maritalStatus = ifelse(jd$answers$data$newData$maritalStatus == "", "NA", jd$answers$data$newData$maritalStatus)
+  id$children = ifelse(jd$answers$data$newData$children == "", "NA", jd$answers$data$newData$children)
+  id$country = ifelse(jd$answers$data$newData$country == "", "NA", jd$answers$data$newData$country)
+  id$englishNative = ifelse(jd$answers$data$newData$englishNative == "", "NA", jd$answers$data$newData$englishNative)
+  id$politicalIdeology = ifelse(jd$answers$data$newData$politicalIdeology == "", "NA", jd$answers$data$newData$politicalIdeology)
+  id$studyMoralPhil = ifelse(jd$answers$data$newData$studyMoralPhil == "", "NA", jd$answers$data$newData$studyMoralPhil)
+  id$vegetarian = ifelse(jd$answers$data$newData$vegetarian == "", "NA", jd$answers$data$newData$vegetarian)
+  id$beliefGod = ifelse(jd$answers$data$newData$beliefGod == "", "NA", jd$answers$data$newData$beliefGod)
+  id$beliefAfterlife = ifelse(jd$answers$data$newData$beliefAfterlife == "", "NA", jd$answers$data$newData$beliefAfterlife)
+  id$beliefTradition = ifelse(jd$answers$data$newData$beliefTradition == "", "NA", jd$answers$data$newData$beliefTradition)
+#   id$beliefRules = ifelse(jd$answers$data$newData$beliefRules == "", "NA", jd$answers$data$newData$beliefRules)
+  id$beliefLeader = ifelse(jd$answers$data$newData$beliefLeader == "", "NA", jd$answers$data$newData$beliefLeader)
+  id$comments = ifelse(jd$answers$data$newData$comments == "", "NA", jd$answers$data$newData$comments)
   
   # trial-level data:                    
   id$trialNum = jd$answers$data$newData$trialData$trialNum
