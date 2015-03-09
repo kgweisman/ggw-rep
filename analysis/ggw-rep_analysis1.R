@@ -228,7 +228,10 @@ ggplot(pts, aes(x = x, y = y, label = character)) +
        x = NULL,
        y = NULL)
 
-# --- MAXIMUM LIKELIHOOD FACTOR ANALYSIS A -----------------------------------
+
+# --- ADDITIONAL ALTERNATIVE ANALYES ------------------------------------------
+
+# --------> MAXIMUM LIKELIHOOD FACTOR ANALYSIS A ------------------------------
 # Roughly equivalent to pca_A?
 # Could also do the parallel version of pca_B
 
@@ -241,7 +244,7 @@ fa1 = factanal(d1,
                cutoff = .4)
 print(fa1)
 
-# --- HIERARCHICAL CLUSTER ANALYSIS A -----------------------------------------
+# --------> HIERARCHICAL CLUSTER ANALYSIS A -----------------------------------
 # Roughly equivalent to pca_A
 # Could also do the parallel version of pca_B
 
@@ -257,5 +260,3 @@ rs1=hclust(d2)
 rs1$merge
 plot(rs1$height)
 plot(rs1)
-
-
