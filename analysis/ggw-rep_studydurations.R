@@ -42,4 +42,5 @@ d_times = d.raw %>%
 
 summary(d_times)
 
-qplot(d_times$duration_mins)
+qplot(d_times$duration_mins,
+      binwidth = 1)
