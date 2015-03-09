@@ -14,7 +14,7 @@ rm(list=ls())
 # --- READING IN DATA OBJECTS -------------------------------------------------
 
 # set working directory for india
-setwd("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/turk/pilot-b_01/")
+setwd("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/turk/run-01_2015-03-09/")
 
 # mike's json for-loop
 files <- dir("production-results/")
@@ -107,7 +107,7 @@ d_tidy = d.raw %>%
          leftCharacter = factor(leftCharacter),         
          rightCharacter = factor(rightCharacter),         
          response = factor(response),
-         responseNum = 
+         responseNum =
            ifelse(response == "much more left", -2,
                   ifelse(response == "slightly more left", -1,
                          ifelse(response == "both equally", 0,
@@ -120,6 +120,6 @@ glimpse(d_tidy)
 # --- WRITING ANONYMIZED CSV --------------------------------------------------
 
 # write to de-identified csv file
-write.csv(d_tidy, "/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/pilot-b_01_data_anonymized.csv")
+write.csv(d_tidy, "/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/run-01_2015-03-09_data_anonymized.csv")
 
-d = read.csv("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/pilot-b_01_data_anonymized.csv")[-1] # get rid of column of obs numbers
+d = read.csv("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/run-01_2015-03-09_data_anonymized.csv")[-1] # get rid of column of obs numbers

@@ -4,7 +4,7 @@
 library("chron")
 
 # set working directory for india
-setwd("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/turk/pilot-b_01/")
+setwd("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/turk/run-01_2015-03-09/")
 
 # mike's json for-loop
 files <- dir("production-results/")
