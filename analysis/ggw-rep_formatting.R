@@ -123,3 +123,11 @@ glimpse(d_tidy)
 write.csv(d_tidy, "/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/run-01_2015-03-09_data_anonymized.csv")
 
 d = read.csv("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/run-01_2015-03-09_data_anonymized.csv")[-1] # get rid of column of obs numbers
+
+# view comments
+comments = d %>%
+  select(comments, condition, subid) %>%
+  distinct() %>%
+  filter(comments != "NA")
+
+View(comments)
