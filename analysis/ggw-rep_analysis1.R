@@ -43,17 +43,17 @@ charmeans_table = charmeans %>%
   spread(condition, mean)
 
 charnames = as.character(charmeans_table$character)
-charnames = ifelse(rows == "charlie_dog", "dog",
-              ifelse(rows == "delores_gleitman_deceased", "dead woman",
-                     ifelse(rows == "gerald_schiff_pvs", "PVS man", 
-                            ifelse(rows == "green_frog", "frog",
-                                   ifelse(rows == "samantha_hill_girl", "girl",
-                                          ifelse(rows == "kismet_robot", "robot",
-                                                 ifelse(rows == "nicholas_gannon_baby", "baby",
-                                                        ifelse(rows == "sharon_harvey_woman", "woman",
-                                                               ifelse(rows == "toby_chimp", "chimp",
-                                                                      ifelse(rows == "todd_billingsley_man", "man",
-                                                                             as.character(rows)))))))))))
+charnames = ifelse(charnames == "charlie_dog", "dog",
+              ifelse(charnames == "delores_gleitman_deceased", "dead woman",
+                     ifelse(charnames == "gerald_schiff_pvs", "PVS man", 
+                            ifelse(charnames == "green_frog", "frog",
+                                   ifelse(charnames == "samantha_hill_girl", "girl",
+                                          ifelse(charnames == "kismet_robot", "robot",
+                                                 ifelse(charnames == "nicholas_gannon_baby", "baby",
+                                                        ifelse(charnames == "sharon_harvey_woman", "woman",
+                                                               ifelse(charnames == "toby_chimp", "chimp",
+                                                                      ifelse(charnames == "todd_billingsley_man", "man",
+                                                                             as.character(charnames)))))))))))
 
 d1 = charmeans_table[-1]
 rownames(d1) = charnames
@@ -542,28 +542,28 @@ pca_B2_pc1 = pca_B2$loadings[,1]
 pca_B2_pc2 = pca_B2$loadings[,2]
 
 # plot PCs against each other
-ggplot(data.frame(pca_B2$loadings[1:13,]), aes(x = RC2, y = RC1, label = names(d3))) +
+ggplot(data.frame(pca_B2$loadings[1:13,]), aes(x = RC1, y = RC2, label = names(d3))) +
   geom_text() +
   theme_bw() +
   labs(title = "Factor loadings\n",
-       x = "\nRotated PC2",
-       y = "Rotated PC1\n")
+       x = "\nRotated PC1",
+       y = "Rotated PC2\n")
 
-# plot conditions by principle components, PC1 on y-axis
-ggplot(data.frame(pca_B2$scores), aes(x = RC2, y = RC1, label = rownames(d3))) +
+# plot conditions by principle components
+ggplot(data.frame(pca_B2$scores), aes(x = RC1, y = RC2, label = rownames(d3))) +
   geom_text() +
   theme_bw() +
   labs(title = "Raw condition factor scores\n",
-       x = "\nRotated PC2",
-       y = "Rotated PC1\n")
+       x = "\nRotated PC1",
+       y = "Rotated PC2\n")
 
 # re-plot conditions with rescaling (as in GGW2007 original), PC1 on y-axis
-ggplot(data.frame(pca_B2$scores), aes(x = rescale(RC2, to = c(0,1)), y = rescale(RC1, to = c(0,1)), label = rownames(d3))) +
+ggplot(data.frame(pca_B2$scores), aes(x = rescale(RC1, to = c(0,1)), y = rescale(RC2, to = c(0,1)), label = rownames(d3))) +
   geom_text() +
   theme_bw() +
   labs(title = "Adjusted condition factor scores\n",
-       x = "\nRotated PC2 (rescaled)",
-       y = "Rotated PC1 (rescaled)\n")
+       x = "\nRotated PC1 (rescaled)",
+       y = "Rotated PC2 (rescaled)\n")
 
 # --- MULTIDIMENSIONAL SCALING ANALYSES ---------------------------------------
 
@@ -724,6 +724,19 @@ for(k in 1:length(levels(dd$condition))) {
   
   # rename rows and columns
   names = sort(charsort, decreasing = FALSE)
+  names = 
+    ifelse(names == "charlie_dog", "dog",
+           ifelse(names == "delores_gleitman_deceased", "dead woman",
+                  ifelse(names == "gerald_schiff_pvs", "PVS man",
+                         ifelse(names == "green_frog", "frog",
+                                ifelse(names == "samantha_hill_girl", "girl",
+                                       ifelse(names == "kismet_robot", "robot",
+                                              ifelse(names == "nicholas_gannon_baby", "baby",
+                                                     ifelse(names == "sharon_harvey_woman", "woman",
+                                                            ifelse(names == "toby_chimp", "chimp",
+                                                                   ifelse(names == "todd_billingsley_man", "man",
+                                                                          as.character(names)))))))))))
+  
   upperDissim_temp = upperDissim_temp[-1]
   rownames(upperDissim_temp) = names
   colnames(upperDissim_temp) = names
@@ -755,7 +768,7 @@ for(k in 1:length(levels(dd$condition))) {
   print(
     ggplot(pts_temp, aes(x = x_temp, y = y_temp, label = character)) +
       geom_point() +
-      geom_text(angle = 25,
+      geom_text(angle = 0,
                 vjust = -1,
                 size = 6) +
 #       xlim(-1.2, 1.05) +
