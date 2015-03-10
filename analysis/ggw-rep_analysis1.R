@@ -42,7 +42,19 @@ glimpse(charmeans)
 charmeans_table = charmeans %>%
   spread(condition, mean)
 
-rows = charmeans_table$character
+rows = as.character(charmeans_table$character)
+rows = ifelse(rows == "charlie_dog", "dog",
+              ifelse(rows == "delores_gleitman_deceased", "dead woman",
+                     ifelse(rows == "gerald_schiff_pvs", "PVS man", 
+                            ifelse(rows == "green_frog", "frog",
+                                   ifelse(rows == "samantha_hill_girl", "girl",
+                                          ifelse(rows == "kismet_robot", "robot",
+                                                 ifelse(rows == "nicholas_gannon_baby", "baby",
+                                                        ifelse(rows == "sharon_harvey_woman", "woman",
+                                                               ifelse(rows == "toby_chimp", "chimp",
+                                                                      ifelse(rows == "todd_billingsley_man", "man",
+                                                                             as.character(rows)))))))))))
+
 d1 = charmeans_table[-1]
 rownames(d1) = rows
 names(d1) = c("Consciousness", "EmotionRecognition", "Hunger", "Pain", "Rage")
@@ -113,7 +125,7 @@ ggplot(data.frame(pca_A2$scores),
            y = rescale(RC2, to = c(0,1)), 
            label = rownames(d1))) +
   geom_point() +
-  geom_text(angle = 25,
+  geom_text(angle = 0,
             vjust = -1,
             size = 6) +
   xlim(-0.05, 1.05) +
@@ -626,13 +638,32 @@ x_all <- fit_all$points[, 1]
 y_all <- fit_all$points[, 2]
 
 # convert to a dataframe
-pts <- data.frame(x = x_all, y = y_all, character = row.names(upperDissim))
+pts <- data.frame(x = x_all, y = y_all, character = row.names(upperDissim)) %>%
+  mutate(character = 
+           ifelse(character == "charlie_dog", "dog",
+                  ifelse(character == "delores_gleitman_deceased", "dead woman",
+                         ifelse(character == "gerald_schiff_pvs", "PVS man", 
+                                ifelse(character == "green_frog", "frog",
+                                       ifelse(character == "samantha_hill_girl", "girl",
+                                         ifelse(character == "kismet_robot", "robot",
+                                                ifelse(character == "nicholas_gannon_baby", "baby",
+                                                       ifelse(character == "sharon_harvey_woman", "woman",
+                                                              ifelse(character == "toby_chimp",
+                                                                     "chimp",
+                                                                     ifelse(character == "todd_billingsley_man", "man",
+                                                                            as.character(character))))))))))))
 
 # plot!
 ggplot(pts, aes(x = x_all, y = y_all, label = character)) +
-  geom_text() +
+  geom_point() +
+  geom_text(angle = 0,
+            vjust = -1,
+            size = 6) +
+  xlim(-1.2, 1.05) +
+  ylim(-0.8, .75) +
   theme_bw() +
-  labs(title = "Multidimensional scaling of characters:\nAll conditions\n",
+  theme(text = element_text(size = 20)) +
+  labs(title = "Multidimensional scaling of characters: All 4 conditions\n",
        x = NULL,
        y = NULL)
 
@@ -723,9 +754,15 @@ for(k in 1:length(levels(dd$condition))) {
   # plot!
   print(
     ggplot(pts_temp, aes(x = x_temp, y = y_temp, label = character)) +
-      geom_text() +
+      geom_point() +
+      geom_text(angle = 25,
+                vjust = -1,
+                size = 6) +
+#       xlim(-1.2, 1.05) +
+#       ylim(-0.8, .75) +
       theme_bw() +
-      labs(title = paste0("Multidimensional scaling of characters:\n",condition_temp,"\n"),
+      theme(text = element_text(size = 20)) +
+            labs(title = paste0("MDS: ",condition_temp,"\n"),
            x = NULL,
            y = NULL)
   )
