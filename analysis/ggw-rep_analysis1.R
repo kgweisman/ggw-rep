@@ -42,8 +42,8 @@ glimpse(charmeans)
 charmeans_table = charmeans %>%
   spread(condition, mean)
 
-rows = as.character(charmeans_table$character)
-rows = ifelse(rows == "charlie_dog", "dog",
+charnames = as.character(charmeans_table$character)
+charnames = ifelse(rows == "charlie_dog", "dog",
               ifelse(rows == "delores_gleitman_deceased", "dead woman",
                      ifelse(rows == "gerald_schiff_pvs", "PVS man", 
                             ifelse(rows == "green_frog", "frog",
@@ -56,8 +56,7 @@ rows = ifelse(rows == "charlie_dog", "dog",
                                                                              as.character(rows)))))))))))
 
 d1 = charmeans_table[-1]
-rownames(d1) = rows
-names(d1) = c("Consciousness", "EmotionRecognition", "Hunger", "Pain", "Rage")
+rownames(d1) = charnames
 print(d1)
 
 # make table of mental capacity means by character
@@ -68,6 +67,7 @@ condmeans = charmeans %>%
 rows = condmeans$condition
 d3 = condmeans[-1]
 rownames(d3) = rows
+names(d3) = charnames
 print(d3)
 
 # --- PRINCIPAL COMPONENTS ANALYSIS A: ORIGINAL GGW2007 ----------------------
