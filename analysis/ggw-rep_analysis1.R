@@ -13,7 +13,7 @@ library(scales)
 rm(list=ls())
 
 # clear graphics
-graphics.off()
+dev.off()
 
 # read in data: character means
 d = read.csv("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/run-01_2015-03-09_charmeans.csv")[-1] # get rid of column of obs numbers
@@ -78,13 +78,16 @@ pca_A1_pc1 = pca_A1$loadings[,1]; pca_A1_pc1
 # extract factors
 pca_A2 = principal(d1, nfactors = 2, rotate = "varimax"); pca_A2
 
+# extract eigenvalues
+pca_A2$values
+
 # extract PCA loadings
 pca_A2_pc1 = pca_A2$loadings[,1]; pca_A2_pc1
 pca_A2_pc2 = pca_A2$loadings[,2]; pca_A2_pc2
 
 # plot PCs against each other
 # NOTE: need to adjust "1:4" depending on how many conditions are run
-ggplot(data.frame(pca_A2$loadings[1:4,]), aes(x = RC2, y = RC1, label = names(d1))) +
+ggplot(data.frame(pca_A2$loadings[1:4,]), aes(x = RC1, y = RC2, label = names(d1))) +
   geom_text() +
   theme_bw() +
   labs(title = "Factor loadings\n",
@@ -95,7 +98,7 @@ ggplot(data.frame(pca_A2$loadings[1:4,]), aes(x = RC2, y = RC1, label = names(d1
 # ?principal confirms that "component scores are found by regression"
 
 # plot characters by principle components, PC1 on y-axis
-ggplot(data.frame(pca_A2$scores), aes(x = RC2, y = RC1, label = rownames(d1))) +
+ggplot(data.frame(pca_A2$scores), aes(x = RC1, y = RC2, label = rownames(d1))) +
   geom_text() +
   theme_bw() +
   labs(title = "Raw character factor scores\n",
@@ -105,12 +108,21 @@ ggplot(data.frame(pca_A2$scores), aes(x = RC2, y = RC1, label = rownames(d1))) +
 # FROM GGW2007: "For ease of interpretation, factor scores in Figure 1 were adjusted to be anchored at 0 and 1" (SOM p. 3)
 
 # re-plot characters with rescaling (as in GGW2007 original), PC1 on y-axis
-ggplot(data.frame(pca_A2$scores), aes(x = rescale(RC2, to = c(0,1)), y = rescale(RC1, to = c(0,1)), label = rownames(d1))) +
-  geom_text() +
+ggplot(data.frame(pca_A2$scores), 
+       aes(x = rescale(RC1, to = c(0,1)), 
+           y = rescale(RC2, to = c(0,1)), 
+           label = rownames(d1))) +
+  geom_point() +
+  geom_text(angle = 25,
+            vjust = -1,
+            size = 6) +
+  xlim(-0.05, 1.05) +
+  ylim(-0.05, 1.05) +
   theme_bw() +
+  theme(text = element_text(size = 20)) +
   labs(title = "Adjusted character factor scores\n",
-       x = "\nRotated Component 2 (rescaled)",
-       y = "Rotated Component 1 (rescaled)\n")
+       x = "\nRotated Component 1 (rescaled)",
+       y = "Rotated Component 2 (rescaled)\n")
 
 # --- Z-SCORE ANALYSES: ORIGINAL GGW2007 --------------------------------------
 
