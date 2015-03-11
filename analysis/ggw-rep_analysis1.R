@@ -73,15 +73,32 @@ print(d3)
 # --- PRINCIPAL COMPONENTS ANALYSIS A: ORIGINAL GGW2007 ----------------------
 
 # NOTES: 
-# - could also look at unrotated solution by specifying rotate = "none"
-# - should also look at other numbers of factors when we have more data
+# - should look again at >2 factors when we have more data
+# - good resource: http://www.colorado.edu/geography/class_homepages/geog_4023_s11/Lecture18_PCA.pdf
 
-# --------> 1-factor PCA (varimax rotation, using principal) ----------
+# --------> 4-factor (maximal) PCA (UNrotated, using principal) ----------
+
 # extract factors
-pca_A1 = principal(d1, nfactors = 1, rotate = "varimax"); pca_A1
+pca_A4 = principal(d1, nfactors = 4, rotate = "none"); pca_A4
+# retain 2 components (prop var > 5-10%)
+# retain 1 component? (cumulative prop var > 70%... but < 100%?)
+
+# extract eigenvalues
+pca_A4$values # retain 2 components (eigenvalue > 1)
+
+# scree test
+qplot(y = pca_A4$values) +
+  theme_bw() +
+  labs(title = "Scree test for 4-factor (maximal) PCA",
+       x = "Component",
+       y = "Eigenvalue") +
+  geom_line() # retain 2-3 components (left of "break")
 
 # extract PCA loadings
-pca_A1_pc1 = pca_A1$loadings[,1]; pca_A1_pc1
+pca_A4_pc1 = pca_A4$loadings[,1]; pca_A4_pc1
+pca_A4_pc2 = pca_A4$loadings[,2]; pca_A4_pc2
+pca_A4_pc3 = pca_A4$loadings[,3]; pca_A4_pc3
+pca_A4_pc4 = pca_A4$loadings[,4]; pca_A4_pc4
 
 # --------> 2-factor PCA (varimax rotation, using principal) ----------
 
@@ -135,6 +152,13 @@ ggplot(data.frame(pca_A2$scores),
   labs(title = "Adjusted character factor scores\n",
        x = "\nRotated Component 1 (rescaled)",
        y = "Rotated Component 2 (rescaled)\n")
+
+# --------> 1-factor PCA (varimax rotation, using principal) ----------
+# extract factors
+pca_A1 = principal(d1, nfactors = 1, rotate = "varimax"); pca_A1
+
+# extract PCA loadings
+pca_A1_pc1 = pca_A1$loadings[,1]; pca_A1_pc1
 
 # --- Z-SCORE ANALYSES: ORIGINAL GGW2007 --------------------------------------
 
