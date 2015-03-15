@@ -557,52 +557,6 @@ d1_afterlifeyes = charmeans_afterlifeyes_table[-1]
 rownames(d1_afterlifeyes) = rows_afterlifeyes
 print(d1_afterlifeyes)
 
-# --- PRINCIPAL COMPONENTS ANALYSIS B -----------------------------------------
-
-# NOTES: 
-# - in addition to running for all conditions together (as here), need to filter by condition and run for each condition separately!
-# - could also look at unrotated solution by specifying rotate = "none"
-# - should also look at other numbers of factors when we have more data
-
-# --------> 1-factor PCA (varimax rotation, using principal) ----------
-# extract factors
-pca_B1 = principal(d3, nfactors = 1, rotate = "varimax"); pca_B1
-
-# extract PCA loadings
-pca_B1_pc1 = pca_B1$loadings[,1]; pca_B1_pc1
-
-# --------> 2-factor PCA (varimax rotation, using principal) ----------
-# extract factors
-pca_B2 = principal(d3, nfactors = 2, rotate = "varimax"); pca_B2
-
-# extract PCA loadings
-pca_B2_pc1 = pca_B2$loadings[,1]
-pca_B2_pc2 = pca_B2$loadings[,2]
-
-# plot PCs against each other
-ggplot(data.frame(pca_B2$loadings[1:13,]), aes(x = RC1, y = RC2, label = names(d3))) +
-  geom_text() +
-  theme_bw() +
-  labs(title = "Factor loadings\n",
-       x = "\nRotated PC1",
-       y = "Rotated PC2\n")
-
-# plot conditions by principle components
-ggplot(data.frame(pca_B2$scores), aes(x = RC1, y = RC2, label = rownames(d3))) +
-  geom_text() +
-  theme_bw() +
-  labs(title = "Raw condition factor scores\n",
-       x = "\nRotated PC1",
-       y = "Rotated PC2\n")
-
-# re-plot conditions with rescaling (as in GGW2007 original), PC1 on y-axis
-ggplot(data.frame(pca_B2$scores), aes(x = rescale(RC1, to = c(0,1)), y = rescale(RC2, to = c(0,1)), label = rownames(d3))) +
-  geom_text() +
-  theme_bw() +
-  labs(title = "Adjusted condition factor scores\n",
-       x = "\nRotated PC1 (rescaled)",
-       y = "Rotated PC2 (rescaled)\n")
-
 # --- MULTIDIMENSIONAL SCALING ANALYSES ---------------------------------------
 
 # NOTE: in addition to running for all conditions together (as here), need to filter by condition and run for each condition separately!
@@ -820,6 +774,52 @@ for(k in 1:length(levels(dd$condition))) {
 }
 
 # --- ADDITIONAL ALTERNATIVE ANALYES ------------------------------------------
+
+# --------> PRINCIPAL COMPONENTS ANALYSIS B -----------------------------------
+
+# NOTES: 
+# - in addition to running for all conditions together (as here), need to filter by condition and run for each condition separately!
+# - could also look at unrotated solution by specifying rotate = "none"
+# - should also look at other numbers of factors when we have more data
+
+# # ----------------> 1-factor PCA (varimax rotation, using principal) --------
+# extract factors
+pca_B1 = principal(d3, nfactors = 1, rotate = "varimax"); pca_B1
+
+# extract PCA loadings
+pca_B1_pc1 = pca_B1$loadings[,1]; pca_B1_pc1
+
+# # ----------------> 2-factor PCA (varimax rotation, using principal) --------
+# extract factors
+pca_B2 = principal(d3, nfactors = 2, rotate = "varimax"); pca_B2
+
+# extract PCA loadings
+pca_B2_pc1 = pca_B2$loadings[,1]
+pca_B2_pc2 = pca_B2$loadings[,2]
+
+# plot PCs against each other
+ggplot(data.frame(pca_B2$loadings[1:13,]), aes(x = RC1, y = RC2, label = names(d3))) +
+  geom_text() +
+  theme_bw() +
+  labs(title = "Factor loadings\n",
+       x = "\nRotated PC1",
+       y = "Rotated PC2\n")
+
+# plot conditions by principle components
+ggplot(data.frame(pca_B2$scores), aes(x = RC1, y = RC2, label = rownames(d3))) +
+  geom_text() +
+  theme_bw() +
+  labs(title = "Raw condition factor scores\n",
+       x = "\nRotated PC1",
+       y = "Rotated PC2\n")
+
+# re-plot conditions with rescaling (as in GGW2007 original), PC1 on y-axis
+ggplot(data.frame(pca_B2$scores), aes(x = rescale(RC1, to = c(0,1)), y = rescale(RC2, to = c(0,1)), label = rownames(d3))) +
+  geom_text() +
+  theme_bw() +
+  labs(title = "Adjusted condition factor scores\n",
+       x = "\nRotated PC1 (rescaled)",
+       y = "Rotated PC2 (rescaled)\n")
 
 # --------> MAXIMUM LIKELIHOOD FACTOR ANALYSIS A ------------------------------
 # Roughly equivalent to pca_A?
