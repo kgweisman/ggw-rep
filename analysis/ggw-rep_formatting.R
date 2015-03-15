@@ -117,6 +117,27 @@ d_tidy = d.raw %>%
 
 glimpse(d_tidy)
 
+# --- IDENTIFYING RT OUTLIERS -------------------------------------------------
+# add log rts
+d_tidy = d_tidy %>%
+  mutate(log_rt = log(rt))
+
+# plot histogram of RTs
+qplot(rt, data = d_tidy, binwidth = 100)
+qplot(log_rt, data = d_tidy)
+
+# calculate lower and upper bounds (2SD below and above mean log_rt)
+lower_bound = as.numeric(d_tidy %>% summarise(mean(log_rt) - 2 * sd(log_rt)))
+upper_bound = as.numeric(d_tidy %>% summarise(mean(log_rt) + 2 * sd(log_rt)))
+
+# add trial-by-trial outliers and participant-level outliers to dataframe
+d_tidy = d_tidy %>% 
+  mutate(under_lower = ifelse(log_rt < lower_bound, 1, 0),
+         over_upper = ifelse(log_rt > upper_bound, 1, 0)) %>%
+  group_by(subid) %>%
+  mutate(prop_under = sum(under_lower)/length(under_lower),
+         prop_over = sum(over_upper)/length(over_upper))
+
 # --- WRITING ANONYMIZED CSV --------------------------------------------------
 
 # write to de-identified csv file
