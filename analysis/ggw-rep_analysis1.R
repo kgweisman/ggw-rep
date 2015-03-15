@@ -25,6 +25,20 @@ dd = read.csv("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/gg
 
 glimpse(dd)
 
+# --- RT FILTERING ------------------------------------------------------------
+
+# # filter out trials where log_rt < 2SDs below mean
+# dd = dd %>%
+#   filter(under_lower == 0)
+# 
+# View(dd %>% group_by(subid) %>% summarise(trials_completed = length(log_rt)))
+
+# # filter out participants where >50% trials have log_rt < 2SDs below mean
+# dd = dd %>%
+#   filter(prop_under > .5)
+# 
+# View(dd %>% group_by(subid) %>% summarise(trials_completed = length(log_rt)))
+
 # --- DATA FORMATTING ---------------------------------------------------------
 
 # make table of character means by mental capacity
