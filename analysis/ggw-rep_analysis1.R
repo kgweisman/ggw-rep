@@ -75,14 +75,25 @@ print(d1)
 
 # make table of mental capacity means by character
 # formatted in wideform with characters as rows
-condmeans = charmeans %>%
+condmeans = d %>%
+  gather(character, response, 
+         -subid, -condition, -gender, -age, 
+         -beliefGod, -education, -politicalIdeology, 
+         -maritalStatus, -children, -beliefAfterlife) %>%
+  group_by(condition, subid, character) %>%
+  summarise(mean = mean(response, na.rm = T))
+
+glimpse(condmeans)
+
+# format into wideform with characters as rows
+condmeans_table = condmeans %>%
   spread(character, mean)
 
-rows = condmeans$condition
-d3 = condmeans[-1]
-rownames(d3) = rows
-names(d3) = charnames
+d3 = condmeans_table[-1]
+d3 = d3[-1]
 print(d3)
+
+###############################################################################
 
 # --- DEMOGRAPHICS ------------------------------------------------------------
 
@@ -112,6 +123,8 @@ dd %>% distinct(subid) %>% count(religionChild)
 
 # maritalStatus
 dd %>% distinct(subid) %>% count(maritalStatus)
+
+###############################################################################
 
 # --- PRINCIPAL COMPONENTS ANALYSIS A: ORIGINAL GGW2007 ----------------------
 
@@ -488,7 +501,6 @@ d1_age = full_join(d1_ageyoung, d1_ageold) %>%
   select(character, pc1_youngoldz, pc1_youngoldp, pc1_signif, pc2_youngoldz, pc2_youngoldp, pc2_signif)
 d1_age
 
-
 # --------> OLD VERSIONS ------------------------------------------------------
 # # --------> religious beliefs -------------------------------------------------
 # 
@@ -798,11 +810,98 @@ d1_age
 # rownames(d1_afterlifeyes) = rows_afterlifeyes
 # print(d1_afterlifeyes)
 
+###############################################################################
+
+# --------> PRINCIPAL COMPONENTS ANALYSIS B -----------------------------------
+
+# NOTES: 
+# - should look again at >2 factors when we have more data
+# - good resource: http://www.colorado.edu/geography/class_homepages/geog_4023_s11/Lecture18_PCA.pdf
+
+# ----------------> 4-factor (maximal) PCA (UNrotated, using principal) -------
+
+# extract factors
+pca_B4 = principal(d1, nfactors = 4, rotate = "none"); pca_B4
+# retain 2 components (prop var > 5-10%)
+# retain 1 component? (cumulative prop var > 70%... but < 100%?)
+
+# extract eigenvalues
+pca_B4$values # retain 2 components (eigenvalue > 1)
+
+# scree test
+qplot(y = pca_B4$values) +
+  theme_bw() +
+  labs(title = "Scree test for 4-factor (maximal) PCA",
+       x = "Component",
+       y = "Eigenvalue") +
+  geom_line() # retain 2-3 components (left of "break")
+
+# extract PCA loadings
+pca_B4_pc1 = pca_B4$loadings[,1]; pca_B4_pc1
+pca_B4_pc2 = pca_B4$loadings[,2]; pca_B4_pc2
+pca_B4_pc3 = pca_B4$loadings[,3]; pca_B4_pc3
+pca_B4_pc4 = pca_B4$loadings[,4]; pca_B4_pc4
+
+# ----------------> 2-factor PCA (varimax rotation, using principal) ----------
+
+# extract factors
+pca_B2 = principal(d3, nfactors = 2, rotate = "varimax"); pca_B2
+
+# extract eigenvalues
+pca_B2$values
+
+# extract PCA loadings
+pca_B2_pc1 = pca_B2$loadings[,1]; pca_B2_pc1
+pca_B2_pc2 = pca_B2$loadings[,2]; pca_B2_pc2
+
+# plot PCs against each other
+# NOTE: need to adjust "1:4" depending on how many conditions are run
+ggplot(data.frame(pca_B2$loadings[1:13,]), aes(x = RC1, y = RC2, label = names(d3))) +
+  geom_text() +
+  theme_bw() +
+  labs(title = "Factor loadings\n",
+       x = "\nRotated Component 2",
+       y = "Rotated Component 1\n")
+
+# plot characters by principle components, PC1 on y-axis
+ggplot(data.frame(pca_B2$scores), aes(x = RC1, y = RC2, label = rownames(d3))) +
+  geom_text() +
+  theme_bw() +
+  labs(title = "Raw condition factor scores\n",
+       x = "\nRotated Component 2",
+       y = "Rotated Component 1\n")
+
+# re-plot characters with rescaling (as in GGW2007 original), PC1 on y-axis
+ggplot(data.frame(pca_B2$scores), 
+       aes(x = rescale(RC1, to = c(0,1)), 
+           y = rescale(RC2, to = c(0,1)), 
+           label = rownames(d3))) +
+  geom_point() +
+  geom_text(angle = 0,
+            vjust = -1,
+            size = 6) +
+  xlim(-0.05, 1.05) +
+  ylim(-0.05, 1.05) +
+  theme_bw() +
+  theme(text = element_text(size = 20)) +
+  labs(title = "Adjusted condition factor scores\n",
+       x = "\nRotated Component 1 (rescaled)",
+       y = "Rotated Component 2 (rescaled)\n")
+
+# ----------------> 1-factor PCA (varimax rotation, using principal) ----------
+# extract factors
+pca_B1 = principal(d3, nfactors = 1, rotate = "varimax"); pca_B1
+
+# extract PCA loadings
+pca_B1_pc1 = pca_B1$loadings[,1]; pca_B1_pc1
+
+###############################################################################
+
 # --- MULTIDIMENSIONAL SCALING ANALYSES ---------------------------------------
 
 # NOTE: in addition to running for all conditions together (as here), need to filter by condition and run for each condition separately!
 
-# --------> MDS 1: all conditions ---------------------------------------------
+# --------> MDS A: all conditions ---------------------------------------------
 
 # ----------------> data formatting -------------------------------------------
 # make alphabetized list of characters, cycle through to fill in alphabetized pairs
@@ -900,7 +999,7 @@ ggplot(pts, aes(x = x_all, y = y_all, label = character)) +
        x = NULL,
        y = NULL)
 
-# --------> MDS 2: each condition separately ----------------------------------
+# --------> MDS B: each condition separately ----------------------------------
 
 # ----------------> data formatting & MDS -------------------------------------
 
@@ -1014,113 +1113,9 @@ for(k in 1:length(levels(dd$condition))) {
   )
 }
 
-# --- REGRESSION ANALYSES -----------------------------------------------------
-
-# --------> gender ------------------------------------------------------------
-
-# --------> age ---------------------------------------------------------------
-
-# --------> religious beliefs -------------------------------------------------
-
-# --------> education ---------------------------------------------------------
-
-# --------> political affiliation ---------------------------------------------
-
-# --------> marital status ----------------------------------------------------
-
-# --------> parental status ---------------------------------------------------
-
-# --------> dog ownership -----------------------------------------------------
-
-# --------> belief in spiritual afterlife -------------------------------------
-
-
 ###############################################################################
 
 # --- ADDITIONAL ALTERNATIVE ANALYES (EXPLORATORY) ----------------------------
-
-# --------> PRINCIPAL COMPONENTS ANALYSIS B -----------------------------------
-
-# NOTES: 
-# - should look again at >2 factors when we have more data
-# - good resource: http://www.colorado.edu/geography/class_homepages/geog_4023_s11/Lecture18_PCA.pdf
-
-# ----------------> 4-factor (maximal) PCA (UNrotated, using principal) -------
-
-# extract factors
-pca_B4 = principal(d1, nfactors = 4, rotate = "none"); pca_B4
-# retain 2 components (prop var > 5-10%)
-# retain 1 component? (cumulative prop var > 70%... but < 100%?)
-
-# extract eigenvalues
-pca_B4$values # retain 2 components (eigenvalue > 1)
-
-# scree test
-qplot(y = pca_B4$values) +
-  theme_bw() +
-  labs(title = "Scree test for 4-factor (maximal) PCA",
-       x = "Component",
-       y = "Eigenvalue") +
-  geom_line() # retain 2-3 components (left of "break")
-
-# extract PCA loadings
-pca_B4_pc1 = pca_B4$loadings[,1]; pca_B4_pc1
-pca_B4_pc2 = pca_B4$loadings[,2]; pca_B4_pc2
-pca_B4_pc3 = pca_B4$loadings[,3]; pca_B4_pc3
-pca_B4_pc4 = pca_B4$loadings[,4]; pca_B4_pc4
-
-# ----------------> 2-factor PCA (varimax rotation, using principal) ----------
-
-# extract factors
-pca_B2 = principal(d3, nfactors = 2, rotate = "varimax"); pca_B2
-
-# extract eigenvalues
-pca_B2$values
-
-# extract PCA loadings
-pca_B2_pc1 = pca_B2$loadings[,1]; pca_B2_pc1
-pca_B2_pc2 = pca_B2$loadings[,2]; pca_B2_pc2
-
-# plot PCs against each other
-# NOTE: need to adjust "1:4" depending on how many conditions are run
-ggplot(data.frame(pca_B2$loadings[1:13,]), aes(x = RC1, y = RC2, label = names(d3))) +
-  geom_text() +
-  theme_bw() +
-  labs(title = "Factor loadings\n",
-       x = "\nRotated Component 2",
-       y = "Rotated Component 1\n")
-
-# plot characters by principle components, PC1 on y-axis
-ggplot(data.frame(pca_B2$scores), aes(x = RC1, y = RC2, label = rownames(d3))) +
-  geom_text() +
-  theme_bw() +
-  labs(title = "Raw condition factor scores\n",
-       x = "\nRotated Component 2",
-       y = "Rotated Component 1\n")
-
-# re-plot characters with rescaling (as in GGW2007 original), PC1 on y-axis
-ggplot(data.frame(pca_B2$scores), 
-       aes(x = rescale(RC1, to = c(0,1)), 
-           y = rescale(RC2, to = c(0,1)), 
-           label = rownames(d3))) +
-  geom_point() +
-  geom_text(angle = 0,
-            vjust = -1,
-            size = 6) +
-  xlim(-0.05, 1.05) +
-  ylim(-0.05, 1.05) +
-  theme_bw() +
-  theme(text = element_text(size = 20)) +
-  labs(title = "Adjusted condition factor scores\n",
-       x = "\nRotated Component 1 (rescaled)",
-       y = "Rotated Component 2 (rescaled)\n")
-
-# ----------------> 1-factor PCA (varimax rotation, using principal) ----------
-# extract factors
-pca_B1 = principal(d3, nfactors = 1, rotate = "varimax"); pca_B1
-
-# extract PCA loadings
-pca_B1_pc1 = pca_B1$loadings[,1]; pca_B1_pc1
 
 # --------> MAXIMUM LIKELIHOOD FACTOR ANALYSIS A ------------------------------
 # Roughly equivalent to pca_B?
