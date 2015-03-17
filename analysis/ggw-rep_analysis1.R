@@ -84,6 +84,26 @@ rownames(d3) = rows
 names(d3) = charnames
 print(d3)
 
+# --- DEMOGRAPHICS ------------------------------------------------------------
+
+# total n
+dd %>% distinct(subid) %>% summarise(n = length(subid))
+
+# condition assignment
+dd %>% group_by(condition) %>% distinct(subid) %>% summarise(n = length(subid))
+
+# gender
+dd %>% distinct(subid) %>% count(gender)
+
+# ethnicity
+dd %>% distinct(subid) %>% count(ethnicity)
+
+# education
+dd %>% distinct(subid) %>% count(education)
+
+# englishNative
+dd %>% distinct(subid) %>% count(englishNative)
+
 # --- PRINCIPAL COMPONENTS ANALYSIS A: ORIGINAL GGW2007 ----------------------
 
 # NOTES: 
