@@ -897,9 +897,9 @@ with(data.frame(pca_B3$loadings[,1:3]), {
                        highlight.3d = T, pch = 19,
                        type = "h",
                        main = "Character factor loadings",
-                       xlab = "Rotated Component 1",
-                       ylab = "Rotated Component 2",
-                       zlab = "Rotated Component 3")
+                       xlab = "Rotated Component 1: 'Vulnerability'",
+                       ylab = "Rotated Component 2: 'Animal Nature'",
+                       zlab = "Rotated Component 3: 'Unfamiliarity'")
   # convert 3d coordinates to 2d projection
   s3d.coords <- s3d$xyz.convert(RC1, RC2, RC3)
   text(s3d.coords$x, s3d.coords$y,
@@ -943,9 +943,9 @@ with(pca_B3_scores_df, {
                        color = pcolor, pch = 19,
                        type = "h",
                        main = "Participant factor scores by condition",
-                       xlab = "Rotated Component 1",
-                       ylab = "Rotated Component 2",
-                       zlab = "Rotated Component 3")
+                       xlab = "Rotated Component 1: 'Vulnerability'",
+                       ylab = "Rotated Component 2: 'Animal Nature'",
+                       zlab = "Rotated Component 3: 'Unfamiliarity'")
   # convert 3d coordinates to 2d projection
   s3d.coords <- s3d$xyz.convert(RC1, RC2, RC3)
   legend("topleft", inset = 0,
@@ -959,23 +959,23 @@ with(pca_B3_scores_df, {
 pca_B3_subjectplot12 = ggplot(pca_B3_scores_df, aes(x = RC1, y = RC2, colour = condition)) +
   geom_point() +
   theme_bw() +
-  labs(title = "Factor loadings:\nRC1 vs. RC2\n",
-       x = "\nRotated Component 1",
-       y = "Rotated Component 2\n") +
+  labs(title = "Factor scores:\nRC1 vs. RC2\n",
+       x = "\nRotated Component 1: 'Vulnerability'",
+       y = "Rotated Component 2: 'Animal Nature'\n") +
   theme(legend.position = "bottom")
 pca_B3_subjectplot13 = ggplot(pca_B3_scores_df, aes(x = RC1, y = RC3, colour = condition)) +
   geom_point() +
   theme_bw() +
-  labs(title = "Factor loadings:\nRC1 vs. RC3\n",
-       x = "\nRotated Component 1",
-       y = "Rotated Component 3\n") +
+  labs(title = "Factor scores:\nRC1 vs. RC3\n",
+       x = "\nRotated Component 1: 'Vulnerability'",
+       y = "Rotated Component 3: 'Unfamiliarity'\n") +
   theme(legend.position = "bottom")
 pca_B3_subjectplot23 = ggplot(pca_B3_scores_df, aes(x = RC2, y = RC3, colour = condition)) +
   geom_point() +  
   theme_bw() +
-  labs(title = "Factor loadings:\nRC2 vs. RC3\n",
-       x = "\nRotated Component 2",
-       y = "Rotated Component 3\n") +
+  labs(title = "Factor scores:\nRC2 vs. RC3\n",
+       x = "\nRotated Component 2: 'Animal Nature'",
+       y = "Rotated Component 3: 'Unfamiliarity'\n") +
   theme(legend.position = "bottom")
 multiplot(pca_B3_subjectplot12, pca_B3_subjectplot13, pca_B3_subjectplot23, cols = 3)
 
