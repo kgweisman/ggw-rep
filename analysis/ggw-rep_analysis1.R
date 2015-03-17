@@ -896,7 +896,7 @@ with(data.frame(pca_B3$loadings[,1:3]), {
   s3d <- scatterplot3d(RC1, RC2, RC3,
                        highlight.3d = T, pch = 19,
                        type = "h",
-                       main = "Factor loadings",
+                       main = "Character factor loadings",
                        xlab = "Rotated Component 1",
                        ylab = "Rotated Component 2",
                        zlab = "Rotated Component 3")
@@ -942,7 +942,7 @@ with(pca_B3_scores_df, {
   s3d <- scatterplot3d(RC1, RC2, RC3,
                        color = pcolor, pch = 19,
                        type = "h",
-                       main = "Participant Factor Scores by Condition",
+                       main = "Participant factor scores by condition",
                        xlab = "Rotated Component 1",
                        ylab = "Rotated Component 2",
                        zlab = "Rotated Component 3")
