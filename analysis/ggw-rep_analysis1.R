@@ -244,8 +244,8 @@ ggplot(data.frame(pca_A2$scores),
   geom_text(angle = 0,
             vjust = -1,
             size = 6) +
-  xlim(-0.05, 1.05) +
-  ylim(-0.05, 1.05) +
+  xlim(-0.01, 1.01) +
+  ylim(-0.01, 1.01) +
   theme_bw() +
   theme(text = element_text(size = 20)) +
   labs(title = "Adjusted character factor scores\n",
