@@ -104,6 +104,15 @@ dd %>% distinct(subid) %>% count(education)
 # englishNative
 dd %>% distinct(subid) %>% count(englishNative)
 
+# politicalIdeology
+dd %>% distinct(subid) %>% count(politicalIdeology)
+
+# religionChild
+dd %>% distinct(subid) %>% count(religionChild)
+
+# maritalStatus
+dd %>% distinct(subid) %>% count(maritalStatus)
+
 # --- PRINCIPAL COMPONENTS ANALYSIS A: ORIGINAL GGW2007 ----------------------
 
 # NOTES: 
