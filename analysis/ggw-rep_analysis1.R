@@ -1210,7 +1210,7 @@ for(k in 1:length(levels(dd$condition))) {
 # --- ADDITIONAL ALTERNATIVE ANALYES (EXPLORATORY) ----------------------------
 
 # --------> MAXIMUM LIKELIHOOD FACTOR ANALYSIS A ------------------------------
-# Roughly equivalent to pca_B?
+# Roughly equivalent to pca_A?
 # Could also do the parallel version of pca_B
 
 # Factor analysis
@@ -1223,11 +1223,11 @@ fa1 = factanal(d1,
 print(fa1)
 
 # --------> HIERARCHICAL CLUSTER ANALYSIS A -----------------------------------
-# Roughly equivalent to pca_B
+# Roughly equivalent to pca_A
 # Could also do the parallel version of pca_B
 
 # Construct dissimilarity matrix
-d2 = as.dist((1-cor(d1))/2)
+d2 = as.dist((1-cor(d1))/2) # NEED TO CHECK ON WHY WE DIVIDE CORRELATIONS BY 2
 
 # Conduct hierarchical cluster analysis
 hca = hclust(d2); hca
