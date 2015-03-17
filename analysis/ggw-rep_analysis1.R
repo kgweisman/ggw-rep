@@ -4,6 +4,7 @@
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(scatterplot3d)
 library(lme4)
 library(psych)
 library(stats)
@@ -14,6 +15,55 @@ rm(list=ls())
 
 # clear graphics
 dev.off()
+
+# define multiplot function
+# source: http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
+
+# Multiple plot function
+#
+# ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
+# - cols:   Number of columns in layout
+# - layout: A matrix specifying the layout. If present, 'cols' is ignored.
+#
+# If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),
+# then plot 1 will go in the upper left, 2 will go in the upper right, and
+# 3 will go all the way across the bottom.
+#
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  require(grid)
+  
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+  
+  numPlots = length(plots)
+  
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                     ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+  
+  if (numPlots==1) {
+    print(plots[[1]])
+    
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+    
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+      
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
 
 # read in data: character means
 d = read.csv("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/run-01_2015-03-09_charmeans.csv")[-1] # get rid of column of obs numbers
@@ -89,8 +139,12 @@ glimpse(condmeans)
 condmeans_table = condmeans %>%
   spread(character, mean)
 
+subidnames = condmeans_table$subid
+
 d3 = condmeans_table[-1]
 d3 = d3[-1]
+names(d3) = charnames
+rownames(d3) = subidnames
 print(d3)
 
 ###############################################################################
@@ -137,7 +191,7 @@ dd %>% distinct(subid) %>% count(maritalStatus)
 # extract factors
 pca_A4 = principal(d1, nfactors = 4, rotate = "none"); pca_A4
 # retain 2 components (prop var > 5-10%)
-# retain 1 component? (cumulative prop var > 70%... but < 100%?)
+# retain 1-2 components? (cumulative prop var > 70%... but < 100%?)
 
 # extract eigenvalues
 pca_A4$values # retain 2 components (eigenvalue > 1)
@@ -151,10 +205,10 @@ qplot(y = pca_A4$values) +
   geom_line() # retain 2-3 components (left of "break")
 
 # extract PCA loadings
-pca_A4_pc1 = pca_A4$loadings[,1]; pca_A4_pc1
-pca_A4_pc2 = pca_A4$loadings[,2]; pca_A4_pc2
-pca_A4_pc3 = pca_A4$loadings[,3]; pca_A4_pc3
-pca_A4_pc4 = pca_A4$loadings[,4]; pca_A4_pc4
+pca_A4_pc1 = pca_A4$loadings[,1]; sort(pca_A4_pc1)
+pca_A4_pc2 = pca_A4$loadings[,2]; sort(pca_A4_pc2)
+pca_A4_pc3 = pca_A4$loadings[,3]; sort(pca_A4_pc3)
+pca_A4_pc4 = pca_A4$loadings[,4]; sort(pca_A4_pc4)
 
 # --------> 2-factor PCA (varimax rotation, using principal) ----------
 
@@ -167,8 +221,8 @@ pca_A2 = principal(d1, nfactors = 2, rotate = "varimax"); pca_A2
 pca_A2$values
 
 # extract PCA loadings
-pca_A2_pc1 = pca_A2$loadings[,1]; pca_A2_pc1
-pca_A2_pc2 = pca_A2$loadings[,2]; pca_A2_pc2
+pca_A2_pc1 = pca_A2$loadings[,1]; sort(pca_A2_pc1)
+pca_A2_pc2 = pca_A2$loadings[,2]; sort(pca_A2_pc2)
 
 # plot PCs against each other
 # NOTE: need to adjust "1:4" depending on how many conditions are run
@@ -182,13 +236,13 @@ ggplot(data.frame(pca_A2$loadings[1:4,]), aes(x = RC1, y = RC2, label = names(d1
 # FROM GGW2007: "We used the regression approach to estimate factor scores for each character." (SOM p. 3) 
 # ?principal confirms that "component scores are found by regression"
 
-# plot characters by principle components, PC1 on y-axis
+# plot characters by principle components
 ggplot(data.frame(pca_A2$scores), aes(x = RC1, y = RC2, label = rownames(d1))) +
   geom_text() +
   theme_bw() +
   labs(title = "Raw character factor scores\n",
-       x = "\nRotated Component 2",
-       y = "Rotated Component 1\n")
+       x = "\nRotated Component 1: 'Agency'",
+       y = "Rotated Component 2: 'Experience'\n")
 
 # FROM GGW2007: "For ease of interpretation, factor scores in Figure 1 were adjusted to be anchored at 0 and 1" (SOM p. 3)
 
@@ -206,15 +260,15 @@ ggplot(data.frame(pca_A2$scores),
   theme_bw() +
   theme(text = element_text(size = 20)) +
   labs(title = "Adjusted character factor scores\n",
-       x = "\nRotated Component 1 (rescaled)",
-       y = "Rotated Component 2 (rescaled)\n")
+       x = "\nRotated Component 1, rescaled: 'Agency'",
+       y = "Rotated Component 2, rescaled: 'Experience'\n")
 
 # --------> 1-factor PCA (varimax rotation, using principal) ----------
 # extract factors
 pca_A1 = principal(d1, nfactors = 1, rotate = "varimax"); pca_A1
 
 # extract PCA loadings
-pca_A1_pc1 = pca_A1$loadings[,1]; pca_A1_pc1
+pca_A1_pc1 = pca_A1$loadings[,1]; sort(pca_A1_pc1)
 
 # --- Z-SCORE ANALYSES: ORIGINAL GGW2007 --------------------------------------
 
@@ -815,85 +869,134 @@ d1_age
 # --------> PRINCIPAL COMPONENTS ANALYSIS B -----------------------------------
 
 # NOTES: 
-# - should look again at >2 factors when we have more data
 # - good resource: http://www.colorado.edu/geography/class_homepages/geog_4023_s11/Lecture18_PCA.pdf
 
-# ----------------> 4-factor (maximal) PCA (UNrotated, using principal) -------
+# ----------------> 11-factor (maximal) PCA (UNrotated, using principal) -------
 
 # extract factors
-pca_B4 = principal(d1, nfactors = 4, rotate = "none"); pca_B4
-# retain 2 components (prop var > 5-10%)
-# retain 1 component? (cumulative prop var > 70%... but < 100%?)
+pca_B11 = principal(d3, nfactors = 11, rotate = "none"); pca_B11
+# retain 3-4 components (prop var > 5-10%)
+# retain 3-11 components (cumulative prop var > 70%... but < 100%?)
 
 # extract eigenvalues
-pca_B4$values # retain 2 components (eigenvalue > 1)
+pca_B11$values # retain 3 components (eigenvalue > 1)
 
 # scree test
-qplot(y = pca_B4$values) +
+qplot(y = pca_B11$values) +
   theme_bw() +
   labs(title = "Scree test for 4-factor (maximal) PCA",
        x = "Component",
        y = "Eigenvalue") +
-  geom_line() # retain 2-3 components (left of "break")
+  geom_line() # retain 3 components (left of "break")
+
+# ----------------> 3-factor PCA (varimax rotation, using principal) ----------
+
+# extract factors
+pca_B3 = principal(d3, nfactors = 3, rotate = "varimax"); pca_B3
+
+# extract eigenvalues
+pca_B3$values
 
 # extract PCA loadings
-pca_B4_pc1 = pca_B4$loadings[,1]; pca_B4_pc1
-pca_B4_pc2 = pca_B4$loadings[,2]; pca_B4_pc2
-pca_B4_pc3 = pca_B4$loadings[,3]; pca_B4_pc3
-pca_B4_pc4 = pca_B4$loadings[,4]; pca_B4_pc4
+pca_B3_pc1 = pca_B3$loadings[,1]; sort(pca_B3_pc1)
+pca_B3_pc2 = pca_B3$loadings[,2]; sort(pca_B3_pc2)
+pca_B3_pc3 = pca_B3$loadings[,3]; sort(pca_B3_pc3)
+
+# 3d scatterplot of character factor loadings
+with(data.frame(pca_B3$loadings[,1:3]), {
+  s3d <- scatterplot3d(RC1, RC2, RC3,
+                       highlight.3d = T, pch = 19,
+                       type = "h",
+                       main = "Factor loadings",
+                       xlab = "Rotated Component 1",
+                       ylab = "Rotated Component 2",
+                       zlab = "Rotated Component 3")
+  # convert 3d coordinates to 2d projection
+  s3d.coords <- s3d$xyz.convert(RC1, RC2, RC3)
+  text(s3d.coords$x, s3d.coords$y,
+       labels = row.names(data.frame(pca_B3$loadings[,1:3])),
+       cex = 1, pos = 4, srt = 15)
+})
+
+# plot each pair of PCs against each other
+pca_B3_factorplot12 = ggplot(data.frame(pca_B3$loadings[1:13,]), aes(x = RC1, y = RC2, label = names(d3))) +
+  geom_text() +
+  theme_bw() +
+  labs(title = "Factor loadings:\nRC1 vs. RC2\n",
+       x = "\nRotated Component 1",
+       y = "Rotated Component 2\n")
+pca_B3_factorplot13 = ggplot(data.frame(pca_B3$loadings[1:13,]), aes(x = RC1, y = RC3, label = names(d3))) +
+  geom_text() +
+  theme_bw() +
+  labs(title = "Factor loadings:\nRC1 vs. RC3\n",
+       x = "\nRotated Component 1",
+       y = "Rotated Component 3\n")
+pca_B3_factorplot23 = ggplot(data.frame(pca_B3$loadings[1:13,]), aes(x = RC2, y = RC3, label = names(d3))) +
+  geom_text() +
+  theme_bw() +
+  labs(title = "Factor loadings:\nRC2 vs. RC3\n",
+       x = "\nRotated Component 2",
+       y = "Rotated Component 3\n")
+multiplot(pca_B3_factorplot12, pca_B3_factorplot13, pca_B3_factorplot23, cols = 3)
+
+# 3d scatterplot of subject scores
+# create dataframe
+pca_B3_scores_df = data.frame(pca_B3$scores) %>%
+  mutate(subid = rownames(pca_B3$scores)) %>%
+  full_join(condmeans_table[,1:2]) %>%
+  mutate(pcolor = ifelse(condition == "Fear", "red",
+                         ifelse(condition == "Hunger", "orange",
+                                ifelse(condition == "Morality", "green4",
+                                       ifelse(condition == "SelfControl", "blue",
+                                              NA)))))
+with(pca_B3_scores_df, {
+  s3d <- scatterplot3d(RC1, RC2, RC3,
+                       color = pcolor, pch = 19,
+                       type = "h",
+                       main = "Participant Factor Scores by Condition",
+                       xlab = "Rotated Component 1",
+                       ylab = "Rotated Component 2",
+                       zlab = "Rotated Component 3")
+  # convert 3d coordinates to 2d projection
+  s3d.coords <- s3d$xyz.convert(RC1, RC2, RC3)
+  legend("topleft", inset = 0,
+         bty = "n", cex = .7,
+         title = "Condition", 
+         c("Fear", "Hunger", "Morality", "SelfControl"), 
+         fill=c("red", "orange", "green4", "blue"))
+})
+
+# plot each pair of PCs against each other
+pca_B3_subjectplot12 = ggplot(pca_B3_scores_df, aes(x = RC1, y = RC2, colour = condition)) +
+  geom_point() +
+  theme_bw() +
+  labs(title = "Factor loadings:\nRC1 vs. RC2\n",
+       x = "\nRotated Component 1",
+       y = "Rotated Component 2\n") +
+  theme(legend.position = "bottom")
+pca_B3_subjectplot13 = ggplot(pca_B3_scores_df, aes(x = RC1, y = RC3, colour = condition)) +
+  geom_point() +
+  theme_bw() +
+  labs(title = "Factor loadings:\nRC1 vs. RC3\n",
+       x = "\nRotated Component 1",
+       y = "Rotated Component 3\n") +
+  theme(legend.position = "bottom")
+pca_B3_subjectplot23 = ggplot(pca_B3_scores_df, aes(x = RC2, y = RC3, colour = condition)) +
+  geom_point() +  
+  theme_bw() +
+  labs(title = "Factor loadings:\nRC2 vs. RC3\n",
+       x = "\nRotated Component 2",
+       y = "Rotated Component 3\n") +
+  theme(legend.position = "bottom")
+multiplot(pca_B3_subjectplot12, pca_B3_subjectplot13, pca_B3_subjectplot23, cols = 3)
 
 # ----------------> 2-factor PCA (varimax rotation, using principal) ----------
-
 # extract factors
 pca_B2 = principal(d3, nfactors = 2, rotate = "varimax"); pca_B2
 
-# extract eigenvalues
-pca_B2$values
-
 # extract PCA loadings
-pca_B2_pc1 = pca_B2$loadings[,1]; pca_B2_pc1
-pca_B2_pc2 = pca_B2$loadings[,2]; pca_B2_pc2
-
-# plot PCs against each other
-# NOTE: need to adjust "1:4" depending on how many conditions are run
-ggplot(data.frame(pca_B2$loadings[1:13,]), aes(x = RC1, y = RC2, label = names(d3))) +
-  geom_text() +
-  theme_bw() +
-  labs(title = "Factor loadings\n",
-       x = "\nRotated Component 2",
-       y = "Rotated Component 1\n")
-
-# plot characters by principle components, PC1 on y-axis
-ggplot(data.frame(pca_B2$scores), aes(x = RC1, y = RC2, label = rownames(d3))) +
-  geom_text() +
-  theme_bw() +
-  labs(title = "Raw condition factor scores\n",
-       x = "\nRotated Component 2",
-       y = "Rotated Component 1\n")
-
-# re-plot characters with rescaling (as in GGW2007 original), PC1 on y-axis
-ggplot(data.frame(pca_B2$scores), 
-       aes(x = rescale(RC1, to = c(0,1)), 
-           y = rescale(RC2, to = c(0,1)), 
-           label = rownames(d3))) +
-  geom_point() +
-  geom_text(angle = 0,
-            vjust = -1,
-            size = 6) +
-  xlim(-0.05, 1.05) +
-  ylim(-0.05, 1.05) +
-  theme_bw() +
-  theme(text = element_text(size = 20)) +
-  labs(title = "Adjusted condition factor scores\n",
-       x = "\nRotated Component 1 (rescaled)",
-       y = "Rotated Component 2 (rescaled)\n")
-
-# ----------------> 1-factor PCA (varimax rotation, using principal) ----------
-# extract factors
-pca_B1 = principal(d3, nfactors = 1, rotate = "varimax"); pca_B1
-
-# extract PCA loadings
-pca_B1_pc1 = pca_B1$loadings[,1]; pca_B1_pc1
+pca_B2_pc1 = pca_B2$loadings[,1]; sort(pca_B2_pc1)
+pca_B2_pc2 = pca_B2$loadings[,2]; sort(pca_B2_pc2)
 
 ###############################################################################
 
