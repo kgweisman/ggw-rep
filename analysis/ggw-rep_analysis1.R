@@ -700,12 +700,7 @@ dissimList = list(NULL)
 
 for(k in 1:length(levels(dd$subid))) {
   subid_temp = levels(dd$subid)[k]
-  
   upperDissim_temp = NULL
-  fit_temp = NULL
-  x_temp = NULL
-  y_temp = NULL
-  pts_temp = NULL
   
   # make alphabetized list of characters, cycle through to fill in alphabetized pairs
   upperDissim_temp <- dd %>%
@@ -835,12 +830,7 @@ dissimList_fear = list(NULL)
 
 for(k in 1:length(levels(dd_fear$subid))) {
   subid_temp = levels(dd_fear$subid)[k]
-  
   upperDissim_temp = NULL
-  fit_temp = NULL
-  x_temp = NULL
-  y_temp = NULL
-  pts_temp = NULL
   
   # make alphabetized list of characters, cycle through to fill in alphabetized pairs
   upperDissim_temp <- dd_fear %>%
@@ -973,12 +963,7 @@ dissimList_hunger = list(NULL)
 
 for(k in 1:length(levels(dd_hunger$subid))) {
   subid_temp = levels(dd_hunger$subid)[k]
-  
   upperDissim_temp = NULL
-  fit_temp = NULL
-  x_temp = NULL
-  y_temp = NULL
-  pts_temp = NULL
   
   # make alphabetized list of characters, cycle through to fill in alphabetized pairs
   upperDissim_temp <- dd_hunger %>%
@@ -1111,12 +1096,7 @@ dissimList_morality = list(NULL)
 
 for(k in 1:length(levels(dd_morality$subid))) {
   subid_temp = levels(dd_morality$subid)[k]
-  
   upperDissim_temp = NULL
-  fit_temp = NULL
-  x_temp = NULL
-  y_temp = NULL
-  pts_temp = NULL
   
   # make alphabetized list of characters, cycle through to fill in alphabetized pairs
   upperDissim_temp <- dd_morality %>%
@@ -1249,12 +1229,7 @@ dissimList_selfcontrol = list(NULL)
 
 for(k in 1:length(levels(dd_selfcontrol$subid))) {
   subid_temp = levels(dd_selfcontrol$subid)[k]
-  
   upperDissim_temp = NULL
-  fit_temp = NULL
-  x_temp = NULL
-  y_temp = NULL
-  pts_temp = NULL
   
   # make alphabetized list of characters, cycle through to fill in alphabetized pairs
   upperDissim_temp <- dd_selfcontrol %>%
@@ -1474,6 +1449,7 @@ for(i in 1:13) {
 upperDissim = data.matrix(upperDissim)
 
 # ---------------------->->-> do MDS ------------------------------------------
+
 # do MDS, pull out x_all and y_all coords
 fit_all <- cmdscale(upperDissim, eig = TRUE, k = 2)
 x_all <- fit_all$points[, 1]
@@ -1494,6 +1470,10 @@ pts <- data.frame(x = x_all, y = y_all, character = row.names(upperDissim)) %>%
                                                                           "chimp",
                                                                           ifelse(character == "todd_billingsley_man", "man",
                                                                                  as.character(character))))))))))))
+
+# try with smacofSym
+mds()
+
 
 # ----------------------------->->->-> plots ----------------------------------
 
