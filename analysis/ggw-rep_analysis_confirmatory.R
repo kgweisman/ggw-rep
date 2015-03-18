@@ -765,171 +765,54 @@ for(i in 1:12) {
 
 dissim = as.dist(dissim)
 
-# --------------->-> do MDS ---------------------------------------------------
+# --------------->-> metric (ratio) MDS ---------------------------------------
 # NOTE: could also explore fitting with more than 2 dimensions...
 
 # do MDS
-
-
-# do MDS, pull out x_all and y_all coords
-fit_all <- cmdscale(dissim, eig = TRUE, k = 2)
-x_all <- fit_all$points[, 1]
-y_all <- fit_all$points[, 2]
-
-# convert to a dataframe
-pts <- data.frame(x = x_all, y = y_all, character = row.names(dissim)) %>%
-  mutate(character = 
-           ifelse(character == "charlie_dog", "dog",
-                  ifelse(character == "delores_gleitman_deceased", "dead woman",
-                         ifelse(character == "gerald_schiff_pvs", "PVS man", 
-                                ifelse(character == "green_frog", "frog",
-                                       ifelse(character == "samantha_hill_girl", "girl",
-                                              ifelse(character == "kismet_robot", "robot",
-                                                     ifelse(character == "nicholas_gannon_baby", "baby",
-                                                            ifelse(character == "sharon_harvey_woman", "woman",
-                                                                   ifelse(character == "toby_chimp",
-                                                                          "chimp",
-                                                                          ifelse(character == "todd_billingsley_man", "man",
-                                                                                 as.character(character))))))))))))
+mds_Aratio = mds(dissim, ndim = 2, type = "ratio"); mds_Aratio
+summary(mds_Aratio)
+plot(mds_Aratio)
 
 # ---------------------->->-> plots -------------------------------------------
 
-# plot space
-plot(mds_selfcontrol_Bb, plot.type = "confplot",
-     main = "Character dimension scores:\nSELF-CONTROL")
+# plot dimension space
+plot(mds_Aratio)
 
-# # plot space and stress (bigger bubble = better fit)
-# plot(mds_selfcontrol_Bb, plot.type = "bubbleplot", sub = "Condition: SELF-CONTROL")
-# 
-# # plot stress (higher = worse fit)
-# plot(mds_selfcontrol_Bb, plot.type = "stressplot", sub = "Condition: SELF-CONTROL")
-# 
-# # plot residuals
-# plot(mds_selfcontrol_Bb, plot.type = "Shepard", sub = "Condition: SELF-CONTROL")
+# plot space and stress (bigger bubble = better fit)
+plot(mds_Aratio, plot.type = "bubbleplot")
 
+# plot stress (higher = worse fit)
+plot(mds_Aratio, plot.type = "stressplot")
 
-# plot!
-ggplot(pts, aes(x = x_all, y = y_all, label = character)) +
-  geom_point() +
-  geom_text(angle = 0,
-            vjust = -1,
-            size = 6) +
-  xlim(-1.2, 1.05) +
-  ylim(-0.8, .75) +
-  theme_bw() +
-  theme(text = element_text(size = 20)) +
-  labs(title = "Multidimensional scaling of characters: All 4 conditions\n",
-       x = NULL,
-       y = NULL)
+# Shepard plot
+plot(mds_Aratio, plot.type = "Shepard")
+
+# plot residuals
+plot(mds_Aratio, plot.type = "resplot")
+
+# --------------->-> non-metric (ordinal) MDS --------------------------------
+# NOTE: could also explore fitting with more than 2 dimensions...
+
+# do MDS
+mds_Aordinal = mds(dissim, ndim = 2, type = "ordinal"); mds_Aordinal
+summary(mds_Aordinal)
+
+# ---------------------->->-> plots -------------------------------------------
+
+# plot dimension space
+plot(mds_Aordinal)
+
+# plot space and stress (bigger bubble = better fit)
+plot(mds_Aordinal, plot.type = "bubbleplot")
+
+# plot stress (higher = worse fit)
+plot(mds_Aordinal, plot.type = "stressplot")
+
+# Shepard plot
+plot(mds_Aordinal, plot.type = "Shepard")
+
+# plot residuals
+plot(mds_Aordinal, plot.type = "resplot")
 
 # --------> MDS B: each condition separately ----------------------------------
 
-for(k in 1:length(levels(dd$condition))) {
-  condition_temp = levels(dd$condition)[k]
-  
-  dissim_temp = NULL
-  fit_temp = NULL
-  x_temp = NULL
-  y_temp = NULL
-  pts_temp = NULL
-  
-  # make alphabetized list of characters, cycle through to fill in alphabetized pairs
-  dissim_temp <- dd %>%
-    filter(condition == condition_temp) %>%
-    mutate(character1 = array(),
-           character2 = array())
-  
-  charsort = sort(levels(dissim_temp$leftCharacter), decreasing = TRUE)
-  
-  for(i in 1:length(charsort)) {
-    dissim_temp <- dissim_temp %>%
-      mutate(
-        character1 = 
-          ifelse(leftCharacter == charsort[i] |
-                   rightCharacter == charsort[i],
-                 as.character(charsort[i]),
-                 as.character(character1)),
-        character2 = 
-          ifelse(character1 == leftCharacter,
-                 as.character(rightCharacter),
-                 as.character(leftCharacter))) %>%
-      mutate(character1 = factor(character1),
-             character2 = factor(character2))
-  }
-  
-  # make upper matrix of dissimilarity values
-  dissim_temp <- dissim_temp %>%
-    select(subid, condition, character1, character2, responseNum) %>%
-    group_by(character1, character2) %>%
-    mutate(dist = abs(responseNum)) %>% # use absolute values of comparison scores to get distance
-    summarise(mean = mean(dist, na.rm = TRUE)) %>%
-    spread(character2, mean)
-  
-  # add in NA column for charlie_dog, NA row for you
-  dissim_temp <- dissim_temp %>%
-    mutate(charlie_dog = NA,
-           character1 = as.character(character1)) %>%
-    rbind(c("you", rep(NA, 13))) %>%
-    mutate(character1 = factor(character1))
-  
-  # reorder columns
-  dissim_temp = dissim_temp[, c(1, 14, 2:13)]
-  
-  # rename rows and columns
-  names = sort(charsort, decreasing = FALSE)
-  names = 
-    ifelse(names == "charlie_dog", "dog",
-           ifelse(names == "delores_gleitman_deceased", "dead woman",
-                  ifelse(names == "gerald_schiff_pvs", "PVS man",
-                         ifelse(names == "green_frog", "frog",
-                                ifelse(names == "samantha_hill_girl", "girl",
-                                       ifelse(names == "kismet_robot", "robot",
-                                              ifelse(names == "nicholas_gannon_baby", "baby",
-                                                     ifelse(names == "sharon_harvey_woman", "woman",
-                                                            ifelse(names == "toby_chimp", "chimp",
-                                                                   ifelse(names == "todd_billingsley_man", "man",
-                                                                          as.character(names)))))))))))
-  
-  dissim_temp = dissim_temp[-1]
-  rownames(dissim_temp) = names
-  colnames(dissim_temp) = names
-  
-  # fill in lower triangle matrix
-  for(i in 1:12) {
-    for(j in (i+1):13) {
-      dissim_temp[j,i] = dissim_temp[i,j]
-    }
-  }
-  
-  # replace NAs with 0 and convert to numeric
-  for(i in 1:13) {
-    dissim_temp[i,i] = 0
-  }
-  
-  # Convert to numeric matrix form 
-  dissim_temp = data.matrix(dissim_temp)
-  
-  # do MDS, pull out x_temp and y_temp coords
-  fit_temp <- cmdscale(dissim_temp, eig = TRUE, k = 2)
-  x_temp <- fit_temp$points[, 1]
-  y_temp <- fit_temp$points[, 2]
-  
-  # convert to a dataframe and join in category_temp labels
-  pts_temp <- data.frame(x = x_temp, y = y_temp, character = row.names(dissim_temp))
-  
-  # plot!
-  print(
-    ggplot(pts_temp, aes(x = x_temp, y = y_temp, label = character)) +
-      geom_point() +
-      geom_text(angle = 0,
-                vjust = -1,
-                size = 6) +
-      #       xlim(-1.2, 1.05) +
-      #       ylim(-0.8, .75) +
-      theme_bw() +
-      theme(text = element_text(size = 20)) +
-      labs(title = paste0("MDS: ",condition_temp,"\n"),
-           x = NULL,
-           y = NULL)
-  )
-}
