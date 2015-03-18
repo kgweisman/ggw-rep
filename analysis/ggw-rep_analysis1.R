@@ -9,6 +9,7 @@ library(lme4)
 library(psych)
 library(stats)
 library(scales)
+library(smacof)
 
 # clear environment
 rm(list=ls())
@@ -991,11 +992,627 @@ pca_B2_pc2 = pca_B2$loadings[,2]; sort(pca_B2_pc2)
 
 # --- MULTIDIMENSIONAL SCALING ANALYSES ---------------------------------------
 
-# NOTE: in addition to running for all conditions together (as here), need to filter by condition and run for each condition separately!
-
-# --------> MDS A: all conditions ---------------------------------------------
+# --------> MDS A: all conditions (indscal) -----------------------------------
 
 # ----------------> data formatting -------------------------------------------
+
+# construct dissimilarity matrices for each participant
+dissimList = list(NULL)
+
+for(k in 1:length(levels(dd$subid))) {
+  subid_temp = levels(dd$subid)[k]
+  
+  upperDissim_temp = NULL
+  fit_temp = NULL
+  x_temp = NULL
+  y_temp = NULL
+  pts_temp = NULL
+  
+  # make alphabetized list of characters, cycle through to fill in alphabetized pairs
+  upperDissim_temp <- dd %>%
+    filter(subid == subid_temp) %>%
+    mutate(character1 = array(),
+           character2 = array())
+  
+  charsort = sort(levels(upperDissim_temp$leftCharacter), decreasing = TRUE)
+  
+  for(i in 1:length(charsort)) {
+    upperDissim_temp <- upperDissim_temp %>%
+      mutate(
+        character1 = 
+          ifelse(leftCharacter == charsort[i] |
+                   rightCharacter == charsort[i],
+                 as.character(charsort[i]),
+                 as.character(character1)),
+        character2 = 
+          ifelse(character1 == leftCharacter,
+                 as.character(rightCharacter),
+                 as.character(leftCharacter))) %>%
+      mutate(character1 = factor(character1),
+             character2 = factor(character2))
+  }
+  
+  # make upper matrix of dissimilarity values
+  upperDissim_temp <- upperDissim_temp %>%
+    select(condition, subid, character1, character2, responseNum) %>%
+    group_by(character1, character2) %>%
+    mutate(dist = abs(responseNum)) %>% # use absolute values of comparison scores to get distance
+    summarise(mean = mean(dist, na.rm = TRUE)) %>%
+    spread(character2, mean)
+  
+  # add in NA column for charlie_dog, NA row for you
+  upperDissim_temp <- upperDissim_temp %>%
+    mutate(charlie_dog = NA,
+           character1 = as.character(character1)) %>%
+    rbind(c("you", rep(NA, 13))) %>%
+    mutate(character1 = factor(character1))
+  
+  # reorder columns
+  upperDissim_temp = upperDissim_temp[, c(1, 14, 2:13)]
+  
+  # rename rows and columns
+  names = sort(charsort, decreasing = FALSE)
+  names = 
+    ifelse(names == "charlie_dog", "dog",
+           ifelse(names == "delores_gleitman_deceased", "dead woman",
+                  ifelse(names == "gerald_schiff_pvs", "PVS man",
+                         ifelse(names == "green_frog", "frog",
+                                ifelse(names == "samantha_hill_girl", "girl",
+                                       ifelse(names == "kismet_robot", "robot",
+                                              ifelse(names == "nicholas_gannon_baby", "baby",
+                                                     ifelse(names == "sharon_harvey_woman", "woman",
+                                                            ifelse(names == "toby_chimp", "chimp",
+                                                                   ifelse(names == "todd_billingsley_man", "man",
+                                                                          as.character(names)))))))))))
+  
+  upperDissim_temp = upperDissim_temp[-1]
+  rownames(upperDissim_temp) = names
+  colnames(upperDissim_temp) = names
+  
+  # fill in lower triangle matrix
+  for(i in 1:12) {
+    for(j in (i+1):13) {
+      upperDissim_temp[j,i] = upperDissim_temp[i,j]
+    }
+  }
+  
+  upperDissim_temp = as.dist(upperDissim_temp)
+  
+  # add to dissimList
+  dissimList[[k]] = upperDissim_temp
+}
+
+# ----------------> metric (ratio) MDS ----------------------------------------
+
+# perform 3-way MDS (ratio)
+mds_Ba = indscal(dissimList, type = "ratio", verbose = T)
+summary(mds_Ba)
+
+# plot space
+plot(mds_Ba, plot.type = "confplot")
+
+# plot space and stress (bigger bubble = better fit)
+plot(mds_Ba, plot.type = "bubbleplot")
+
+# plot stress (higher = worse fit)
+plot(mds_Ba, plot.type = "stressplot")
+
+# plot residuals
+plot(mds_Ba, plot.type = "Shepard")
+plot(mds_Ba, plot.type = "resplot")
+
+# ----------------> non-metric (ordinal) MDS ---------------------------------
+
+# perform 3-way MDS (ordinal)
+mds_Bb = indscal(dissimList, type = "ordinal", verbose = T)
+summary(mds_Bb)
+
+# plot space
+plot(mds_Bb, plot.type = "confplot")
+
+# plot space and stress (bigger bubble = better fit)
+plot(mds_Bb, plot.type = "bubbleplot")
+
+# plot stress (higher = worse fit)
+plot(mds_Bb, plot.type = "stressplot")
+
+# plot residuals
+plot(mds_Bb, plot.type = "Shepard")
+plot(mds_Bb, plot.type = "resplot")
+
+# --------> MDS B: each condition separately (indscal) ------------------------
+
+# ----------------> condition: FEAR -------------------------------------------
+
+# ------------------------> data formatting -----------------------------------
+
+# filter by condition
+dd_fear = dd %>% filter(condition == "Fear") %>% mutate(subid = factor(subid))
+
+# construct dissimilarity matrices for each participant
+dissimList_fear = list(NULL)
+
+for(k in 1:length(levels(dd_fear$subid))) {
+  subid_temp = levels(dd_fear$subid)[k]
+  
+  upperDissim_temp = NULL
+  fit_temp = NULL
+  x_temp = NULL
+  y_temp = NULL
+  pts_temp = NULL
+  
+  # make alphabetized list of characters, cycle through to fill in alphabetized pairs
+  upperDissim_temp <- dd_fear %>%
+    filter(subid == subid_temp) %>%
+    mutate(character1 = array(),
+           character2 = array())
+  
+  charsort = sort(levels(upperDissim_temp$leftCharacter), decreasing = TRUE)
+  
+  for(i in 1:length(charsort)) {
+    upperDissim_temp <- upperDissim_temp %>%
+      mutate(
+        character1 = 
+          ifelse(leftCharacter == charsort[i] |
+                   rightCharacter == charsort[i],
+                 as.character(charsort[i]),
+                 as.character(character1)),
+        character2 = 
+          ifelse(character1 == leftCharacter,
+                 as.character(rightCharacter),
+                 as.character(leftCharacter))) %>%
+      mutate(character1 = factor(character1),
+             character2 = factor(character2))
+  }
+  
+  # make upper matrix of dissimilarity values
+  upperDissim_temp <- upperDissim_temp %>%
+    select(condition, subid, character1, character2, responseNum) %>%
+    group_by(character1, character2) %>%
+    mutate(dist = abs(responseNum)) %>% # use absolute values of comparison scores to get distance
+    summarise(mean = mean(dist, na.rm = TRUE)) %>%
+    spread(character2, mean)
+  
+  # add_fear in NA column for charlie_dog, NA row for you
+  upperDissim_temp <- upperDissim_temp %>%
+    mutate(charlie_dog = NA,
+           character1 = as.character(character1)) %>%
+    rbind(c("you", rep(NA, 13))) %>%
+    mutate(character1 = factor(character1))
+  
+  # reorder columns
+  upperDissim_temp = upperDissim_temp[, c(1, 14, 2:13)]
+  
+  # rename rows and columns
+  names = sort(charsort, decreasing = FALSE)
+  names = 
+    ifelse(names == "charlie_dog", "dog",
+           ifelse(names == "delores_gleitman_deceased", "dead woman",
+                  ifelse(names == "gerald_schiff_pvs", "PVS man",
+                         ifelse(names == "green_frog", "frog",
+                                ifelse(names == "samantha_hill_girl", "girl",
+                                       ifelse(names == "kismet_robot", "robot",
+                                              ifelse(names == "nicholas_gannon_baby", "baby",
+                                                     ifelse(names == "sharon_harvey_woman", "woman",
+                                                            ifelse(names == "toby_chimp", "chimp",
+                                                                   ifelse(names == "todd_billingsley_man", "man",
+                                                                          as.character(names)))))))))))
+  
+  upperDissim_temp = upperDissim_temp[-1]
+  rownames(upperDissim_temp) = names
+  colnames(upperDissim_temp) = names
+  
+  # fill in lower triangle matrix
+  for(i in 1:12) {
+    for(j in (i+1):13) {
+      upperDissim_temp[j,i] = upperDissim_temp[i,j]
+    }
+  }
+  
+  upperDissim_temp = as.dist(upperDissim_temp)
+  
+  # add_fear to dissimList_fear
+  dissimList_fear[[k]] = upperDissim_temp
+}
+
+# ----------------> non-metric (ordinal) MDS ---------------------------------
+# NOTE: could also try metric (ratio) MDS by condition
+
+# perform 3-way MDS (ordinal)
+mds_fear_Bb = indscal(dissimList_fear, type = "ordinal", verbose = T)
+summary(mds_fear_Bb)
+
+# plot space
+plot(mds_fear_Bb, plot.type = "confplot", sub = "Condition: FEAR")
+
+# plot space and stress (bigger bubble = better fit)
+plot(mds_fear_Bb, plot.type = "bubbleplot", sub = "Condition: FEAR")
+
+# plot stress (higher = worse fit)
+plot(mds_fear_Bb, plot.type = "stressplot", sub = "Condition: FEAR")
+
+# plot residuals
+plot(mds_fear_Bb, plot.type = "Shepard", sub = "Condition: FEAR")
+plot(mds_fear_Bb, plot.type = "resplot", sub = "Condition: FEAR")
+
+# ----------------> condition: HUNGER -------------------------------------------
+
+# ------------------------> data formatting -----------------------------------
+
+# filter by condition
+dd_hunger = dd %>% filter(condition == "Hunger") %>% mutate(subid = factor(subid))
+
+# construct dissimilarity matrices for each participant
+dissimList_hunger = list(NULL)
+
+for(k in 1:length(levels(dd_hunger$subid))) {
+  subid_temp = levels(dd_hunger$subid)[k]
+  
+  upperDissim_temp = NULL
+  fit_temp = NULL
+  x_temp = NULL
+  y_temp = NULL
+  pts_temp = NULL
+  
+  # make alphabetized list of characters, cycle through to fill in alphabetized pairs
+  upperDissim_temp <- dd_hunger %>%
+    filter(subid == subid_temp) %>%
+    mutate(character1 = array(),
+           character2 = array())
+  
+  charsort = sort(levels(upperDissim_temp$leftCharacter), decreasing = TRUE)
+  
+  for(i in 1:length(charsort)) {
+    upperDissim_temp <- upperDissim_temp %>%
+      mutate(
+        character1 = 
+          ifelse(leftCharacter == charsort[i] |
+                   rightCharacter == charsort[i],
+                 as.character(charsort[i]),
+                 as.character(character1)),
+        character2 = 
+          ifelse(character1 == leftCharacter,
+                 as.character(rightCharacter),
+                 as.character(leftCharacter))) %>%
+      mutate(character1 = factor(character1),
+             character2 = factor(character2))
+  }
+  
+  # make upper matrix of dissimilarity values
+  upperDissim_temp <- upperDissim_temp %>%
+    select(condition, subid, character1, character2, responseNum) %>%
+    group_by(character1, character2) %>%
+    mutate(dist = abs(responseNum)) %>% # use absolute values of comparison scores to get distance
+    summarise(mean = mean(dist, na.rm = TRUE)) %>%
+    spread(character2, mean)
+  
+  # add_hunger in NA column for charlie_dog, NA row for you
+  upperDissim_temp <- upperDissim_temp %>%
+    mutate(charlie_dog = NA,
+           character1 = as.character(character1)) %>%
+    rbind(c("you", rep(NA, 13))) %>%
+    mutate(character1 = factor(character1))
+  
+  # reorder columns
+  upperDissim_temp = upperDissim_temp[, c(1, 14, 2:13)]
+  
+  # rename rows and columns
+  names = sort(charsort, decreasing = FALSE)
+  names = 
+    ifelse(names == "charlie_dog", "dog",
+           ifelse(names == "delores_gleitman_deceased", "dead woman",
+                  ifelse(names == "gerald_schiff_pvs", "PVS man",
+                         ifelse(names == "green_frog", "frog",
+                                ifelse(names == "samantha_hill_girl", "girl",
+                                       ifelse(names == "kismet_robot", "robot",
+                                              ifelse(names == "nicholas_gannon_baby", "baby",
+                                                     ifelse(names == "sharon_harvey_woman", "woman",
+                                                            ifelse(names == "toby_chimp", "chimp",
+                                                                   ifelse(names == "todd_billingsley_man", "man",
+                                                                          as.character(names)))))))))))
+  
+  upperDissim_temp = upperDissim_temp[-1]
+  rownames(upperDissim_temp) = names
+  colnames(upperDissim_temp) = names
+  
+  # fill in lower triangle matrix
+  for(i in 1:12) {
+    for(j in (i+1):13) {
+      upperDissim_temp[j,i] = upperDissim_temp[i,j]
+    }
+  }
+  
+  upperDissim_temp = as.dist(upperDissim_temp)
+  
+  # add_hunger to dissimList_hunger
+  dissimList_hunger[[k]] = upperDissim_temp
+}
+
+# ----------------> non-metric (ordinal) MDS ---------------------------------
+# NOTE: could also try metric (ratio) MDS by condition
+
+# perform 3-way MDS (ordinal)
+mds_hunger_Bb = indscal(dissimList_hunger, type = "ordinal", verbose = T)
+summary(mds_hunger_Bb)
+
+# plot space
+plot(mds_hunger_Bb, plot.type = "confplot", sub = "Condition: HUNGER")
+
+# plot space and stress (bigger bubble = better fit)
+plot(mds_hunger_Bb, plot.type = "bubbleplot", sub = "Condition: HUNGER")
+
+# plot stress (higher = worse fit)
+plot(mds_hunger_Bb, plot.type = "stressplot", sub = "Condition: HUNGER")
+
+# plot residuals
+plot(mds_hunger_Bb, plot.type = "Shepard", sub = "Condition: HUNGER")
+plot(mds_hunger_Bb, plot.type = "resplot", sub = "Condition: HUNGER")
+
+# ----------------> condition: MORALITY ---------------------------------------
+
+# ------------------------> data formatting -----------------------------------
+
+# filter by condition
+dd_morality = dd %>% filter(condition == "Morality") %>% mutate(subid = factor(subid))
+
+# construct dissimilarity matrices for each participant
+dissimList_morality = list(NULL)
+
+for(k in 1:length(levels(dd_morality$subid))) {
+  subid_temp = levels(dd_morality$subid)[k]
+  
+  upperDissim_temp = NULL
+  fit_temp = NULL
+  x_temp = NULL
+  y_temp = NULL
+  pts_temp = NULL
+  
+  # make alphabetized list of characters, cycle through to fill in alphabetized pairs
+  upperDissim_temp <- dd_morality %>%
+    filter(subid == subid_temp) %>%
+    mutate(character1 = array(),
+           character2 = array())
+  
+  charsort = sort(levels(upperDissim_temp$leftCharacter), decreasing = TRUE)
+  
+  for(i in 1:length(charsort)) {
+    upperDissim_temp <- upperDissim_temp %>%
+      mutate(
+        character1 = 
+          ifelse(leftCharacter == charsort[i] |
+                   rightCharacter == charsort[i],
+                 as.character(charsort[i]),
+                 as.character(character1)),
+        character2 = 
+          ifelse(character1 == leftCharacter,
+                 as.character(rightCharacter),
+                 as.character(leftCharacter))) %>%
+      mutate(character1 = factor(character1),
+             character2 = factor(character2))
+  }
+  
+  # make upper matrix of dissimilarity values
+  upperDissim_temp <- upperDissim_temp %>%
+    select(condition, subid, character1, character2, responseNum) %>%
+    group_by(character1, character2) %>%
+    mutate(dist = abs(responseNum)) %>% # use absolute values of comparison scores to get distance
+    summarise(mean = mean(dist, na.rm = TRUE)) %>%
+    spread(character2, mean)
+  
+  # add_morality in NA column for charlie_dog, NA row for you
+  upperDissim_temp <- upperDissim_temp %>%
+    mutate(charlie_dog = NA,
+           character1 = as.character(character1)) %>%
+    rbind(c("you", rep(NA, 13))) %>%
+    mutate(character1 = factor(character1))
+  
+  # reorder columns
+  upperDissim_temp = upperDissim_temp[, c(1, 14, 2:13)]
+  
+  # rename rows and columns
+  names = sort(charsort, decreasing = FALSE)
+  names = 
+    ifelse(names == "charlie_dog", "dog",
+           ifelse(names == "delores_gleitman_deceased", "dead woman",
+                  ifelse(names == "gerald_schiff_pvs", "PVS man",
+                         ifelse(names == "green_frog", "frog",
+                                ifelse(names == "samantha_hill_girl", "girl",
+                                       ifelse(names == "kismet_robot", "robot",
+                                              ifelse(names == "nicholas_gannon_baby", "baby",
+                                                     ifelse(names == "sharon_harvey_woman", "woman",
+                                                            ifelse(names == "toby_chimp", "chimp",
+                                                                   ifelse(names == "todd_billingsley_man", "man",
+                                                                          as.character(names)))))))))))
+  
+  upperDissim_temp = upperDissim_temp[-1]
+  rownames(upperDissim_temp) = names
+  colnames(upperDissim_temp) = names
+  
+  # fill in lower triangle matrix
+  for(i in 1:12) {
+    for(j in (i+1):13) {
+      upperDissim_temp[j,i] = upperDissim_temp[i,j]
+    }
+  }
+  
+  upperDissim_temp = as.dist(upperDissim_temp)
+  
+  # add_morality to dissimList_morality
+  dissimList_morality[[k]] = upperDissim_temp
+}
+
+# ----------------> non-metric (ordinal) MDS ---------------------------------
+# NOTE: could also try metric (ratio) MDS by condition
+
+# perform 3-way MDS (ordinal)
+mds_morality_Bb = indscal(dissimList_morality, type = "ordinal", verbose = T)
+summary(mds_morality_Bb)
+
+# plot space
+plot(mds_morality_Bb, plot.type = "confplot", sub = "Condition: MORALITY")
+
+# plot space and stress (bigger bubble = better fit)
+plot(mds_morality_Bb, plot.type = "bubbleplot", sub = "Condition: MORALITY")
+
+# plot stress (higher = worse fit)
+plot(mds_morality_Bb, plot.type = "stressplot", sub = "Condition: MORALITY")
+
+# plot residuals
+plot(mds_morality_Bb, plot.type = "Shepard", sub = "Condition: MORALITY")
+plot(mds_morality_Bb, plot.type = "resplot", sub = "Condition: MORALITY")
+
+# ----------------> condition: SELFCONTROL ------------------------------------
+
+# ------------------------> data formatting -----------------------------------
+
+# filter by condition
+dd_selfcontrol = dd %>% filter(condition == "SelfControl") %>% mutate(subid = factor(subid))
+
+# construct dissimilarity matrices for each participant
+dissimList_selfcontrol = list(NULL)
+
+for(k in 1:length(levels(dd_selfcontrol$subid))) {
+  subid_temp = levels(dd_selfcontrol$subid)[k]
+  
+  upperDissim_temp = NULL
+  fit_temp = NULL
+  x_temp = NULL
+  y_temp = NULL
+  pts_temp = NULL
+  
+  # make alphabetized list of characters, cycle through to fill in alphabetized pairs
+  upperDissim_temp <- dd_selfcontrol %>%
+    filter(subid == subid_temp) %>%
+    mutate(character1 = array(),
+           character2 = array())
+  
+  charsort = sort(levels(upperDissim_temp$leftCharacter), decreasing = TRUE)
+  
+  for(i in 1:length(charsort)) {
+    upperDissim_temp <- upperDissim_temp %>%
+      mutate(
+        character1 = 
+          ifelse(leftCharacter == charsort[i] |
+                   rightCharacter == charsort[i],
+                 as.character(charsort[i]),
+                 as.character(character1)),
+        character2 = 
+          ifelse(character1 == leftCharacter,
+                 as.character(rightCharacter),
+                 as.character(leftCharacter))) %>%
+      mutate(character1 = factor(character1),
+             character2 = factor(character2))
+  }
+  
+  # make upper matrix of dissimilarity values
+  upperDissim_temp <- upperDissim_temp %>%
+    select(condition, subid, character1, character2, responseNum) %>%
+    group_by(character1, character2) %>%
+    mutate(dist = abs(responseNum)) %>% # use absolute values of comparison scores to get distance
+    summarise(mean = mean(dist, na.rm = TRUE)) %>%
+    spread(character2, mean)
+  
+  # add_selfcontrol in NA column for charlie_dog, NA row for you
+  upperDissim_temp <- upperDissim_temp %>%
+    mutate(charlie_dog = NA,
+           character1 = as.character(character1)) %>%
+    rbind(c("you", rep(NA, 13))) %>%
+    mutate(character1 = factor(character1))
+  
+  # reorder columns
+  upperDissim_temp = upperDissim_temp[, c(1, 14, 2:13)]
+  
+  # rename rows and columns
+  names = sort(charsort, decreasing = FALSE)
+  names = 
+    ifelse(names == "charlie_dog", "dog",
+           ifelse(names == "delores_gleitman_deceased", "dead woman",
+                  ifelse(names == "gerald_schiff_pvs", "PVS man",
+                         ifelse(names == "green_frog", "frog",
+                                ifelse(names == "samantha_hill_girl", "girl",
+                                       ifelse(names == "kismet_robot", "robot",
+                                              ifelse(names == "nicholas_gannon_baby", "baby",
+                                                     ifelse(names == "sharon_harvey_woman", "woman",
+                                                            ifelse(names == "toby_chimp", "chimp",
+                                                                   ifelse(names == "todd_billingsley_man", "man",
+                                                                          as.character(names)))))))))))
+  
+  upperDissim_temp = upperDissim_temp[-1]
+  rownames(upperDissim_temp) = names
+  colnames(upperDissim_temp) = names
+  
+  # fill in lower triangle matrix
+  for(i in 1:12) {
+    for(j in (i+1):13) {
+      upperDissim_temp[j,i] = upperDissim_temp[i,j]
+    }
+  }
+  
+  upperDissim_temp = as.dist(upperDissim_temp)
+  
+  # add_selfcontrol to dissimList_selfcontrol
+  dissimList_selfcontrol[[k]] = upperDissim_temp
+}
+
+# ----------------> non-metric (ordinal) MDS ---------------------------------
+# NOTE: could also try metric (ratio) MDS by condition
+
+# perform 3-way MDS (ordinal)
+mds_selfcontrol_Bb = indscal(dissimList_selfcontrol, type = "ordinal", verbose = T)
+summary(mds_selfcontrol_Bb)
+
+# plot space
+plot(mds_selfcontrol_Bb, plot.type = "confplot", sub = "Condition: SELFCONTROL")
+
+# plot space and stress (bigger bubble = better fit)
+plot(mds_selfcontrol_Bb, plot.type = "bubbleplot", sub = "Condition: SELFCONTROL")
+
+# plot stress (higher = worse fit)
+plot(mds_selfcontrol_Bb, plot.type = "stressplot", sub = "Condition: SELFCONTROL")
+
+# plot residuals
+plot(mds_selfcontrol_Bb, plot.type = "Shepard", sub = "Condition: SELFCONTROL")
+plot(mds_selfcontrol_Bb, plot.type = "resplot", sub = "Condition: SELFCONTROL")
+
+###############################################################################
+
+# --- ADDITIONAL ALTERNATIVE ANALYES (EXPLORATORY) ----------------------------
+
+# --------> MAXIMUM LIKELIHOOD FACTOR ANALYSIS A ------------------------------
+# Roughly equivalent to pca_A?
+# Could also do the parallel version of pca_B
+
+# Factor analysis
+fa1 = factanal(d1, 
+               factors = 1, 
+               rotation = "varimax", 
+               na.action = na.omit, 
+               scores =  'regression', 
+               cutoff = .4)
+print(fa1)
+
+# --------> HIERARCHICAL CLUSTER ANALYSIS A -----------------------------------
+# Roughly equivalent to pca_A
+# Could also do the parallel version of pca_B
+
+# Construct dissimilarity matrix
+d2 = as.dist((1-cor(d1))/2) # NEED TO CHECK ON WHY WE DIVIDE CORRELATIONS BY 2
+
+# Conduct hierarchical cluster analysis
+hca = hclust(d2); hca
+
+# Plot dendogram
+par(mfrow=c(1,2))
+rs1=hclust(d2)
+rs1$merge
+plot(rs1$height)
+plot(rs1)
+
+# --------> CLASSICAL MDS -----------------------------------------------------
+
+# ----------------> all conditions --------------------------------------------
+
+# ------------------------> data formatting -----------------------------------
 # make alphabetized list of characters, cycle through to fill in alphabetized pairs
 upperDissim <- dd %>%
   mutate(character1 = array(),
@@ -1055,7 +1672,7 @@ for(i in 1:13) {
 # Convert to numeric matrix form 
 upperDissim = data.matrix(upperDissim)
 
-# ----------------> do MDS ----------------------------------------------------
+# ------------------------> do MDS --------------------------------------------
 # do MDS, pull out x_all and y_all coords
 fit_all <- cmdscale(upperDissim, eig = TRUE, k = 2)
 x_all <- fit_all$points[, 1]
@@ -1069,13 +1686,13 @@ pts <- data.frame(x = x_all, y = y_all, character = row.names(upperDissim)) %>%
                          ifelse(character == "gerald_schiff_pvs", "PVS man", 
                                 ifelse(character == "green_frog", "frog",
                                        ifelse(character == "samantha_hill_girl", "girl",
-                                         ifelse(character == "kismet_robot", "robot",
-                                                ifelse(character == "nicholas_gannon_baby", "baby",
-                                                       ifelse(character == "sharon_harvey_woman", "woman",
-                                                              ifelse(character == "toby_chimp",
-                                                                     "chimp",
-                                                                     ifelse(character == "todd_billingsley_man", "man",
-                                                                            as.character(character))))))))))))
+                                              ifelse(character == "kismet_robot", "robot",
+                                                     ifelse(character == "nicholas_gannon_baby", "baby",
+                                                            ifelse(character == "sharon_harvey_woman", "woman",
+                                                                   ifelse(character == "toby_chimp",
+                                                                          "chimp",
+                                                                          ifelse(character == "todd_billingsley_man", "man",
+                                                                                 as.character(character))))))))))))
 
 # plot!
 ggplot(pts, aes(x = x_all, y = y_all, label = character)) +
@@ -1091,9 +1708,7 @@ ggplot(pts, aes(x = x_all, y = y_all, label = character)) +
        x = NULL,
        y = NULL)
 
-# --------> MDS B: each condition separately ----------------------------------
-
-# ----------------> data formatting & MDS -------------------------------------
+# ----------------> each condition separately ---------------------------------
 
 for(k in 1:length(levels(dd$condition))) {
   condition_temp = levels(dd$condition)[k]
@@ -1195,47 +1810,12 @@ for(k in 1:length(levels(dd$condition))) {
       geom_text(angle = 0,
                 vjust = -1,
                 size = 6) +
-#       xlim(-1.2, 1.05) +
-#       ylim(-0.8, .75) +
+      #       xlim(-1.2, 1.05) +
+      #       ylim(-0.8, .75) +
       theme_bw() +
       theme(text = element_text(size = 20)) +
-            labs(title = paste0("MDS: ",condition_temp,"\n"),
+      labs(title = paste0("MDS: ",condition_temp,"\n"),
            x = NULL,
            y = NULL)
   )
 }
-
-###############################################################################
-
-# --- ADDITIONAL ALTERNATIVE ANALYES (EXPLORATORY) ----------------------------
-
-# --------> MAXIMUM LIKELIHOOD FACTOR ANALYSIS A ------------------------------
-# Roughly equivalent to pca_A?
-# Could also do the parallel version of pca_B
-
-# Factor analysis
-fa1 = factanal(d1, 
-               factors = 1, 
-               rotation = "varimax", 
-               na.action = na.omit, 
-               scores =  'regression', 
-               cutoff = .4)
-print(fa1)
-
-# --------> HIERARCHICAL CLUSTER ANALYSIS A -----------------------------------
-# Roughly equivalent to pca_A
-# Could also do the parallel version of pca_B
-
-# Construct dissimilarity matrix
-d2 = as.dist((1-cor(d1))/2) # NEED TO CHECK ON WHY WE DIVIDE CORRELATIONS BY 2
-
-# Conduct hierarchical cluster analysis
-hca = hclust(d2); hca
-
-# Plot dendogram
-par(mfrow=c(1,2))
-rs1=hclust(d2)
-rs1$merge
-plot(rs1$height)
-plot(rs1)
-
