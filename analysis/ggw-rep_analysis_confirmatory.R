@@ -774,19 +774,25 @@ mds_Aordinal
 # --------------->-> plots ----------------------------------------------------
 
 # plot dimension space
-plot(mds_Aordinal)
+plot(mds_Aordinal,
+     plot.type = "confplot",
+     main = "MDS solution: All conditions")
 
 # plot space and stress (bigger bubble = better fit)
-plot(mds_Aordinal, plot.type = "bubbleplot")
+plot(mds_Aordinal, plot.type = "bubbleplot",
+     main = "MDS bubble plot: All conditions")
 
 # plot stress (higher = worse fit)
-plot(mds_Aordinal, plot.type = "stressplot")
+plot(mds_Aordinal, plot.type = "stressplot",
+     main = "MDS stress: All conditions")
 
 # Shepard plot
-plot(mds_Aordinal, plot.type = "Shepard")
+plot(mds_Aordinal, plot.type = "Shepard",
+     main = "MDS Shepard plot: All conditions")
 
 # plot residuals
-plot(mds_Aordinal, plot.type = "resplot")
+plot(mds_Aordinal, plot.type = "resplot",
+     main = "MDS residuals: All conditions")
 
 ################################################### analysis & plots pt 4 #####
 
@@ -1121,72 +1127,72 @@ par(mfrow = c(2,2))
 # plot dimension space
 plot(mds_fear_Aordinal, 
      plot.type = "confplot", 
-     main = "Condition: FEAR")
+     main = "MDS solution: FEAR")
 plot(mds_hunger_Aordinal, 
      plot.type = "confplot", 
-     main = "Condition: HUNGER")
+     main = "MDS solution: HUNGER")
 plot(mds_morality_Aordinal, 
      plot.type = "confplot", 
-     main = "Condition: MORALITY")
+     main = "MDS solution: MORALITY")
 plot(mds_selfcontrol_Aordinal, 
      plot.type = "confplot", 
-     main = "Condition: SELF-CONTROL")
+     main = "MDS solution: SELF-CONTROL")
 
 # plot space and stress (bigger bubble = better fit)
 plot(mds_fear_Aordinal, 
      plot.type = "bubbleplot", 
-     main = "Condition: FEAR")
+     main = "MDS bubble plot: FEAR")
 plot(mds_hunger_Aordinal, 
      plot.type = "bubbleplot", 
-     main = "Condition: HUNGER")
+     main = "MDS bubble plot: HUNGER")
 plot(mds_morality_Aordinal, 
      plot.type = "bubbleplot", 
-     main = "Condition: MORALITY")
+     main = "MDS bubble plot: MORALITY")
 plot(mds_selfcontrol_Aordinal, 
      plot.type = "bubbleplot", 
-     main = "Condition: SELF-CONTROL")
+     main = "MDS bubble plot: SELF-CONTROL")
 
 # plot stress (higher = worse fit)
 plot(mds_fear_Aordinal, 
      plot.type = "stressplot", 
-     main = "Condition: FEAR")
+     main = "MDS stress: FEAR")
 plot(mds_hunger_Aordinal, 
      plot.type = "stressplot", 
-     main = "Condition: HUNGER")
+     main = "MDS stress: HUNGER")
 plot(mds_morality_Aordinal, 
      plot.type = "stressplot", 
-     main = "Condition: MORALITY")
+     main = "MDS stress: MORALITY")
 plot(mds_selfcontrol_Aordinal, 
      plot.type = "stressplot", 
-     main = "Condition: SELF-CONTROL")
+     main = "MDS stress: SELF-CONTROL")
 
 # Shepard plot
 plot(mds_fear_Aordinal, 
      plot.type = "Shepard", 
-     main = "Condition: FEAR")
+     main = "MDS Shepard plot: FEAR")
 plot(mds_hunger_Aordinal, 
      plot.type = "Shepard", 
-     main = "Condition: HUNGER")
+     main = "MDS Shepard plot: HUNGER")
 plot(mds_morality_Aordinal, 
      plot.type = "Shepard", 
-     main = "Condition: MORALITY")
+     main = "MDS Shepard plot: MORALITY")
 plot(mds_selfcontrol_Aordinal, 
      plot.type = "Shepard", 
-     main = "Condition: SELF-CONTROL")
+     main = "MDS Shepard plot: SELF-CONTROL")
 
 # plot residuals
 plot(mds_fear_Aordinal, 
      plot.type = "resplot", 
-     main = "Condition: FEAR")
+     main = "MDS residuals: FEAR")
 plot(mds_hunger_Aordinal, 
      plot.type = "resplot", 
-     main = "Condition: HUNGER")
+     main = "MDS residuals: HUNGER")
 plot(mds_morality_Aordinal, 
      plot.type = "resplot", 
-     main = "Condition: MORALITY")
+     main = "MDS residuals: MORALITY")
 plot(mds_selfcontrol_Aordinal, 
      plot.type = "resplot", 
-     main = "Condition: SELF-CONTROL")
+     main = "MDS residuals: SELF-CONTROL")
 
 # stop plotting in 2x2 grid
 par(mfrow = c(1,1))
