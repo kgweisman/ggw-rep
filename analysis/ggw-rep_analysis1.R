@@ -1,6 +1,6 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+########################################################### preliminaries #####
 
-# --- PRELIMINARIES -----------------------------------------------------------
+# --- PACKAGES & FUNCTIONS ----------------------------------------------------
 
 # libraries
 library(dplyr)
@@ -57,6 +57,8 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   }
 }
 
+# --- IMPORTING DATA ----------------------------------------------------------
+
 # read in data: character means
 d = read.csv("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/ggw-rep/data/run-01_2015-03-09_charmeans.csv")[-1] # get rid of column of obs numbers
 
@@ -67,7 +69,7 @@ dd = read.csv("/Users/kweisman/Documents/Research (Stanford)/Projects/GGW-rep/gg
 
 glimpse(dd)
 
-# --- RT FILTERING ------------------------------------------------------------
+# --- FILTERING DATA ----------------------------------------------------------
 
 # # filter out trials where log_rt < 2SDs below mean
 # dd = dd %>%
@@ -81,7 +83,7 @@ glimpse(dd)
 # 
 # View(dd %>% group_by(subid) %>% summarise(trials_completed = length(log_rt)))
 
-# --- DATA FORMATTING ---------------------------------------------------------
+# --- FORMATTING DATA ---------------------------------------------------------
 
 # make table of character means by mental capacity
 charmeans = d %>%
@@ -139,7 +141,7 @@ names(d3) = charnames
 rownames(d3) = subidnames
 print(d3)
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+########################################################### summary stats #####
 
 # --- DEMOGRAPHICS ------------------------------------------------------------
 
@@ -170,7 +172,7 @@ dd %>% distinct(subid) %>% count(religionChild)
 # maritalStatus
 dd %>% distinct(subid) %>% count(maritalStatus)
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+################################################### analysis & plots pt 1 #####
 
 # --- PRINCIPAL COMPONENTS ANALYSIS A: ORIGINAL GGW2007 ----------------------
 
@@ -547,7 +549,7 @@ d1_age = full_join(d1_ageyoung, d1_ageold) %>%
   select(character, pc1_youngoldz, pc1_youngoldp, pc1_signif, pc2_youngoldz, pc2_youngoldp, pc2_signif)
 d1_age
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+################################################### analysis & plots pt 2 #####
 
 # -- PRINCIPAL COMPONENTS ANALYSIS B ------------------------------------------
 
@@ -681,13 +683,13 @@ pca_B2 = principal(d3, nfactors = 2, rotate = "varimax"); pca_B2
 pca_B2_pc1 = pca_B2$loadings[,1]; sort(pca_B2_pc1)
 pca_B2_pc2 = pca_B2$loadings[,2]; sort(pca_B2_pc2)
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+################################################### analysis & plots pt 3 #####
 
 # --- MULTIDIMENSIONAL SCALING ANALYSES ---------------------------------------
 
 # --------> MDS A: all conditions (indscal) -----------------------------------
 
-# ---------------->> data formatting ------------------------------------------
+# --------------->-> data formatting ------------------------------------------
 
 # construct dissimilarity matrices for each participant
 dissimList = list(NULL)
@@ -775,7 +777,7 @@ for(k in 1:length(levels(dd$subid))) {
   dissimList[[k]] = upperDissim_temp
 }
 
-# ---------------->> metric (ratio) MDS ---------------------------------------
+# --------------->-> metric (ratio) MDS ---------------------------------------
 
 # perform 3-way MDS (ratio)
 mds_Ba = indscal(dissimList, type = "ratio", verbose = T)
@@ -794,7 +796,7 @@ plot(mds_Ba, plot.type = "stressplot")
 plot(mds_Ba, plot.type = "Shepard")
 plot(mds_Ba, plot.type = "resplot")
 
-# ---------------->> non-metric (ordinal) MDS ---------------------------------
+# --------------->-> non-metric (ordinal) MDS ---------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_Bb = indscal(dissimList, type = "ordinal", verbose = T)
@@ -817,9 +819,9 @@ plot(mds_Bb, plot.type = "confplot",
 
 # --------> MDS B: each condition separately (indscal) ------------------------
 
-# ---------------->> condition: FEAR ------------------------------------------
+# --------------->-> condition: FEAR ------------------------------------------
 
-# ------------------------>>> data formatting ---------------------------------
+# ---------------------->->-> data formatting ---------------------------------
 
 # filter by condition
 dd_fear = dd %>% filter(condition == "Fear") %>% mutate(subid = factor(subid))
@@ -910,7 +912,7 @@ for(k in 1:length(levels(dd_fear$subid))) {
   dissimList_fear[[k]] = upperDissim_temp
 }
 
-# ------------------------>>> metric (ratio) MDS ------------------------------
+# ---------------------->->-> metric (ratio) MDS ------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_fear_Ba = indscal(dissimList_fear, type = "ratio", verbose = T)
@@ -931,7 +933,7 @@ plot(mds_fear_Ba, plot.type = "confplot",
 # plot(mds_fear_Ba, plot.type = "Shepard", sub = "Condition: FEAR")
 # plot(mds_fear_Ba, plot.type = "resplot", sub = "Condition: FEAR")
 
-# ------------------------>>> non-metric (ordinal) MDS ------------------------
+# ---------------------->->-> non-metric (ordinal) MDS ------------------------
 
 # perform 3-way MDS (ordinal)
 mds_fear_Bb = indscal(dissimList_fear, type = "ordinal", verbose = T)
@@ -951,9 +953,9 @@ plot(mds_fear_Bb, plot.type = "confplot",
 # # plot residuals
 # plot(mds_fear_Bb, plot.type = "Shepard", sub = "Condition: FEAR")
 
-# ---------------->> condition: HUNGER ----------------------------------------
+# --------------->-> condition: HUNGER ----------------------------------------
 
-# ------------------------>>> data formatting ---------------------------------
+# ---------------------->->-> data formatting ---------------------------------
 
 # filter by condition
 dd_hunger = dd %>% filter(condition == "Hunger") %>% mutate(subid = factor(subid))
@@ -1044,7 +1046,7 @@ for(k in 1:length(levels(dd_hunger$subid))) {
   dissimList_hunger[[k]] = upperDissim_temp
 }
 
-# ------------------------>>> metric (ratio) MDS ------------------------------
+# ---------------------->->-> metric (ratio) MDS ------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_hunger_Ba = indscal(dissimList_hunger, type = "ratio", verbose = T)
@@ -1065,7 +1067,7 @@ plot(mds_hunger_Ba, plot.type = "confplot",
 # plot(mds_hunger_Ba, plot.type = "Shepard", sub = "Condition: HUNGER")
 # plot(mds_hunger_Ba, plot.type = "resplot", sub = "Condition: HUNGER")
 
-# ------------------------>>> non-metric (ordinal) MDS ------------------------
+# ---------------------->->-> non-metric (ordinal) MDS ------------------------
 
 # perform 3-way MDS (ordinal)
 mds_hunger_Bb = indscal(dissimList_hunger, type = "ordinal", verbose = T)
@@ -1085,9 +1087,9 @@ plot(mds_hunger_Bb, plot.type = "confplot",
 # # plot residuals
 # plot(mds_hunger_Bb, plot.type = "Shepard", sub = "Condition: HUNGER")
 
-# ---------------->> condition: MORALITY --------------------------------------
+# --------------->-> condition: MORALITY --------------------------------------
 
-# ------------------------>>> data formatting ---------------------------------
+# ---------------------->->-> data formatting ---------------------------------
 
 # filter by condition
 dd_morality = dd %>% filter(condition == "Morality") %>% mutate(subid = factor(subid))
@@ -1178,7 +1180,7 @@ for(k in 1:length(levels(dd_morality$subid))) {
   dissimList_morality[[k]] = upperDissim_temp
 }
 
-# ------------------------>>> metric (ratio) MDS ------------------------------
+# ---------------------->->-> metric (ratio) MDS ------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_morality_Ba = indscal(dissimList_morality, type = "ratio", verbose = T)
@@ -1199,7 +1201,7 @@ plot(mds_morality_Ba, plot.type = "confplot",
 # plot(mds_morality_Ba, plot.type = "Shepard", sub = "Condition: MORALITY")
 # plot(mds_morality_Ba, plot.type = "resplot", sub = "Condition: MORALITY")
 
-# ------------------------>>> non-metric (ordinal) MDS ------------------------
+# ---------------------->->-> non-metric (ordinal) MDS ------------------------
 
 # perform 3-way MDS (ordinal)
 mds_morality_Bb = indscal(dissimList_morality, type = "ordinal", verbose = T)
@@ -1219,9 +1221,9 @@ plot(mds_morality_Bb, plot.type = "confplot",
 # # plot residuals
 # plot(mds_morality_Bb, plot.type = "Shepard", sub = "Condition: MORALITY")
 
-# ---------------->> condition: SELF-CONTROL ----------------------------------
+# --------------->-> condition: SELF-CONTROL ----------------------------------
 
-# ------------------------>>> data formatting ---------------------------------
+# ---------------------->->-> data formatting ---------------------------------
 
 # filter by condition
 dd_selfcontrol = dd %>% filter(condition == "SelfControl") %>% mutate(subid = factor(subid))
@@ -1312,7 +1314,7 @@ for(k in 1:length(levels(dd_selfcontrol$subid))) {
   dissimList_selfcontrol[[k]] = upperDissim_temp
 }
 
-# ------------------------>>> metric (ratio) MDS ------------------------------
+# ---------------------->->-> metric (ratio) MDS ------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_selfcontrol_Ba = indscal(dissimList_selfcontrol, type = "ratio", verbose = T)
@@ -1333,7 +1335,7 @@ plot(mds_selfcontrol_Ba, plot.type = "confplot",
 # plot(mds_selfcontrol_Ba, plot.type = "Shepard", sub = "Condition: SELF-CONTROL")
 # plot(mds_selfcontrol_Ba, plot.type = "resplot", sub = "Condition: SELF-CONTROL")
 
-# ------------------------>>> non-metric (ordinal) MDS ------------------------
+# ---------------------->->-> non-metric (ordinal) MDS ------------------------
 
 # perform 3-way MDS (ordinal)
 mds_selfcontrol_Bb = indscal(dissimList_selfcontrol, type = "ordinal", verbose = T)
@@ -1353,7 +1355,7 @@ plot(mds_selfcontrol_Bb, plot.type = "confplot",
 # # plot residuals
 # plot(mds_selfcontrol_Bb, plot.type = "Shepard", sub = "Condition: SELF-CONTROL")
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+########################################################### supplementals #####
 
 # --- ADDITIONAL ALTERNATIVE ANALYSES (EXPLORATORY) ---------------------------
 
@@ -1389,9 +1391,9 @@ plot(rs1)
 
 # --------> CLASSICAL MDS -----------------------------------------------------
 
-# ---------------->> all conditions -------------------------------------------
+# --------------->-> all conditions -------------------------------------------
 
-# ------------------------>>> data formatting ---------------------------------
+# ---------------------->->-> data formatting ---------------------------------
 # make alphabetized list of characters, cycle through to fill in alphabetized pairs
 upperDissim <- dd %>%
   mutate(character1 = array(),
@@ -1451,7 +1453,7 @@ for(i in 1:13) {
 # Convert to numeric matrix form 
 upperDissim = data.matrix(upperDissim)
 
-# ------------------------>>> do MDS ------------------------------------------
+# ---------------------->->-> do MDS ------------------------------------------
 # do MDS, pull out x_all and y_all coords
 fit_all <- cmdscale(upperDissim, eig = TRUE, k = 2)
 x_all <- fit_all$points[, 1]
@@ -1487,7 +1489,7 @@ ggplot(pts, aes(x = x_all, y = y_all, label = character)) +
        x = NULL,
        y = NULL)
 
-# ---------------->> each condition separately --------------------------------
+# --------------->-> each condition separately --------------------------------
 
 for(k in 1:length(levels(dd$condition))) {
   condition_temp = levels(dd$condition)[k]
