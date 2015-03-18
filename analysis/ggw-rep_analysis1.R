@@ -260,7 +260,7 @@ pca_A1 = principal(d1, nfactors = 1, rotate = "varimax"); pca_A1
 # extract PCA loadings
 pca_A1_pc1 = pca_A1$loadings[,1]; sort(pca_A1_pc1)
 
-# --- Z-SCORE ANALYSES: ORIGINAL GGW2007 --------------------------------------
+# --- Z-SCORE ANALYSES: ORIGINAL GGW2007 *** IN PROGRESS*** -------------------
 
 # from GGW2007 (SOM p. 4):
 # - "We examined the role of individual-difference variables by partitioning respondents according to 9 variables: gender, age, strength of religious beliefs, attainment of college education, political affiliation (Democrat or Republican), marital status, parental status, dog ownership, and strength of belief in a spiritual afterlife. Median splits were made for the 3 continuous variables (age, strength of religious beliefs, and belief in a spiritual afterlife) so that all variables had 2 levels. 
@@ -545,323 +545,14 @@ d1_age = full_join(d1_ageyoung, d1_ageold) %>%
   select(character, pc1_youngoldz, pc1_youngoldp, pc1_signif, pc2_youngoldz, pc2_youngoldp, pc2_signif)
 d1_age
 
-# --------> OLD VERSIONS ------------------------------------------------------
-# # --------> religious beliefs -------------------------------------------------
-# 
-# # make d1 for less religious participants
-# charmeans_religno_table = d %>%
-#   mutate(beliefGod_num = 
-#            ifelse(beliefGod == "disagree_strong", -3,
-#                   ifelse(beliefGod == "disagree_moderate", -2,
-#                          ifelse(beliefGod == "disagree_little", -1,
-#                                 ifelse(beliefGod == "neither", 0,
-#                                        ifelse(beliefGod == "agree_litte", 1,
-#                                               ifelse(beliefGod == "agree_moderate", 2,
-#                                                      ifelse(beliefGod == "agree_strong", 3,
-#                                                             NA)))))))) %>%
-#   filter(beliefGod_num != "NA") %>%
-#   filter(beliefGod_num <= median(beliefGod_num, na.rm = TRUE)) %>%
-#   gather(character, response, 
-#          -subid, -condition, -gender, -age, 
-#          -beliefGod, -beliefGod_num, -education, -politicalIdeology, 
-#          -maritalStatus, -children, -beliefAfterlife) %>%
-#   group_by(condition, character) %>%
-#   summarise(mean = mean(response, na.rm = T)) %>%
-#   spread(condition, mean)
-# 
-# rows_religno = charmeans_religno_table$character
-# d1_religno = charmeans_religno_table[-1]
-# rownames(d1_religno) = rows_religno
-# print(d1_religno)
-# 
-# # make d1 for more religious participants
-# charmeans_religyes_table = d %>%
-#   mutate(beliefGod_num = 
-#            ifelse(beliefGod == "disagree_strong", -3,
-#                   ifelse(beliefGod == "disagree_moderate", -2,
-#                          ifelse(beliefGod == "disagree_little", -1,
-#                                 ifelse(beliefGod == "neither", 0,
-#                                        ifelse(beliefGod == "agree_litte", 1,
-#                                               ifelse(beliefGod == "agree_moderate", 2,
-#                                                      ifelse(beliefGod == "agree_strong", 3,
-#                                                             NA)))))))) %>%
-#   filter(beliefGod_num != "NA") %>%
-#   filter(beliefGod_num > median(beliefGod_num, na.rm = TRUE)) %>%
-#   gather(character, response, 
-#          -subid, -condition, -gender, -age, 
-#          -beliefGod, -beliefGod_num, -education, -politicalIdeology, 
-#          -maritalStatus, -children, -beliefAfterlife) %>%
-#   group_by(condition, character) %>%
-#   summarise(mean = mean(response, na.rm = T)) %>%
-#   spread(condition, mean)
-# 
-# rows_religyes = charmeans_religyes_table$character
-# d1_religyes = charmeans_religyes_table[-1]
-# rownames(d1_religyes) = rows_religyes
-# print(d1_religyes)
-# 
-# # --------> education ---------------------------------------------------------
-# 
-# # make d1 for less educated participants (no college degree)
-# charmeans_eduless_table = d %>%
-#   mutate(education_split =
-#            ifelse(education == "hs_none" |
-#                     education == "hs_some" |
-#                     education == "hs_diploma" |
-#                     education == "college_some",
-#                   "noCollegeDegree",
-#                   ifelse(education == "college_assocDegree" |
-#                            education == "college_bachDegree" | 
-#                            education == "grad_some" |
-#                            education == "grad_degree",
-#                          "yesCollegeDegree",
-#                          NA)
-#            )) %>%
-#   filter(education_split != "NA") %>%
-#   filter(education_split == "noCollegeDegree") %>%
-#   gather(character, response, 
-#          -subid, -condition, -gender, -age, 
-#          -beliefGod, -education, -education_split, -politicalIdeology, 
-#          -maritalStatus, -children, -beliefAfterlife) %>%
-#   group_by(condition, character) %>%
-#   summarise(mean = mean(response, na.rm = T)) %>%
-#   spread(condition, mean)
-# 
-# rows_eduless = charmeans_eduless_table$character
-# d1_eduless = charmeans_eduless_table[-1]
-# rownames(d1_eduless) = rows_eduless
-# print(d1_eduless)
-# 
-# # make d1 for more educated participants (college degree)
-# charmeans_edumore_table = d %>%
-#   mutate(education_split =
-#            ifelse(education == "hs_none" |
-#                     education == "hs_some" |
-#                     education == "hs_diploma" |
-#                     education == "college_some",
-#                   "noCollegeDegree",
-#                   ifelse(education == "college_assocDegree" |
-#                            education == "college_bachDegree" | 
-#                            education == "grad_some" |
-#                            education == "grad_degree",
-#                          "yesCollegeDegree",
-#                          NA)
-#            )) %>%
-#   filter(education_split != "NA") %>%
-#   filter(education_split == "yesCollegeDegree") %>%
-#   gather(character, response, 
-#          -subid, -condition, -gender, -age, 
-#          -beliefGod, -education, -education_split, -politicalIdeology, 
-#          -maritalStatus, -children, -beliefAfterlife) %>%
-#   group_by(condition, character) %>%
-#   summarise(mean = mean(response, na.rm = T)) %>%
-#   spread(condition, mean)
-# 
-# rows_edumore = charmeans_edumore_table$character
-# d1_edumore = charmeans_edumore_table[-1]
-# rownames(d1_edumore) = rows_edumore
-# print(d1_edumore)
-# 
-# # --------> political affiliation ---------------------------------------------
-# 
-# # make d1 for democrats
-# charmeans_poldem_table = d %>%
-#   filter(politicalIdeology == "democrat") %>%
-#   gather(character, response, 
-#          -subid, -condition, -gender, -age, 
-#          -beliefGod, -education, -politicalIdeology, 
-#          -maritalStatus, -children, -beliefAfterlife) %>%
-#   group_by(condition, character) %>%
-#   summarise(mean = mean(response, na.rm = T)) %>%
-#   spread(condition, mean)
-# 
-# rows_poldem = charmeans_poldem_table$character
-# d1_poldem = charmeans_poldem_table[-1]
-# rownames(d1_poldem) = rows_poldem
-# print(d1_poldem)
-# 
-# # make d1 for republicans
-# charmeans_polrep_table = d %>%
-#   filter(politicalIdeology == "republican") %>%
-#   gather(character, response, 
-#          -subid, -condition, -gender, -age, 
-#          -beliefGod, -education, -politicalIdeology, 
-#          -maritalStatus, -children, -beliefAfterlife) %>%
-#   group_by(condition, character) %>%
-#   summarise(mean = mean(response, na.rm = T)) %>%
-#   spread(condition, mean)
-# 
-# rows_polrep = charmeans_polrep_table$character
-# d1_polrep = charmeans_polrep_table[-1]
-# rownames(d1_polrep) = rows_polrep
-# print(d1_polrep)
-# 
-# # --------> marital status ----------------------------------------------------
-# 
-# # make d1 for married participants
-# charmeans_maryes_table = d %>%
-#   filter(maritalStatus == "yes") %>%
-#   gather(character, response, 
-#          -subid, -condition, -gender, -age, 
-#          -beliefGod, -education, -politicalIdeology, 
-#          -maritalStatus, -children, -beliefAfterlife) %>%
-#   group_by(condition, character) %>%
-#   summarise(mean = mean(response, na.rm = T)) %>%
-#   spread(condition, mean)
-# 
-# rows_maryes = charmeans_maryes_table$character
-# d1_maryes = charmeans_maryes_table[-1]
-# rownames(d1_maryes) = rows_maryes
-# print(d1_maryes)
-# 
-# # make d1 for unmarried participants
-# charmeans_marno_table = d %>%
-#   filter(maritalStatus == "no" | maritalStatus == "no_committed") %>%
-#   gather(character, response, 
-#          -subid, -condition, -gender, -age, 
-#          -beliefGod, -education, -politicalIdeology, 
-#          -maritalStatus, -children, -beliefAfterlife) %>%
-#   group_by(condition, character) %>%
-#   summarise(mean = mean(response, na.rm = T)) %>%
-#   spread(condition, mean)
-# 
-# rows_marno = charmeans_marno_table$character
-# d1_marno = charmeans_marno_table[-1]
-# rownames(d1_marno) = rows_marno
-# print(d1_marno)
-# 
-# # --------> parental status ---------------------------------------------------
-# 
-# # make d1 for parents
-# charmeans_childyes_table = d %>%
-#   filter(children > 0) %>%
-#   gather(character, response, 
-#          -subid, -condition, -gender, -age, 
-#          -beliefGod, -education, -politicalIdeology, 
-#          -maritalStatus, -children, -beliefAfterlife) %>%
-#   group_by(condition, character) %>%
-#   summarise(mean = mean(response, na.rm = T)) %>%
-#   spread(condition, mean)
-# 
-# rows_childyes = charmeans_childyes_table$character
-# d1_childyes = charmeans_childyes_table[-1]
-# rownames(d1_childyes) = rows_childyes
-# print(d1_childyes)
-# 
-# # make d1 for non-parents
-# charmeans_childno_table = d %>%
-#   filter(children == 0) %>%
-#   gather(character, response, 
-#          -subid, -condition, -gender, -age, 
-#          -beliefGod, -education, -politicalIdeology, 
-#          -maritalStatus, -children, -beliefAfterlife) %>%
-#   group_by(condition, character) %>%
-#   summarise(mean = mean(response, na.rm = T)) %>%
-#   spread(condition, mean)
-# 
-# rows_childno = charmeans_childno_table$character
-# d1_childno = charmeans_childno_table[-1]
-# rownames(d1_childno) = rows_childno
-# print(d1_childno)
-# 
-# # --------> dog ownership -----------------------------------------------------
-# 
-# # NOTE: need to update all table formatting with "-dog" once dog is actually a variable
-# 
-# # # make d1 for dog-owners
-# # charmeans_dogyes_table = d %>%
-# #   filter(dog == "yes") %>%
-# #   gather(character, response, 
-# #          -subid, -condition, -gender, -age, 
-# #          -beliefGod, -education, -politicalIdeology, 
-# #          -maritalStatus, -children, -beliefAfterlife) %>%
-# #   group_by(condition, character) %>%
-# #   summarise(mean = mean(response, na.rm = T)) %>%
-# #   spread(condition, mean)
-# # 
-# # rows_dogyes = charmeans_dogyes_table$character
-# # d1_dogyes = charmeans_dogyes_table[-1]
-# # rownames(d1_dogyes) = rows_dogyes
-# # print(d1_dogyes)
-# # 
-# # # make d1 for non-dog-owners
-# # charmeans_dogno_table = d %>%
-# #   filter(dog == "no") %>%
-# #   gather(character, response, 
-# #          -subid, -condition, -gender, -age, 
-# #          -beliefGod, -education, -politicalIdeology, 
-# #          -maritalStatus, -children, -beliefAfterlife) %>%
-# #   group_by(condition, character) %>%
-# #   summarise(mean = mean(response, na.rm = T)) %>%
-# #   spread(condition, mean)
-# # 
-# # rows_dogno = charmeans_dogno_table$character
-# # d1_dogno = charmeans_dogno_table[-1]
-# # rownames(d1_dogno) = rows_dogno
-# # print(d1_dogno)
-# 
-# # --------> belief in spiritual afterlife -------------------------------------
-# 
-# # make d1 for participants who don't belief in afterlife
-# charmeans_afterlifeno_table = d %>%
-#   mutate(beliefAfterlife_num = 
-#            ifelse(beliefAfterlife == "disagree_strong", -3,
-#                   ifelse(beliefAfterlife == "disagree_moderate", -2,
-#                          ifelse(beliefAfterlife == "disagree_little", -1,
-#                                 ifelse(beliefAfterlife == "neither", 0,
-#                                        ifelse(beliefAfterlife == "agree_litte", 1,
-#                                               ifelse(beliefAfterlife == "agree_moderate", 2,
-#                                                      ifelse(beliefAfterlife == "agree_strong", 3,
-#                                                             NA)))))))) %>%
-#   filter(beliefAfterlife_num != "NA") %>%
-#   filter(beliefAfterlife_num <= median(beliefAfterlife_num, na.rm = TRUE)) %>%
-#   gather(character, response, 
-#          -subid, -condition, -gender, -age, 
-#          -beliefGod, -beliefAfterlife_num, -education, -politicalIdeology, 
-#          -maritalStatus, -children, -beliefAfterlife) %>%
-#   group_by(condition, character) %>%
-#   summarise(mean = mean(response, na.rm = T)) %>%
-#   spread(condition, mean)
-# 
-# rows_afterlifeno = charmeans_afterlifeno_table$character
-# d1_afterlifeno = charmeans_afterlifeno_table[-1]
-# rownames(d1_afterlifeno) = rows_afterlifeno
-# print(d1_afterlifeno)
-# 
-# # make d1 for participants who do belief in afterlife
-# charmeans_afterlifeyes_table = d %>%
-#   mutate(beliefAfterlife_num = 
-#            ifelse(beliefAfterlife == "disagree_strong", -3,
-#                   ifelse(beliefAfterlife == "disagree_moderate", -2,
-#                          ifelse(beliefAfterlife == "disagree_little", -1,
-#                                 ifelse(beliefAfterlife == "neither", 0,
-#                                        ifelse(beliefAfterlife == "agree_litte", 1,
-#                                               ifelse(beliefAfterlife == "agree_moderate", 2,
-#                                                      ifelse(beliefAfterlife == "agree_strong", 3,
-#                                                             NA)))))))) %>%
-#   filter(beliefAfterlife_num != "NA") %>%
-#   filter(beliefAfterlife_num > median(beliefAfterlife_num, na.rm = TRUE)) %>%
-#   gather(character, response, 
-#          -subid, -condition, -gender, -age, 
-#          -beliefGod, -beliefAfterlife_num, -education, -politicalIdeology, 
-#          -maritalStatus, -children, -beliefAfterlife) %>%
-#   group_by(condition, character) %>%
-#   summarise(mean = mean(response, na.rm = T)) %>%
-#   spread(condition, mean)
-# 
-# rows_afterlifeyes = charmeans_afterlifeyes_table$character
-# d1_afterlifeyes = charmeans_afterlifeyes_table[-1]
-# rownames(d1_afterlifeyes) = rows_afterlifeyes
-# print(d1_afterlifeyes)
-
 ###############################################################################
 
-# --------> PRINCIPAL COMPONENTS ANALYSIS B -----------------------------------
+# -- PRINCIPAL COMPONENTS ANALYSIS B ------------------------------------------
 
 # NOTES: 
 # - good resource: http://www.colorado.edu/geography/class_homepages/geog_4023_s11/Lecture18_PCA.pdf
 
-# ----------------> 11-factor (maximal) PCA (UNrotated, using principal) -------
+# --------> 11-factor (maximal) PCA (UNrotated, using principal) --------------
 
 # extract factors
 pca_B11 = principal(d3, nfactors = 11, rotate = "none"); pca_B11
@@ -879,7 +570,7 @@ qplot(y = pca_B11$values) +
        y = "Eigenvalue") +
   geom_line() # retain 3 components (left of "break")
 
-# ----------------> 3-factor PCA (varimax rotation, using principal) ----------
+# --------> 3-factor PCA (varimax rotation, using principal) ------------------
 
 # extract factors
 pca_B3 = principal(d3, nfactors = 3, rotate = "varimax"); pca_B3
@@ -980,7 +671,7 @@ pca_B3_subjectplot23 = ggplot(pca_B3_scores_df, aes(x = RC2, y = RC3, colour = c
   theme(legend.position = "bottom")
 multiplot(pca_B3_subjectplot12, pca_B3_subjectplot13, pca_B3_subjectplot23, cols = 3)
 
-# ----------------> 2-factor PCA (varimax rotation, using principal) ----------
+# --------> 2-factor PCA (varimax rotation, using principal) ------------------
 # extract factors
 pca_B2 = principal(d3, nfactors = 2, rotate = "varimax"); pca_B2
 
@@ -994,7 +685,7 @@ pca_B2_pc2 = pca_B2$loadings[,2]; sort(pca_B2_pc2)
 
 # --------> MDS A: all conditions (indscal) -----------------------------------
 
-# ----------------> data formatting -------------------------------------------
+# ---------------->> data formatting ------------------------------------------
 
 # construct dissimilarity matrices for each participant
 dissimList = list(NULL)
@@ -1082,7 +773,7 @@ for(k in 1:length(levels(dd$subid))) {
   dissimList[[k]] = upperDissim_temp
 }
 
-# ----------------> metric (ratio) MDS ----------------------------------------
+# ---------------->> metric (ratio) MDS ---------------------------------------
 
 # perform 3-way MDS (ratio)
 mds_Ba = indscal(dissimList, type = "ratio", verbose = T)
@@ -1101,7 +792,7 @@ plot(mds_Ba, plot.type = "stressplot")
 plot(mds_Ba, plot.type = "Shepard")
 plot(mds_Ba, plot.type = "resplot")
 
-# ----------------> non-metric (ordinal) MDS ----------------------------------
+# ---------------->> non-metric (ordinal) MDS ---------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_Bb = indscal(dissimList, type = "ordinal", verbose = T)
@@ -1124,9 +815,9 @@ plot(mds_Bb, plot.type = "confplot",
 
 # --------> MDS B: each condition separately (indscal) ------------------------
 
-# ----------------> condition: FEAR -------------------------------------------
+# ---------------->> condition: FEAR ------------------------------------------
 
-# ------------------------> data formatting -----------------------------------
+# ------------------------>>> data formatting ---------------------------------
 
 # filter by condition
 dd_fear = dd %>% filter(condition == "Fear") %>% mutate(subid = factor(subid))
@@ -1217,7 +908,7 @@ for(k in 1:length(levels(dd_fear$subid))) {
   dissimList_fear[[k]] = upperDissim_temp
 }
 
-# ------------------------> metric (ratio) MDS --------------------------------
+# ------------------------>>> metric (ratio) MDS ------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_fear_Ba = indscal(dissimList_fear, type = "ratio", verbose = T)
@@ -1238,7 +929,7 @@ plot(mds_fear_Ba, plot.type = "confplot",
 # plot(mds_fear_Ba, plot.type = "Shepard", sub = "Condition: FEAR")
 # plot(mds_fear_Ba, plot.type = "resplot", sub = "Condition: FEAR")
 
-# ------------------------> non-metric (ordinal) MDS --------------------------
+# ------------------------>>> non-metric (ordinal) MDS ------------------------
 
 # perform 3-way MDS (ordinal)
 mds_fear_Bb = indscal(dissimList_fear, type = "ordinal", verbose = T)
@@ -1258,9 +949,9 @@ plot(mds_fear_Bb, plot.type = "confplot",
 # # plot residuals
 # plot(mds_fear_Bb, plot.type = "Shepard", sub = "Condition: FEAR")
 
-# ----------------> condition: HUNGER -----------------------------------------
+# ---------------->> condition: HUNGER ----------------------------------------
 
-# ------------------------> data formatting -----------------------------------
+# ------------------------>>> data formatting ---------------------------------
 
 # filter by condition
 dd_hunger = dd %>% filter(condition == "Hunger") %>% mutate(subid = factor(subid))
@@ -1351,7 +1042,7 @@ for(k in 1:length(levels(dd_hunger$subid))) {
   dissimList_hunger[[k]] = upperDissim_temp
 }
 
-# ------------------------> metric (ratio) MDS --------------------------------
+# ------------------------>>> metric (ratio) MDS ------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_hunger_Ba = indscal(dissimList_hunger, type = "ratio", verbose = T)
@@ -1372,7 +1063,7 @@ plot(mds_hunger_Ba, plot.type = "confplot",
 # plot(mds_hunger_Ba, plot.type = "Shepard", sub = "Condition: HUNGER")
 # plot(mds_hunger_Ba, plot.type = "resplot", sub = "Condition: HUNGER")
 
-# ------------------------> non-metric (ordinal) MDS --------------------------
+# ------------------------>>> non-metric (ordinal) MDS ------------------------
 
 # perform 3-way MDS (ordinal)
 mds_hunger_Bb = indscal(dissimList_hunger, type = "ordinal", verbose = T)
@@ -1392,9 +1083,9 @@ plot(mds_hunger_Bb, plot.type = "confplot",
 # # plot residuals
 # plot(mds_hunger_Bb, plot.type = "Shepard", sub = "Condition: HUNGER")
 
-# ----------------> condition: MORALITY ---------------------------------------
+# ---------------->> condition: MORALITY --------------------------------------
 
-# ------------------------> data formatting -----------------------------------
+# ------------------------>>> data formatting ---------------------------------
 
 # filter by condition
 dd_morality = dd %>% filter(condition == "Morality") %>% mutate(subid = factor(subid))
@@ -1485,7 +1176,7 @@ for(k in 1:length(levels(dd_morality$subid))) {
   dissimList_morality[[k]] = upperDissim_temp
 }
 
-# ------------------------> metric (ratio) MDS --------------------------------
+# ------------------------>>> metric (ratio) MDS ------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_morality_Ba = indscal(dissimList_morality, type = "ratio", verbose = T)
@@ -1506,7 +1197,7 @@ plot(mds_morality_Ba, plot.type = "confplot",
 # plot(mds_morality_Ba, plot.type = "Shepard", sub = "Condition: MORALITY")
 # plot(mds_morality_Ba, plot.type = "resplot", sub = "Condition: MORALITY")
 
-# ------------------------> non-metric (ordinal) MDS --------------------------
+# ------------------------>>> non-metric (ordinal) MDS ------------------------
 
 # perform 3-way MDS (ordinal)
 mds_morality_Bb = indscal(dissimList_morality, type = "ordinal", verbose = T)
@@ -1526,9 +1217,9 @@ plot(mds_morality_Bb, plot.type = "confplot",
 # # plot residuals
 # plot(mds_morality_Bb, plot.type = "Shepard", sub = "Condition: MORALITY")
 
-# ----------------> condition: SELF-CONTROL -----------------------------------
+# ---------------->> condition: SELF-CONTROL ----------------------------------
 
-# ------------------------> data formatting -----------------------------------
+# ------------------------>>> data formatting ---------------------------------
 
 # filter by condition
 dd_selfcontrol = dd %>% filter(condition == "SelfControl") %>% mutate(subid = factor(subid))
@@ -1619,7 +1310,7 @@ for(k in 1:length(levels(dd_selfcontrol$subid))) {
   dissimList_selfcontrol[[k]] = upperDissim_temp
 }
 
-# ------------------------> metric (ratio) MDS --------------------------------
+# ------------------------>>> metric (ratio) MDS ------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_selfcontrol_Ba = indscal(dissimList_selfcontrol, type = "ratio", verbose = T)
@@ -1640,7 +1331,7 @@ plot(mds_selfcontrol_Ba, plot.type = "confplot",
 # plot(mds_selfcontrol_Ba, plot.type = "Shepard", sub = "Condition: SELF-CONTROL")
 # plot(mds_selfcontrol_Ba, plot.type = "resplot", sub = "Condition: SELF-CONTROL")
 
-# ------------------------> non-metric (ordinal) MDS --------------------------
+# ------------------------>>> non-metric (ordinal) MDS ------------------------
 
 # perform 3-way MDS (ordinal)
 mds_selfcontrol_Bb = indscal(dissimList_selfcontrol, type = "ordinal", verbose = T)
@@ -1662,7 +1353,7 @@ plot(mds_selfcontrol_Bb, plot.type = "confplot",
 
 ###############################################################################
 
-# --- ADDITIONAL ALTERNATIVE ANALYSES (EXPLORATORY) ----------------------------
+# --- ADDITIONAL ALTERNATIVE ANALYSES (EXPLORATORY) ---------------------------
 
 # --------> MAXIMUM LIKELIHOOD FACTOR ANALYSIS A ------------------------------
 # Roughly equivalent to pca_A?
@@ -1696,9 +1387,9 @@ plot(rs1)
 
 # --------> CLASSICAL MDS -----------------------------------------------------
 
-# ----------------> all conditions --------------------------------------------
+# ---------------->> all conditions -------------------------------------------
 
-# ------------------------> data formatting -----------------------------------
+# ------------------------>>> data formatting ---------------------------------
 # make alphabetized list of characters, cycle through to fill in alphabetized pairs
 upperDissim <- dd %>%
   mutate(character1 = array(),
@@ -1758,7 +1449,7 @@ for(i in 1:13) {
 # Convert to numeric matrix form 
 upperDissim = data.matrix(upperDissim)
 
-# ------------------------> do MDS --------------------------------------------
+# ------------------------>>> do MDS ------------------------------------------
 # do MDS, pull out x_all and y_all coords
 fit_all <- cmdscale(upperDissim, eig = TRUE, k = 2)
 x_all <- fit_all$points[, 1]
@@ -1794,7 +1485,7 @@ ggplot(pts, aes(x = x_all, y = y_all, label = character)) +
        x = NULL,
        y = NULL)
 
-# ----------------> each condition separately ---------------------------------
+# ---------------->> each condition separately --------------------------------
 
 for(k in 1:length(levels(dd$condition))) {
   condition_temp = levels(dd$condition)[k]
