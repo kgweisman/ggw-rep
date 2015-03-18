@@ -763,31 +763,6 @@ for(i in 1:12) {
 
 dissim = as.dist(dissim)
 
-# --------> metric (ratio) MDS ------------------------------------------------
-# NOTE: could also explore fitting with more than 2 dimensions...
-
-# do MDS
-mds_Aratio = mds(dissim, ndim = 2, type = "ratio"); mds_Aratio
-summary(mds_Aratio)
-plot(mds_Aratio)
-
-# --------------->-> plots ----------------------------------------------------
-
-# plot dimension space
-plot(mds_Aratio)
-
-# plot space and stress (bigger bubble = better fit)
-plot(mds_Aratio, plot.type = "bubbleplot")
-
-# plot stress (higher = worse fit)
-plot(mds_Aratio, plot.type = "stressplot")
-
-# Shepard plot
-plot(mds_Aratio, plot.type = "Shepard")
-
-# plot residuals
-plot(mds_Aratio, plot.type = "resplot")
-
 # --------> non-metric (ordinal) MDS ------------------------------------------
 # NOTE: could also explore fitting with more than 2 dimensions...
 
@@ -1113,107 +1088,6 @@ for(i in 1:12) {
 }
 
 dissim_selfcontrol = as.dist(dissim_selfcontrol)
-
-# --------> metric (ratio) MDS ------------------------------------------------
-# NOTE: could also explore fitting with more than 2 dimensions...
-
-# do MDS: FEAR
-mds_fear_Aratio = mds(dissim_fear, ndim = 2, type = "ratio")
-summary(mds_fear_Aratio)
-mds_fear_Aratio
-
-# do MDS: HUNGER
-mds_hunger_Aratio = mds(dissim_hunger, ndim = 2, type = "ratio")
-summary(mds_hunger_Aratio)
-mds_hunger_Aratio
-
-# do MDS: MORALITY
-mds_morality_Aratio = mds(dissim_morality, ndim = 2, type = "ratio")
-summary(mds_morality_Aratio)
-mds_morality_Aratio
-
-# do MDS: SELF-CONTROL
-mds_selfcontrol_Aratio = mds(dissim_selfcontrol, ndim = 2, type = "ratio")
-summary(mds_selfcontrol_Aratio)
-mds_selfcontrol_Aratio
-
-# --------------->-> plots ----------------------------------------------------
-
-# plot everything in 2x2 grid
-par(mfrow = c(2,2))
-
-# plot dimension space
-plot(mds_fear_Aratio, 
-     plot.type = "confplot", 
-     main = "Condition: FEAR")
-plot(mds_hunger_Aratio, 
-     plot.type = "confplot", 
-     main = "Condition: HUNGER")
-plot(mds_morality_Aratio, 
-     plot.type = "confplot", 
-     main = "Condition: MORALITY")
-plot(mds_selfcontrol_Aratio, 
-     plot.type = "confplot", 
-     main = "Condition: SELF-CONTROL")
-
-# plot space and stress (bigger bubble = better fit)
-plot(mds_fear_Aratio, 
-     plot.type = "bubbleplot", 
-     main = "Condition: FEAR")
-plot(mds_hunger_Aratio, 
-     plot.type = "bubbleplot", 
-     main = "Condition: HUNGER")
-plot(mds_morality_Aratio, 
-     plot.type = "bubbleplot", 
-     main = "Condition: MORALITY")
-plot(mds_selfcontrol_Aratio, 
-     plot.type = "bubbleplot", 
-     main = "Condition: SELF-CONTROL")
-
-# plot stress (higher = worse fit)
-plot(mds_fear_Aratio, 
-     plot.type = "stressplot", 
-     main = "Condition: FEAR")
-plot(mds_hunger_Aratio, 
-     plot.type = "stressplot", 
-     main = "Condition: HUNGER")
-plot(mds_morality_Aratio, 
-     plot.type = "stressplot", 
-     main = "Condition: MORALITY")
-plot(mds_selfcontrol_Aratio, 
-     plot.type = "stressplot", 
-     main = "Condition: SELF-CONTROL")
-
-# Shepard plot
-plot(mds_fear_Aratio, 
-     plot.type = "Shepard", 
-     main = "Condition: FEAR")
-plot(mds_hunger_Aratio, 
-     plot.type = "Shepard", 
-     main = "Condition: HUNGER")
-plot(mds_morality_Aratio, 
-     plot.type = "Shepard", 
-     main = "Condition: MORALITY")
-plot(mds_selfcontrol_Aratio, 
-     plot.type = "Shepard", 
-     main = "Condition: SELF-CONTROL")
-
-# plot residuals
-plot(mds_fear_Aratio, 
-     plot.type = "resplot", 
-     main = "Condition: FEAR")
-plot(mds_hunger_Aratio, 
-     plot.type = "resplot", 
-     main = "Condition: HUNGER")
-plot(mds_morality_Aratio, 
-     plot.type = "resplot", 
-     main = "Condition: MORALITY")
-plot(mds_selfcontrol_Aratio, 
-     plot.type = "resplot", 
-     main = "Condition: SELF-CONTROL")
-
-# stop plotting in 2x2 grid
-par(mfrow = c(1,1))
 
 # --------> non-metric (ordinal) MDS ------------------------------------------
 # NOTE: could also explore fitting with more than 2 dimensions...
