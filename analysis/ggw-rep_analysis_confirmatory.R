@@ -788,20 +788,14 @@ plot(mds_Aordinal, plot.type = "bubbleplot",
 
 # plot stress (higher = worse fit)
 plot(mds_Aordinal, plot.type = "stressplot",
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),     
      main = "MDS stress: All conditions")
 
 # Shepard plot
 plot(mds_Aordinal, plot.type = "Shepard",
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),     
      main = "MDS Shepard plot: All conditions")
 
 # plot residuals
 plot(mds_Aordinal, plot.type = "resplot",
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),     
      main = "MDS residuals: All conditions")
 
 ################################################### analysis & plots pt 4 #####
@@ -1181,67 +1175,43 @@ plot(mds_selfcontrol_Aordinal,
 # plot stress (higher = worse fit)
 plot(mds_fear_Aordinal, 
      plot.type = "stressplot", 
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),
      main = "MDS stress: FEAR")
 plot(mds_hunger_Aordinal, 
      plot.type = "stressplot", 
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),     
      main = "MDS stress: HUNGER")
 plot(mds_morality_Aordinal, 
      plot.type = "stressplot", 
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),     
      main = "MDS stress: MORALITY")
 plot(mds_selfcontrol_Aordinal, 
      plot.type = "stressplot", 
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),     
      main = "MDS stress: SELF-CONTROL")
 
 # Shepard plot
 plot(mds_fear_Aordinal, 
      plot.type = "Shepard", 
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),     
      main = "MDS Shepard plot: FEAR")
 plot(mds_hunger_Aordinal, 
      plot.type = "Shepard", 
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),     
      main = "MDS Shepard plot: HUNGER")
 plot(mds_morality_Aordinal, 
      plot.type = "Shepard", 
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),
      main = "MDS Shepard plot: MORALITY")
 plot(mds_selfcontrol_Aordinal, 
      plot.type = "Shepard", 
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),     
      main = "MDS Shepard plot: SELF-CONTROL")
 
 # plot residuals
 plot(mds_fear_Aordinal, 
      plot.type = "resplot", 
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),     
      main = "MDS residuals: FEAR")
 plot(mds_hunger_Aordinal, 
      plot.type = "resplot", 
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),     
      main = "MDS residuals: HUNGER")
 plot(mds_morality_Aordinal, 
      plot.type = "resplot", 
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),     
      main = "MDS residuals: MORALITY")
 plot(mds_selfcontrol_Aordinal, 
      plot.type = "resplot", 
-     xlim = c(-1, 1),
-     ylim = c(-1, 1),     
      main = "MDS residuals: SELF-CONTROL")
 
 # stop plotting in 2x2 grid
