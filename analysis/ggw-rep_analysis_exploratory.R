@@ -143,13 +143,11 @@ print(d3)
 
 ########################################################### supplementals #####
 
-# --- ADDITIONAL ALTERNATIVE ANALYSES (EXPLORATORY) ---------------------------
+# --- MULTIDIMENSIONAL SCALING ANALYSES: INDIVIDUAL DIFFERENCES ---------------
 
-# --------> MULTIDIMENSIONAL SCALING ANALYSES: INDIVIDUAL DIFFERENCES ---------
+# --------> MDS C: all conditions (indscal) -----------------------------------
 
-# --------------->-> MDS C: all conditions (indscal) --------------------------
-
-# ---------------------->->-> data formatting ---------------------------------
+# --------------->-> data formatting ------------------------------------------
 
 # construct dissimilarity matrices for each participant
 dissimList = list(NULL)
@@ -232,7 +230,7 @@ for(k in 1:length(levels(dd$subid))) {
   dissimList[[k]] = dissim_temp
 }
 
-# ---------------------->->-> metric (ratio) MDS ------------------------------
+# --------------->-> metric (ratio) MDS ---------------------------------------
 
 # perform 3-way MDS (ratio)
 mds_Cratio = indscal(dissimList, type = "ratio", verbose = T)
@@ -251,7 +249,7 @@ plot(mds_Cratio, plot.type = "stressplot")
 plot(mds_Cratio, plot.type = "Shepard")
 plot(mds_Cratio, plot.type = "resplot")
 
-# ---------------------->->-> non-metric (ordinal) MDS ------------------------
+# --------------->-> non-metric (ordinal) MDS ---------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_Cordinal = indscal(dissimList, type = "ordinal", verbose = T)
@@ -272,11 +270,11 @@ plot(mds_Cordinal, plot.type = "confplot",
 # plot(mds_Cordinal, plot.type = "Shepard")
 # plot(mds_Cordinal, plot.type = "resplot")
 
-# --------------->-> MDS D: by condition (indscal) ----------------------------
+# --------> MDS D: by condition (indscal) -------------------------------------
 
-# ---------------------->->-> condition: FEAR ---------------------------------
+# --------------->-> condition: FEAR ------------------------------------------
 
-# ----------------------------->->->-> data formatting ------------------------
+# ---------------------->->-> data formatting ---------------------------------
 
 # filter by condition
 dd_fear = dd %>% filter(condition == "Fear") %>% mutate(subid = factor(subid))
@@ -362,14 +360,14 @@ for(k in 1:length(levels(dd_fear$subid))) {
   dissimList_fear[[k]] = dissim_temp
 }
 
-# ----------------------------->->->-> metric (ratio) MDS ---------------------
+# ---------------------->->-> metric (ratio) MDS ------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_fear_Dratio = indscal(dissimList_fear, type = "ratio", verbose = T)
 summary(mds_fear_Dratio)
 mds_fear_Dratio
 
-# ------------------------------------>->->->-> plots -------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # plot space
 plot(mds_fear_Dratio, plot.type = "confplot",
@@ -385,14 +383,14 @@ plot(mds_fear_Dratio, plot.type = "confplot",
 # plot(mds_fear_Dratio, plot.type = "Shepard", sub = "Condition: FEAR")
 # plot(mds_fear_Dratio, plot.type = "resplot", sub = "Condition: FEAR")
 
-# ----------------------------->->->-> non-metric (ordinal) MDS ---------------
+# ---------------------->->-> non-metric (ordinal) MDS ------------------------
 
 # perform 3-way MDS (ordinal)
 mds_fear_Dordinal = indscal(dissimList_fear, type = "ordinal", verbose = T)
 summary(mds_fear_Dordinal)
 mds_fear_Dordinal
 
-# ------------------------------------>->->->-> plots -------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # plot space
 plot(mds_fear_Dordinal, plot.type = "confplot",
@@ -407,9 +405,9 @@ plot(mds_fear_Dordinal, plot.type = "confplot",
 # # plot residuals
 # plot(mds_fear_Dordinal, plot.type = "Shepard", sub = "Condition: FEAR")
 
-# ---------------------->->-> condition: HUNGER -------------------------------
+# --------------->-> condition: HUNGER ----------------------------------------
 
-# ----------------------------->->->-> data formatting ------------------------
+# ---------------------->->-> data formatting ---------------------------------
 
 # filter by condition
 dd_hunger = dd %>% filter(condition == "Hunger") %>% mutate(subid = factor(subid))
@@ -495,14 +493,14 @@ for(k in 1:length(levels(dd_hunger$subid))) {
   dissimList_hunger[[k]] = dissim_temp
 }
 
-# ----------------------------->->->-> metric (ratio) MDS ---------------------
+# ---------------------->->-> metric (ratio) MDS ------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_hunger_Dratio = indscal(dissimList_hunger, type = "ratio", verbose = T)
 summary(mds_hunger_Dratio)
 mds_hunger_Dratio
 
-# ------------------------------------>->->->-> plots -------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # plot space
 plot(mds_hunger_Dratio, plot.type = "confplot",
@@ -518,14 +516,14 @@ plot(mds_hunger_Dratio, plot.type = "confplot",
 # plot(mds_hunger_Dratio, plot.type = "Shepard", sub = "Condition: HUNGER")
 # plot(mds_hunger_Dratio, plot.type = "resplot", sub = "Condition: HUNGER")
 
-# ----------------------------->->->-> non-metric (ordinal) MDS ---------------
+# ---------------------->->-> non-metric (ordinal) MDS ------------------------
 
 # perform 3-way MDS (ordinal)
 mds_hunger_Dordinal = indscal(dissimList_hunger, type = "ordinal", verbose = T)
 summary(mds_hunger_Dordinal)
 mds_hunger_Dordinal
 
-# ------------------------------------>->->->-> plots -------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # plot space
 plot(mds_hunger_Dordinal, plot.type = "confplot",
@@ -540,9 +538,9 @@ plot(mds_hunger_Dordinal, plot.type = "confplot",
 # # plot residuals
 # plot(mds_hunger_Dordinal, plot.type = "Shepard", sub = "Condition: HUNGER")
 
-# ---------------------->->-> condition: MORALITY -----------------------------
+# --------------->-> condition: MORALITY --------------------------------------
 
-# ----------------------------->->->-> data formatting ------------------------
+# ---------------------->->-> data formatting ---------------------------------
 
 # filter by condition
 dd_morality = dd %>% filter(condition == "Morality") %>% mutate(subid = factor(subid))
@@ -628,14 +626,14 @@ for(k in 1:length(levels(dd_morality$subid))) {
   dissimList_morality[[k]] = dissim_temp
 }
 
-# ----------------------------->->->-> metric (ratio) MDS ---------------------
+# ---------------------->->-> metric (ratio) MDS ------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_morality_Dratio = indscal(dissimList_morality, type = "ratio", verbose = T)
 summary(mds_morality_Dratio)
 mds_morality_Dratio
 
-# ------------------------------------>->->->-> plots -------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # plot space
 plot(mds_morality_Dratio, plot.type = "confplot",
@@ -651,14 +649,14 @@ plot(mds_morality_Dratio, plot.type = "confplot",
 # plot(mds_morality_Dratio, plot.type = "Shepard", sub = "Condition: MORALITY")
 # plot(mds_morality_Dratio, plot.type = "resplot", sub = "Condition: MORALITY")
 
-# ----------------------------->->->-> non-metric (ordinal) MDS ---------------
+# ---------------------->->-> non-metric (ordinal) MDS ------------------------
 
 # perform 3-way MDS (ordinal)
 mds_morality_Dordinal = indscal(dissimList_morality, type = "ordinal", verbose = T)
 summary(mds_morality_Dordinal)
 mds_morality_Dordinal
 
-# ------------------------------------>->->->-> plots -------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # plot space
 plot(mds_morality_Dordinal, plot.type = "confplot",
@@ -673,9 +671,9 @@ plot(mds_morality_Dordinal, plot.type = "confplot",
 # # plot residuals
 # plot(mds_morality_Dordinal, plot.type = "Shepard", sub = "Condition: MORALITY")
 
-# ---------------------->->-> condition: SELF-CONTROL -------------------------
+# --------------->-> condition: SELF-CONTROL ----------------------------------
 
-# ----------------------------->->->-> data formatting ------------------------
+# ---------------------->->-> data formatting ---------------------------------
 
 # filter by condition
 dd_selfcontrol = dd %>% filter(condition == "SelfControl") %>% mutate(subid = factor(subid))
@@ -761,14 +759,14 @@ for(k in 1:length(levels(dd_selfcontrol$subid))) {
   dissimList_selfcontrol[[k]] = dissim_temp
 }
 
-# ----------------------------->->->-> metric (ratio) MDS ---------------------
+# ---------------------->->-> metric (ratio) MDS ------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_selfcontrol_Dratio = indscal(dissimList_selfcontrol, type = "ratio", verbose = T)
 summary(mds_selfcontrol_Dratio)
 mds_selfcontrol_Dratio
 
-# ------------------------------------>->->->-> plots -------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_selfcontrol_Dratio = indscal(dissimList_selfcontrol, type = "ratio", verbose = T)
@@ -789,14 +787,14 @@ plot(mds_selfcontrol_Dratio, plot.type = "confplot",
 # plot(mds_selfcontrol_Dratio, plot.type = "Shepard", sub = "Condition: SELF-CONTROL")
 # plot(mds_selfcontrol_Dratio, plot.type = "resplot", sub = "Condition: SELF-CONTROL")
 
-# ----------------------------->->->-> non-metric (ordinal) MDS ---------------
+# ---------------------->->-> non-metric (ordinal) MDS ------------------------
 
 # perform 3-way MDS (ordinal)
 mds_selfcontrol_Dordinal = indscal(dissimList_selfcontrol, type = "ordinal", verbose = T)
 summary(mds_selfcontrol_Dordinal)
 mds_selfcontrol_Dordinal
 
-# ------------------------------------>->->->-> plots -------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # plot space
 plot(mds_selfcontrol_Dordinal, plot.type = "confplot",
@@ -811,7 +809,7 @@ plot(mds_selfcontrol_Dordinal, plot.type = "confplot",
 # # plot residuals
 # plot(mds_selfcontrol_Dordinal, plot.type = "Shepard", sub = "Condition: SELF-CONTROL")
 
-# --------> MAXIMUM LIKELIHOOD FACTOR ANALYSIS A ------------------------------
+# --- MAXIMUM LIKELIHOOD FACTOR ANALYSIS A ------------------------------------
 # Roughly equivalent to pca_A?
 # Could also do the parallel version of pca_B
 
@@ -824,7 +822,7 @@ fa1 = factanal(d1,
                cutoff = .4)
 print(fa1)
 
-# --------> HIERARCHICAL CLUSTER ANALYSIS A -----------------------------------
+# --- HIERARCHICAL CLUSTER ANALYSIS A -----------------------------------------
 # Roughly equivalent to pca_A
 # Could also do the parallel version of pca_B
 
