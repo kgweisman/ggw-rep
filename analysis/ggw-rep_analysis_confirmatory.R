@@ -767,8 +767,9 @@ dissim = as.dist(dissim)
 # NOTE: could also explore fitting with more than 2 dimensions...
 
 # do MDS
-mds_Aordinal = mds(dissim, ndim = 2, type = "ordinal"); mds_Aordinal
+mds_Aordinal = mds(dissim, ndim = 2, type = "ordinal")
 summary(mds_Aordinal)
+mds_Aordinal
 
 # --------------->-> plots ----------------------------------------------------
 
