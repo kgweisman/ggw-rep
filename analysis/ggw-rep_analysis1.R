@@ -1,3 +1,5 @@
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 # --- PRELIMINARIES -----------------------------------------------------------
 
 # libraries
@@ -137,7 +139,7 @@ names(d3) = charnames
 rownames(d3) = subidnames
 print(d3)
 
-###############################################################################
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # --- DEMOGRAPHICS ------------------------------------------------------------
 
@@ -168,7 +170,7 @@ dd %>% distinct(subid) %>% count(religionChild)
 # maritalStatus
 dd %>% distinct(subid) %>% count(maritalStatus)
 
-###############################################################################
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # --- PRINCIPAL COMPONENTS ANALYSIS A: ORIGINAL GGW2007 ----------------------
 
@@ -545,7 +547,7 @@ d1_age = full_join(d1_ageyoung, d1_ageold) %>%
   select(character, pc1_youngoldz, pc1_youngoldp, pc1_signif, pc2_youngoldz, pc2_youngoldp, pc2_signif)
 d1_age
 
-###############################################################################
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # -- PRINCIPAL COMPONENTS ANALYSIS B ------------------------------------------
 
@@ -679,7 +681,7 @@ pca_B2 = principal(d3, nfactors = 2, rotate = "varimax"); pca_B2
 pca_B2_pc1 = pca_B2$loadings[,1]; sort(pca_B2_pc1)
 pca_B2_pc2 = pca_B2$loadings[,2]; sort(pca_B2_pc2)
 
-###############################################################################
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # --- MULTIDIMENSIONAL SCALING ANALYSES ---------------------------------------
 
@@ -1351,7 +1353,7 @@ plot(mds_selfcontrol_Bb, plot.type = "confplot",
 # # plot residuals
 # plot(mds_selfcontrol_Bb, plot.type = "Shepard", sub = "Condition: SELF-CONTROL")
 
-###############################################################################
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # --- ADDITIONAL ALTERNATIVE ANALYSES (EXPLORATORY) ---------------------------
 
