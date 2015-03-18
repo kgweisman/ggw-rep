@@ -923,7 +923,7 @@ mds_fear_Ba = indscal(dissimList_fear, type = "ratio", verbose = T)
 summary(mds_fear_Ba)
 mds_fear_Ba
 
-# ---------------------->->->-> plots -----------------------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # plot space
 plot(mds_fear_Ba, plot.type = "confplot",
@@ -946,7 +946,7 @@ mds_fear_Bb = indscal(dissimList_fear, type = "ordinal", verbose = T)
 summary(mds_fear_Bb)
 mds_fear_Bb
 
-# ---------------------->->->-> plots -----------------------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # plot space
 plot(mds_fear_Bb, plot.type = "confplot",
@@ -1061,7 +1061,7 @@ mds_hunger_Ba = indscal(dissimList_hunger, type = "ratio", verbose = T)
 summary(mds_hunger_Ba)
 mds_hunger_Ba
 
-# ---------------------->->->-> plots -----------------------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # plot space
 plot(mds_hunger_Ba, plot.type = "confplot",
@@ -1084,7 +1084,7 @@ mds_hunger_Bb = indscal(dissimList_hunger, type = "ordinal", verbose = T)
 summary(mds_hunger_Bb)
 mds_hunger_Bb
 
-# ---------------------->->->-> plots -----------------------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # plot space
 plot(mds_hunger_Bb, plot.type = "confplot",
@@ -1199,7 +1199,7 @@ mds_morality_Ba = indscal(dissimList_morality, type = "ratio", verbose = T)
 summary(mds_morality_Ba)
 mds_morality_Ba
 
-# ---------------------->->->-> plots -----------------------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # plot space
 plot(mds_morality_Ba, plot.type = "confplot",
@@ -1222,7 +1222,7 @@ mds_morality_Bb = indscal(dissimList_morality, type = "ordinal", verbose = T)
 summary(mds_morality_Bb)
 mds_morality_Bb
 
-# ---------------------->->->-> plots -----------------------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # plot space
 plot(mds_morality_Bb, plot.type = "confplot",
@@ -1332,7 +1332,7 @@ for(k in 1:length(levels(dd_selfcontrol$subid))) {
 
 # ---------------------->->-> metric (ratio) MDS ------------------------------
 
-# ---------------------->->->-> plots -----------------------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # perform 3-way MDS (ordinal)
 mds_selfcontrol_Ba = indscal(dissimList_selfcontrol, type = "ratio", verbose = T)
@@ -1360,7 +1360,7 @@ mds_selfcontrol_Bb = indscal(dissimList_selfcontrol, type = "ordinal", verbose =
 summary(mds_selfcontrol_Bb)
 mds_selfcontrol_Bb
 
-# ---------------------->->->-> plots -----------------------------------------
+# ----------------------------->->->-> plots ----------------------------------
 
 # plot space
 plot(mds_selfcontrol_Bb, plot.type = "confplot",
@@ -1494,6 +1494,22 @@ pts <- data.frame(x = x_all, y = y_all, character = row.names(upperDissim)) %>%
                                                                           "chimp",
                                                                           ifelse(character == "todd_billingsley_man", "man",
                                                                                  as.character(character))))))))))))
+
+# ----------------------------->->->-> plots ----------------------------------
+
+# plot space
+plot(mds_selfcontrol_Bb, plot.type = "confplot",
+     main = "Character dimension scores:\nSELF-CONTROL")
+
+# # plot space and stress (bigger bubble = better fit)
+# plot(mds_selfcontrol_Bb, plot.type = "bubbleplot", sub = "Condition: SELF-CONTROL")
+# 
+# # plot stress (higher = worse fit)
+# plot(mds_selfcontrol_Bb, plot.type = "stressplot", sub = "Condition: SELF-CONTROL")
+# 
+# # plot residuals
+# plot(mds_selfcontrol_Bb, plot.type = "Shepard", sub = "Condition: SELF-CONTROL")
+
 
 # plot!
 ggplot(pts, aes(x = x_all, y = y_all, label = character)) +
