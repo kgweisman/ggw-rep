@@ -1576,7 +1576,7 @@ plot(mds_selfcontrol_Bb, plot.type = "resplot", sub = "Condition: SELFCONTROL")
 
 ###############################################################################
 
-# --- ADDITIONAL ALTERNATIVE ANALYES (EXPLORATORY) ----------------------------
+# --- ADDITIONAL ALTERNATIVE ANALYSES (EXPLORATORY) ----------------------------
 
 # --------> MAXIMUM LIKELIHOOD FACTOR ANALYSIS A ------------------------------
 # Roughly equivalent to pca_A?
