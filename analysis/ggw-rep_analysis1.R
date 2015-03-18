@@ -218,6 +218,8 @@ pca_A2$values
 pca_A2_pc1 = pca_A2$loadings[,1]; sort(pca_A2_pc1)
 pca_A2_pc2 = pca_A2$loadings[,2]; sort(pca_A2_pc2)
 
+# --------------->-> plots ----------------------------------------------------
+
 # plot PCs against each other
 # NOTE: need to adjust "1:4" depending on how many conditions are run
 ggplot(data.frame(pca_A2$loadings[1:4,]), aes(x = RC1, y = RC2, label = names(d1))) +
@@ -587,6 +589,8 @@ pca_B3_pc1 = pca_B3$loadings[,1]; sort(pca_B3_pc1)
 pca_B3_pc2 = pca_B3$loadings[,2]; sort(pca_B3_pc2)
 pca_B3_pc3 = pca_B3$loadings[,3]; sort(pca_B3_pc3)
 
+# --------------->-> plots ----------------------------------------------------
+
 # 3d scatterplot of character factor loadings
 with(data.frame(pca_B3$loadings[,1:3]), {
   s3d <- scatterplot3d(RC1, RC2, RC3,
@@ -817,7 +821,7 @@ plot(mds_Bb, plot.type = "confplot",
 # plot(mds_Bb, plot.type = "Shepard")
 # plot(mds_Bb, plot.type = "resplot")
 
-# --------> MDS B: each condition separately (indscal) ------------------------
+# --------> MDS B: by condition (indscal) -------------------------------------
 
 # --------------->-> condition: FEAR ------------------------------------------
 
@@ -919,6 +923,8 @@ mds_fear_Ba = indscal(dissimList_fear, type = "ratio", verbose = T)
 summary(mds_fear_Ba)
 mds_fear_Ba
 
+# ---------------------->->->-> plots -----------------------------------------
+
 # plot space
 plot(mds_fear_Ba, plot.type = "confplot",
      main = "Character dimension scores:\nFEAR")
@@ -939,6 +945,8 @@ plot(mds_fear_Ba, plot.type = "confplot",
 mds_fear_Bb = indscal(dissimList_fear, type = "ordinal", verbose = T)
 summary(mds_fear_Bb)
 mds_fear_Bb
+
+# ---------------------->->->-> plots -----------------------------------------
 
 # plot space
 plot(mds_fear_Bb, plot.type = "confplot",
@@ -1053,6 +1061,8 @@ mds_hunger_Ba = indscal(dissimList_hunger, type = "ratio", verbose = T)
 summary(mds_hunger_Ba)
 mds_hunger_Ba
 
+# ---------------------->->->-> plots -----------------------------------------
+
 # plot space
 plot(mds_hunger_Ba, plot.type = "confplot",
      main = "Character dimension scores:\nHUNGER")
@@ -1073,6 +1083,8 @@ plot(mds_hunger_Ba, plot.type = "confplot",
 mds_hunger_Bb = indscal(dissimList_hunger, type = "ordinal", verbose = T)
 summary(mds_hunger_Bb)
 mds_hunger_Bb
+
+# ---------------------->->->-> plots -----------------------------------------
 
 # plot space
 plot(mds_hunger_Bb, plot.type = "confplot",
@@ -1187,6 +1199,8 @@ mds_morality_Ba = indscal(dissimList_morality, type = "ratio", verbose = T)
 summary(mds_morality_Ba)
 mds_morality_Ba
 
+# ---------------------->->->-> plots -----------------------------------------
+
 # plot space
 plot(mds_morality_Ba, plot.type = "confplot",
      main = "Character dimension scores:\nMORALITY")
@@ -1207,6 +1221,8 @@ plot(mds_morality_Ba, plot.type = "confplot",
 mds_morality_Bb = indscal(dissimList_morality, type = "ordinal", verbose = T)
 summary(mds_morality_Bb)
 mds_morality_Bb
+
+# ---------------------->->->-> plots -----------------------------------------
 
 # plot space
 plot(mds_morality_Bb, plot.type = "confplot",
@@ -1316,6 +1332,8 @@ for(k in 1:length(levels(dd_selfcontrol$subid))) {
 
 # ---------------------->->-> metric (ratio) MDS ------------------------------
 
+# ---------------------->->->-> plots -----------------------------------------
+
 # perform 3-way MDS (ordinal)
 mds_selfcontrol_Ba = indscal(dissimList_selfcontrol, type = "ratio", verbose = T)
 summary(mds_selfcontrol_Ba)
@@ -1341,6 +1359,8 @@ plot(mds_selfcontrol_Ba, plot.type = "confplot",
 mds_selfcontrol_Bb = indscal(dissimList_selfcontrol, type = "ordinal", verbose = T)
 summary(mds_selfcontrol_Bb)
 mds_selfcontrol_Bb
+
+# ---------------------->->->-> plots -----------------------------------------
 
 # plot space
 plot(mds_selfcontrol_Bb, plot.type = "confplot",
