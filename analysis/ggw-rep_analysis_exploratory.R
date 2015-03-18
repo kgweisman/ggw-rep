@@ -235,21 +235,21 @@ for(k in 1:length(levels(dd$subid))) {
 # ---------------------->->-> metric (ratio) MDS ------------------------------
 
 # perform 3-way MDS (ratio)
-mds_Cmetric = indscal(dissimList, type = "ratio", verbose = T)
-summary(mds_Cmetric)
+mds_Cratio = indscal(dissimList, type = "ratio", verbose = T)
+summary(mds_Cratio)
 
 # plot space
-plot(mds_Cmetric, plot.type = "confplot")
+plot(mds_Cratio, plot.type = "confplot")
 
 # plot space and stress (bigger bubble = better fit)
-plot(mds_Cmetric, plot.type = "bubbleplot")
+plot(mds_Cratio, plot.type = "bubbleplot")
 
 # plot stress (higher = worse fit)
-plot(mds_Cmetric, plot.type = "stressplot")
+plot(mds_Cratio, plot.type = "stressplot")
 
 # plot residuals
-plot(mds_Cmetric, plot.type = "Shepard")
-plot(mds_Cmetric, plot.type = "resplot")
+plot(mds_Cratio, plot.type = "Shepard")
+plot(mds_Cratio, plot.type = "resplot")
 
 # ---------------------->->-> non-metric (ordinal) MDS ------------------------
 
@@ -365,25 +365,25 @@ for(k in 1:length(levels(dd_fear$subid))) {
 # ----------------------------->->->-> metric (ratio) MDS ---------------------
 
 # perform 3-way MDS (ordinal)
-mds_fear_Dmetric = indscal(dissimList_fear, type = "ratio", verbose = T)
-summary(mds_fear_Dmetric)
-mds_fear_Dmetric
+mds_fear_Dratio = indscal(dissimList_fear, type = "ratio", verbose = T)
+summary(mds_fear_Dratio)
+mds_fear_Dratio
 
 # ------------------------------------>->->->-> plots -------------------------
 
 # plot space
-plot(mds_fear_Dmetric, plot.type = "confplot",
+plot(mds_fear_Dratio, plot.type = "confplot",
      main = "Character dimension scores:\nFEAR")
 
 # # plot space and stress (bigger buBale = better fit)
-# plot(mds_fear_Dmetric, plot.type = "buBaleplot", sub = "Condition: FEAR")
+# plot(mds_fear_Dratio, plot.type = "buBaleplot", sub = "Condition: FEAR")
 # 
 # # plot stress (higher = worse fit)
-# plot(mds_fear_Dmetric, plot.type = "stressplot", sub = "Condition: FEAR")
+# plot(mds_fear_Dratio, plot.type = "stressplot", sub = "Condition: FEAR")
 # 
 # # plot residuals
-# plot(mds_fear_Dmetric, plot.type = "Shepard", sub = "Condition: FEAR")
-# plot(mds_fear_Dmetric, plot.type = "resplot", sub = "Condition: FEAR")
+# plot(mds_fear_Dratio, plot.type = "Shepard", sub = "Condition: FEAR")
+# plot(mds_fear_Dratio, plot.type = "resplot", sub = "Condition: FEAR")
 
 # ----------------------------->->->-> non-metric (ordinal) MDS ---------------
 
@@ -472,7 +472,7 @@ for(k in 1:length(levels(dd_hunger$subid))) {
                          ifelse(names == "green_frog", "frog",
                                 ifelse(names == "samantha_hill_girl", "girl",
                                        ifelse(names == "kismet_robot", "robot",
-                                              ifelse(names == "nicholas_gannon_Dmetricby", "baby",
+                                              ifelse(names == "nicholas_gannon_Dratioby", "baby",
                                                      ifelse(names == "sharon_harvey_woman", "woman",
                                                             ifelse(names == "toby_chimp", "chimp",
                                                                    ifelse(names == "todd_billingsley_man", "man",
@@ -498,25 +498,25 @@ for(k in 1:length(levels(dd_hunger$subid))) {
 # ----------------------------->->->-> metric (ratio) MDS ---------------------
 
 # perform 3-way MDS (ordinal)
-mds_hunger_Dmetric = indscal(dissimList_hunger, type = "ratio", verbose = T)
-summary(mds_hunger_Dmetric)
-mds_hunger_Dmetric
+mds_hunger_Dratio = indscal(dissimList_hunger, type = "ratio", verbose = T)
+summary(mds_hunger_Dratio)
+mds_hunger_Dratio
 
 # ------------------------------------>->->->-> plots -------------------------
 
 # plot space
-plot(mds_hunger_Dmetric, plot.type = "confplot",
+plot(mds_hunger_Dratio, plot.type = "confplot",
      main = "Character dimension scores:\nHUNGER")
 
 # # plot space and stress (bigger buBale = better fit)
-# plot(mds_hunger_Dmetric, plot.type = "buBaleplot", sub = "Condition: HUNGER")
+# plot(mds_hunger_Dratio, plot.type = "buBaleplot", sub = "Condition: HUNGER")
 # 
 # # plot stress (higher = worse fit)
-# plot(mds_hunger_Dmetric, plot.type = "stressplot", sub = "Condition: HUNGER")
+# plot(mds_hunger_Dratio, plot.type = "stressplot", sub = "Condition: HUNGER")
 # 
 # # plot residuals
-# plot(mds_hunger_Dmetric, plot.type = "Shepard", sub = "Condition: HUNGER")
-# plot(mds_hunger_Dmetric, plot.type = "resplot", sub = "Condition: HUNGER")
+# plot(mds_hunger_Dratio, plot.type = "Shepard", sub = "Condition: HUNGER")
+# plot(mds_hunger_Dratio, plot.type = "resplot", sub = "Condition: HUNGER")
 
 # ----------------------------->->->-> non-metric (ordinal) MDS ---------------
 
@@ -605,7 +605,7 @@ for(k in 1:length(levels(dd_morality$subid))) {
                          ifelse(names == "green_frog", "frog",
                                 ifelse(names == "samantha_hill_girl", "girl",
                                        ifelse(names == "kismet_robot", "robot",
-                                              ifelse(names == "nicholas_gannon_Dmetricby", "baby",
+                                              ifelse(names == "nicholas_gannon_Dratioby", "baby",
                                                      ifelse(names == "sharon_harvey_woman", "woman",
                                                             ifelse(names == "toby_chimp", "chimp",
                                                                    ifelse(names == "todd_billingsley_man", "man",
@@ -631,25 +631,25 @@ for(k in 1:length(levels(dd_morality$subid))) {
 # ----------------------------->->->-> metric (ratio) MDS ---------------------
 
 # perform 3-way MDS (ordinal)
-mds_morality_Dmetric = indscal(dissimList_morality, type = "ratio", verbose = T)
-summary(mds_morality_Dmetric)
-mds_morality_Dmetric
+mds_morality_Dratio = indscal(dissimList_morality, type = "ratio", verbose = T)
+summary(mds_morality_Dratio)
+mds_morality_Dratio
 
 # ------------------------------------>->->->-> plots -------------------------
 
 # plot space
-plot(mds_morality_Dmetric, plot.type = "confplot",
+plot(mds_morality_Dratio, plot.type = "confplot",
      main = "Character dimension scores:\nMORALITY")
 
 # # plot space and stress (bigger buBale = better fit)
-# plot(mds_morality_Dmetric, plot.type = "buBaleplot", sub = "Condition: MORALITY")
+# plot(mds_morality_Dratio, plot.type = "buBaleplot", sub = "Condition: MORALITY")
 # 
 # # plot stress (higher = worse fit)
-# plot(mds_morality_Dmetric, plot.type = "stressplot", sub = "Condition: MORALITY")
+# plot(mds_morality_Dratio, plot.type = "stressplot", sub = "Condition: MORALITY")
 # 
 # # plot residuals
-# plot(mds_morality_Dmetric, plot.type = "Shepard", sub = "Condition: MORALITY")
-# plot(mds_morality_Dmetric, plot.type = "resplot", sub = "Condition: MORALITY")
+# plot(mds_morality_Dratio, plot.type = "Shepard", sub = "Condition: MORALITY")
+# plot(mds_morality_Dratio, plot.type = "resplot", sub = "Condition: MORALITY")
 
 # ----------------------------->->->-> non-metric (ordinal) MDS ---------------
 
@@ -738,7 +738,7 @@ for(k in 1:length(levels(dd_selfcontrol$subid))) {
                          ifelse(names == "green_frog", "frog",
                                 ifelse(names == "samantha_hill_girl", "girl",
                                        ifelse(names == "kismet_robot", "robot",
-                                              ifelse(names == "nicholas_gannon_Dmetricby", "baby",
+                                              ifelse(names == "nicholas_gannon_Dratioby", "baby",
                                                      ifelse(names == "sharon_harvey_woman", "woman",
                                                             ifelse(names == "toby_chimp", "chimp",
                                                                    ifelse(names == "todd_billingsley_man", "man",
@@ -764,30 +764,30 @@ for(k in 1:length(levels(dd_selfcontrol$subid))) {
 # ----------------------------->->->-> metric (ratio) MDS ---------------------
 
 # perform 3-way MDS (ordinal)
-mds_selfcontrol_Dmetric = indscal(dissimList_selfcontrol, type = "ratio", verbose = T)
-summary(mds_selfcontrol_Dmetric)
-mds_selfcontrol_Dmetric
+mds_selfcontrol_Dratio = indscal(dissimList_selfcontrol, type = "ratio", verbose = T)
+summary(mds_selfcontrol_Dratio)
+mds_selfcontrol_Dratio
 
 # ------------------------------------>->->->-> plots -------------------------
 
 # perform 3-way MDS (ordinal)
-mds_selfcontrol_Dmetric = indscal(dissimList_selfcontrol, type = "ratio", verbose = T)
-summary(mds_selfcontrol_Dmetric)
-mds_selfcontrol_Dmetric
+mds_selfcontrol_Dratio = indscal(dissimList_selfcontrol, type = "ratio", verbose = T)
+summary(mds_selfcontrol_Dratio)
+mds_selfcontrol_Dratio
 
 # plot space
-plot(mds_selfcontrol_Dmetric, plot.type = "confplot",
+plot(mds_selfcontrol_Dratio, plot.type = "confplot",
      main = "Character dimension scores:\nSELF-CONTROL")
 
 # # plot space and stress (bigger buBale = better fit)
-# plot(mds_selfcontrol_Dmetric, plot.type = "buBaleplot", sub = "Condition: SELF-CONTROL")
+# plot(mds_selfcontrol_Dratio, plot.type = "buBaleplot", sub = "Condition: SELF-CONTROL")
 # 
 # # plot stress (higher = worse fit)
-# plot(mds_selfcontrol_Dmetric, plot.type = "stressplot", sub = "Condition: SELF-CONTROL")
+# plot(mds_selfcontrol_Dratio, plot.type = "stressplot", sub = "Condition: SELF-CONTROL")
 # 
 # # plot residuals
-# plot(mds_selfcontrol_Dmetric, plot.type = "Shepard", sub = "Condition: SELF-CONTROL")
-# plot(mds_selfcontrol_Dmetric, plot.type = "resplot", sub = "Condition: SELF-CONTROL")
+# plot(mds_selfcontrol_Dratio, plot.type = "Shepard", sub = "Condition: SELF-CONTROL")
+# plot(mds_selfcontrol_Dratio, plot.type = "resplot", sub = "Condition: SELF-CONTROL")
 
 # ----------------------------->->->-> non-metric (ordinal) MDS ---------------
 
