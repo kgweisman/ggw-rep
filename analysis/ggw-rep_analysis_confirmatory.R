@@ -786,12 +786,12 @@ plot(mds_Aordinal,
      xlim = c(-1, 1),
      ylim = c(-1, 1),     
      main = "MDS solution: All conditions")
-abline(0, 1, lty = 2)
-abline(0, -1, lty = 2)
-arrows(-.55, .65, -.45, .75, col = "green4")
-text(-.3, .85, "more experience", col = "green4")
-arrows(-.55, -.65, -.45, -.75, col = "red")
-text(-.3, -.85, "more agency", col = "red")
+abline(0, 1/1.5, lty = 2)
+abline(0, -1.5, lty = 2)
+arrows(-.45, .75, -.45+(.75/5), .75+(.5/5), col = "green4")
+text(-.2, .95, "+ experience", col = "green4")
+arrows(-.45, -.35, -.45+(.5/5), -.35-(.75/5), col = "red")
+text(-.2, -.6, "+ agency", col = "red")
 
 # plot space and stress (bigger bubble = better fit)
 plot(mds_Aordinal, plot.type = "bubbleplot",
