@@ -1346,3 +1346,20 @@ rs1=hclust(d2)
 rs1$merge
 plot(rs1$height)
 plot(rs1)
+
+# --- HIERARCHICAL CLUSTER ANALYSIS B -----------------------------------------
+# Roughly equivalent to pca_B
+
+# Construct dissimilarity matrix
+d1b = t(d1)
+d2b = as.dist((1-cor(d1b))/2) # NEED TO CHECK ON WHY WE DIVIDE CORRELATIONS BY 2
+
+# Conduct hierarchical cluster analysis
+hcb = hclust(d2b); hcb
+
+# Plot dendogram
+par(mfrow=c(1,2))
+rs2=hclust(d2b)
+rs2$merge
+plot(rs2$height)
+plot(rs2)
