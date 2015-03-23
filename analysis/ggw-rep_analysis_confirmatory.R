@@ -780,6 +780,19 @@ plot(mds_Aordinal,
      ylim = c(-1, 1),     
      main = "MDS solution: All conditions")
 
+# add axes?
+plot(mds_Aordinal,
+     plot.type = "confplot",
+     xlim = c(-1, 1),
+     ylim = c(-1, 1),     
+     main = "MDS solution: All conditions")
+abline(0, 1, lty = 2)
+abline(0, -1, lty = 2)
+arrows(-.55, .65, -.45, .75, col = "green4")
+text(-.3, .85, "more experience", col = "green4")
+arrows(-.55, -.65, -.45, -.75, col = "red")
+text(-.3, -.85, "more agency", col = "red")
+
 # plot space and stress (bigger bubble = better fit)
 plot(mds_Aordinal, plot.type = "bubbleplot",
      xlim = c(-1, 1),
